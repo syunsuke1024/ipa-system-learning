@@ -1,0 +1,11 @@
+{
+  "schema_version": "ipa-study-catalog-manifest-v1",
+  "banks": [
+    {
+      "file": "catalog/2026-11-22-quality15.json",
+      "bank_version": "ipa-pds-system-original-quality-test-20261122-v1",
+      "audit_status": "内部品質監査済み（Q1/Q2/Q4）",
+      "audit_file": "audits/2026-11-22-quality15-audit.json"
+    }
+  ]
+}

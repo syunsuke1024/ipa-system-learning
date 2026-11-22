@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IPA システム領域｜共通学習アプリ v1</title><meta name="description" content="IPAシステム領域の品質監査済み予想問題と累積成績を一元管理する学習アプリ">
+<style>:root{--bg:#f4f7fa;--ink:#203748;--muted:#697d8c;--line:#dce6ec;--paper:#fff;--navy:#14384c;--teal:#147583;--teal-soft:#eaf5f7;--green:#117c62;--green-soft:#eaf8f1;--amber:#91621e;--red:#b34f4d;--red-soft:#fff2ef;--shadow:0 7px 30px rgba(22,49,71,.045)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;line-height:1.75;font-size:14px}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.47;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #7cc6d5;outline-offset:2px}
+header{background:linear-gradient(115deg,#133247 0%,#195568 70%,#276c76);color:white;padding:26px clamp(15px,4vw,55px) 27px}header .inner{max-width:1430px;margin:auto}header .eyebrow{color:#b8dadd}header h1{font-size:clamp(24px,2.4vw,33px);margin:5px 0 6px;line-height:1.32;letter-spacing:.01em}header p{margin:0;color:#d0e4eb;font-size:13px}.eyebrow{text-transform:uppercase;letter-spacing:.13em;color:#40818b;font-weight:850;font-size:11px;margin:0 0 5px}.top-chip{display:inline-block;background:#d5edef30;border:1px solid #8cc7d050;color:#e2f5f8;border-radius:30px;padding:2px 10px;font-size:11px;margin-top:10px}
+.shell{max-width:1480px;margin:auto;display:grid;grid-template-columns:272px minmax(0,1fr);gap:20px;padding:22px clamp(12px,3vw,34px) 60px}.side{position:sticky;top:16px;align-self:start;border:1px solid var(--line);background:var(--paper);border-radius:15px;box-shadow:var(--shadow);padding:16px;max-height:calc(100vh - 33px);overflow:auto}.side-title{font-size:13px;font-weight:850;margin-bottom:10px}.navlist{display:grid;gap:7px}.navbtn{text-align:left;border:1px solid var(--line);background:white;border-radius:9px;padding:11px 12px;color:#315267;font-size:13px;font-weight:750;line-height:1.45}.navbtn small{display:block;font-weight:450;font-size:11px;color:var(--muted);margin-top:2px}.navbtn.active{background:var(--teal-soft);border-color:#96c6d0;color:#146f79}.navbtn:hover{border-color:#8eb8c6}.side-info{margin-top:17px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:11px}.side-info b{font-size:19px;color:var(--navy)}.side-info hr{border:0;border-top:1px solid var(--line);margin:13px 0}.side-info p{font-size:11px;margin:12px 0 0}
+.main{min-width:0}.panel{border:1px solid var(--line);border-radius:15px;background:var(--paper);box-shadow:var(--shadow);padding:24px 26px;margin-bottom:16px}.panel h2{font-size:22px;margin:0 0 15px;line-height:1.4}.panel h3{font-size:17px;margin:18px 0 9px}.panel h3:first-child{margin-top:0}.panel p{margin:10px 0}.head-row{display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.head-row h2,.head-row h3{margin:0}.tag{background:#e9f5f5;color:#286e80;border:1px solid #ceebed;border-radius:40px;padding:5px 11px;font-size:12px;font-weight:750}.micro{font-size:11px;color:var(--muted)}.muted{color:var(--muted)}.empty{background:#f6f9fb;border:1px dashed #c8dce5;border-radius:9px;padding:23px;text-align:center;color:var(--muted);font-size:13px}.btn{border:1px solid #bbd1da;border-radius:9px;background:white;color:#25556b;padding:10px 14px;font-size:13px;font-weight:760;white-space:nowrap}.btn:hover:not(:disabled){background:#eff7fa}.btn.primary{background:#17677d;color:white;border-color:#17677d}.btn.primary:hover:not(:disabled){background:#164e61}.btn.full{width:100%}.actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.summary{background:#eff5f7;border-radius:12px;padding:16px 17px;margin:14px 0;font-size:13px}.summary p{margin:8px 0 0;font-size:12px;color:var(--muted)}.progress{height:8px;background:#dbe8ec;border-radius:8px;overflow:hidden;margin-top:12px}.progress span{display:block;background:#248590;height:100%}.question{padding:22px 0;border-bottom:1px solid var(--line)}.question:last-of-type{border-bottom:0}.question-meta{display:flex;align-items:start;justify-content:space-between;flex-wrap:wrap;gap:7px;margin-bottom:11px}.question-num{font-weight:820;color:var(--teal);font-size:13px}.stem{font-size:15px;font-weight:750;line-height:1.85;white-space:pre-wrap}.case{white-space:pre-wrap;border-left:4px solid #91adbc;background:#f3f7fa;border-radius:0 8px 8px 0;padding:14px 16px;font-size:13px;line-height:1.95;margin:9px 0 15px}.choices{display:grid;gap:9px;margin-top:14px}.choice{display:flex;align-items:flex-start;gap:12px;border:1px solid #dce5eb;border-radius:9px;padding:11px 12px;background:white;cursor:pointer;line-height:1.6;font-size:13px}.choice input{margin:4px 0 0;flex-shrink:0;accent-color:#137988;width:17px;height:17px}.choice b{color:#17728a;min-width:15px}.choice:has(input:checked){background:#ebf7f8;border-color:#77aeb7}.choice:hover{border-color:#87b7c1}.choice.right-choice{background:var(--green-soft);border-color:#9bcfb5}.choice.wrong-choice{background:var(--red-soft);border-color:#edb8b1}.choice.unknown-choice{background:#fcfbf4}.choice input:disabled{cursor:default}.explain{border-radius:10px;border:1px solid #dae8eb;background:#f4f8fa;padding:13px 15px;margin-top:13px}.explain details{margin-top:8px}.explain summary{cursor:pointer;color:#116c82;font-weight:800;font-size:13px}.explain p{font-size:13px;line-height:1.9}.result-heading{font-weight:850}.right-text{color:var(--green)}.wrong-text{color:var(--red)}.option-notes{list-style:none;padding:0;display:grid;gap:8px}.option-notes li{border-left:3px solid #a9bdca;background:white;border-radius:5px;padding:9px 12px;font-size:12px}.option-notes li.right-note{border-left-color:#1c9872;background:#e8f7ed}.sticky-actions{position:sticky;bottom:0;background:#ffffffed;border-top:1px solid var(--line);margin:10px -26px -24px;padding:14px 24px;box-shadow:0 -5px 20px #1a3b5111;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px;z-index:4}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:15px 0}.metric{background:#f0f6f8;border-radius:10px;padding:14px 15px;min-width:0}.metric strong{font-size:clamp(17px,2vw,28px);font-weight:850;line-height:1.32;display:block;overflow-wrap:anywhere}.metric span{font-size:11px;color:#587182;display:block;margin-top:4px}.metric small{font-size:10px;color:var(--muted)}.pills{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}.pill{padding:4px 9px;border-radius:30px;font-size:11px;background:#eff3f5;color:#697d89;border:1px solid #dbe6ec}.pill.pass{background:#e9f7f0;color:#136f57;border-color:#b4dcc6}.pill.fail{background:#fff3ee;color:#a96736;border-color:#e5cfc0}
+.library-list{display:grid;gap:13px;margin-top:19px}.library-bank{padding:16px 18px;border:1px solid #dce6eb;border-radius:11px;background:#fbfdfe}.library-bank h3{margin:3px 0 4px;font-size:17px}.library-bank p{margin:5px 0}.library-bank .actions{margin-top:10px}.filter-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:14px 0 17px}.filter-bar label{font-size:12px;color:#586f7e;display:grid;gap:4px;flex:1;min-width:160px}select,input[type=date]{background:white;color:var(--ink);padding:9px 11px;border:1px solid #cadce3;border-radius:8px;max-width:100%;min-width:0}.schedule label{min-width:130px}.tablewrap{max-width:100%;overflow:auto}table{border-collapse:collapse;width:100%;font-size:12px;margin:10px 0 15px}th{background:#f0f6f8;text-align:left;color:#4f6a7a}td,th{border-bottom:1px solid #e0eaf0;padding:10px 11px;vertical-align:top}td:nth-child(n+2),th:nth-child(n+2){font-variant-numeric:tabular-nums}.subsection-title{font-size:13px;font-weight:800;color:#4b7583;margin-top:20px}.graph{border:1px solid #dfebf0;border-radius:9px;overflow:auto;padding:8px;background:#fff;margin:10px 0}.graph svg{min-width:560px;width:100%;max-height:330px}.panel details{margin-top:9px}.panel summary{color:#146f83;cursor:pointer;font-weight:750}.review{background:#f7fafb;padding:12px 14px;border-radius:9px;border:1px solid #dde8ee}.review summary{margin-bottom:10px}
+.notice{position:fixed;z-index:1001;left:50%;top:12px;transform:translateX(-50%);padding:13px 18px;border-radius:11px;background:#1b5565;color:white;box-shadow:0 8px 28px #102e4066;max-width:min(92vw,790px);width:max-content;font-size:13px}.notice-error{background:#984444}.modal{position:fixed;inset:0;background:#0e2338a3;z-index:1000;display:flex;justify-content:center;align-items:center;padding:20px}.modal[hidden],.notice[hidden]{display:none}.modal-card{max-width:520px;width:100%;background:white;border:1px solid #dce7ed;padding:27px;border-radius:15px;box-shadow:0 13px 40px #091d3073}.modal-card h2{margin:0 0 7px;font-size:20px}.modal-card p{font-size:14px;white-space:pre-wrap}.modal-card .actions{justify-content:flex-end;margin-top:20px}footer{padding:0 24px 35px;max-width:1400px;margin:auto;color:#7d8d98;font-size:11px}
+@media(max-width:900px){.shell{grid-template-columns:1fr;padding:12px 10px 45px}.side{position:static;max-height:none}.navlist{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:18px}.sticky-actions{margin:10px -18px -18px;padding:12px 17px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:540px){.navlist{grid-template-columns:1fr 1fr}.navbtn{font-size:12px;padding:9px}.panel{padding:15px}.sticky-actions{margin:10px -15px -15px;padding:12px 14px}.choice{font-size:12px;padding:9px}.metrics{gap:7px}.metric{padding:11px}.head-row h2{font-size:18px}.filter-bar{display:block}.filter-bar label{margin:8px 0}.btn{font-size:12px;padding:9px 10px}}
+</style></head>
+<body><header><div class="inner"><p class="eyebrow">IPA SYSTEM / CONTINUOUS LEARNING</p><h1>システム領域｜共通学習アプリ</h1>
+<p>問題集を追加しても、過去の採点履歴とダッシュボードは継続。A-1・A-2・Bに対応します。</p><span class="top-chip">非公式オリジナル予想問題 · 共通版 v1.0</span></div></header>
+<div class="shell"><aside class="side" id="side" aria-label="学習メニュー"></aside><main class="main" id="main" tabindex="-1"></main></div>
+<footer>本アプリはIPAの公式問題・採点システムではありません。試験の形式・日程・配点は公表情報で確認してください。問題品質の自動検証には限界があります。<br>記録は利用環境のブラウザ領域に保存されます。GitHub Pagesなどの同一URLでの運用を推奨します。ブラウザ内保存とプロジェクト共通への永続保存は別です。</footer>
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-message" hidden><div class="modal-card"><h2 id="modal-title">操作の確認</h2><p id="modal-message"></p><div class="actions"><button type="button" class="btn" data-modal="no">キャンセル</button><button type="button" class="btn primary" id="modal-yes" data-modal="yes">確定する</button></div></div></div>
+<div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+<input type="file" accept="application/json,.json" multiple hidden id="bank-file" aria-label="問題集JSONファイル">
+<input type="file" accept="application/json,.json" hidden id="record-file" aria-label="成績JSONファイル">
+<script type="application/json" id="seed-bank">{"bank_version":"ipa-pds-system-original-quality-test-20261122-v1","schema_version":"2.0","mode":"learning","source_notice":"非公式オリジナル予想問題。IPA公式問題ではない。2026-11-22時点の公表案に基づく。","source_urls":["https://www.ipa.go.jp/shiken/syllabus/henkou/2026/20260630.html","https://www.ipa.go.jp/shiken/syllabus/henkou/2026/20260622.html"],"total_questions":15,"questions":[{"question_id":"T26-A1-001","question_version":"1.0.0","section":"A1","major":"ビジネス変革","minor":"投資判断・感度分析","difficulty":"標準","stem":"新規受注システムの投資評価で、基準シナリオのNPVはプラスである。ただし、便益の大半を「取引件数の増加」が占め、その予測に大きな不確実性がある。投資判断に先立って最も有益な分析はどれか。","options":["全費用を初期費用に計上し直して、資金回収期間だけで比較する","将来便益を割り引かずに合計し、楽観値の収益性を確認する","取引件数を変化させたときのNPVと損益分岐となる件数を確認する","過去の類似投資のNPV平均値を用い、個別の件数予測を代替する"],"answer":"C","why":"不確実なのは便益の主要な決定要因である取引件数なので、その値を変えた感度分析でNPVの符号が変わる境界を確認する。期待NPVが正でも、成立条件が脆弱であれば意思決定上のリスクは大きい。","optionNotes":["回収期間は資金繰り上の指標として役立つが、今回の最大不確実要因である取引件数の影響を切り分けない。資金制約が支配的な案件では補助指標になり得る。","割引前の合計は短期のキャッシュイン把握に使えるが、NPVで評価する前提の時間価値を落とす。楽観値の確認だけでは下振れ耐性を示せない。","正解。単価・利益率・運用費などを固定した上で取引件数を上下に振ると、NPVがゼロになる条件と見込みの安全余裕を評価できる。","過去案件の実績は予測校正に役立つ一方、今回の件数予測を置き換えるだけでは個別案件の収益構造を説明しない。類似性が高い場合には参照値となる。"],"depth":"NPVは将来の正味キャッシュフローを割引率で現在価値に直した総和から初期投資を差し引く。感度分析は一つの入力変数を変動させ、出力の変化を見る手法で、複数変数を同時に変えるシナリオ分析とも区別する。","application":"件数が損益分岐点に近い場合は、段階導入で実績を測り、追加投資を判断する方法がある。件数だけでなく顧客単価や解約率との相関を考慮する必要もある。","case":"","syllabus_mapping":"共通知識：ビジネス変革／経営戦略"},{"question_id":"T26-A1-002","question_version":"1.0.0","section":"A1","major":"セキュリティ","minor":"暗号鍵管理","difficulty":"応用","stem":"個人情報を暗号化したバックアップを5年間保存する。暗号鍵の漏えいリスクを抑えつつ、保存期間中の旧バックアップも復号できるようにしたい。鍵の更新方針として最も適切なのはどれか。","options":["新規バックアップに新鍵を使い、旧バックアップの復号鍵はアクセス制限付きで保持する","全バックアップの鍵識別子を新鍵の識別子に変更し、データ本体はそのまま置く","新鍵を配布した時点で旧鍵を破棄し、旧世代のバックアップは保存期限まで保持する","暗号化したバックアップを移動せず、旧鍵と新鍵の識別子を同一にして扱う"],"answer":"A","why":"鍵をローテーションしても、旧鍵で暗号化されたデータは自動的に新鍵で読めるようにならない。長期保存が必要なら、新規データは新鍵に切り替え、旧世代データの読取り経路と旧鍵のアクセス制限・廃棄時期を管理する。","optionNotes":["正解。鍵世代とバックアップの対応を記録し、旧鍵は保護された鍵管理基盤で必要期間だけ利用可能にする。必要なら旧データを安全に再暗号化する。","鍵識別子は復号に使う鍵を選ぶメタデータであり、暗号文自体を変換しない。再暗号化やデータ鍵の再ラップを別途実施した場合には新識別子が妥当となる。","旧世代データを消してよい保持方針なら旧鍵廃棄も選択肢だが、この設問の5年間復号できる要件に反する。","同一の鍵識別子で異なる鍵実体を指すと、再現性と監査性を損なう。鍵世代に追随できる暗号鍵管理が必要で、移動の有無は本質ではない。"],"depth":"暗号鍵には暗号化・復号に用いるデータ鍵と、それを暗号化して保護する鍵暗号化鍵がある。データ鍵を再ラップする方式なら大量の暗号文を再暗号化せずに鍵保護階層を変更できる場合がある。何を更新したかを区別する。","application":"バックアップ復元訓練は「データが残っている」だけでなく、その時点で適切な鍵世代が復号可能かも検証する。退職者や委託先の権限が旧鍵に残っていないか確認する。","case":"","syllabus_mapping":"共通知識：セキュリティ／暗号技術"},{"question_id":"T26-A1-003","question_version":"1.0.0","section":"A1","major":"ネットワーク","minor":"HTTP条件付き要求","difficulty":"標準","stem":"社内ポータルの大きなJSON設定ファイルは頻繁には変わらないが、利用者は更新時には新しい内容を取得する必要がある。ブラウザが保存済みのETagを持つ場合、通常のHTTPキャッシュ再検証として最も適切なのはどれか。","options":["毎回Cache-Control: no-storeを付け、利用者側の保存を抑止する","Last-Modifiedの時刻をクライアントで書き換え、更新有無を推定する","ETagをURLパラメータへ付け、応答本文を毎回取得する","If-None-MatchにETagを付けて要求し、未変更なら304応答を使う"],"answer":"D","why":"ETagはサーバーが表現の版を識別するバリデータであり、If-None-Matchを伴う条件付きGETで再検証できる。未更新なら304 Not Modifiedによって応答本文の再転送を省け、更新時は新しい表現を得られる。","optionNotes":["機密情報を端末に残したくない場合にはno-storeが有効だが、今回の転送量削減と再利用の目的とは異なる。","Last-Modified/If-Modified-Sinceの再検証も候補だが、クライアントが独自に時刻を書き換えるとサーバー側の更新判定として信頼できない。","URLのバージョニングはビルド資産の配信には適するが、毎回本文を取得すると未変更時の転送量を削減できない。","正解。サーバー側でETagと現在の表現を比較し、同一なら304、異なれば200と新しい表現を返す。"],"depth":"HTTPキャッシュのfreshness（まだ再検証せずに使用できる期間）とvalidation（保存した内容が現在も正しいかの確認）は別の概念。ETagは通常、レスポンスの特定の表現に対する識別子で、条件付き要求に利用する。","application":"共有キャッシュがユーザー固有のJSONを混同しないよう、認証情報、Cache-Control、Vary等の設計を確認する。更新頻度が低い場合はキャッシュ再検証が帯域と鮮度の折衷になる。","case":"","syllabus_mapping":"共通知識：ネットワーク／Web技術"},{"question_id":"T26-A1-004","question_version":"1.0.0","section":"A1","major":"OS・コンピュータ","minor":"DMAと割込み","difficulty":"基礎","stem":"ストレージ装置からメモリへ大容量データを転送する処理で、CPUによるデータの逐次コピー負担を減らしたい。転送完了の通知も必要である。一般的な装置・OSの機構として最も目的に合うのはどれか。","options":["割込みを使い、CPUが各データ単位を装置レジスタから読み出す","DMAで装置とメモリ間を転送し、完了を割込みなどで通知する","ポーリング間隔を短くし、CPUが装置の状態を頻繁に確認する","メモリマップドI/OでCPUが装置のデータレジスタを連続して読み込む"],"answer":"B","why":"DMA（Direct Memory Access）は対応する装置・コントローラーがCPUによる各バイトのコピーを介さずメモリとの間でデータを転送する仕組み。完了割込みと組み合わせることで転送と通知の役割を分けられる。","optionNotes":["割込み駆動I/Oは無駄な待ちを減らすが、各データ単位をCPUがコピーする設計では逐次コピー負荷が残る。小さいI/Oには適する場合がある。","正解。転送設定のCPU処理は必要だが、まとまった転送ではDMAによりCPUのコピー回数を減らし、完了割込みで次工程へつなげられる。","短いポーリング間隔は低遅延を得られることがある一方、状態監視のCPU占有が増え、データコピー問題そのものを解消しない。","メモリマップドI/Oは装置レジスタへのアクセス手段であり、CPUがデータを読み書きするならコピー負荷は残る。制御レジスタ操作には有効。"],"depth":"プログラムI/OとDMAはデータ転送の主体が異なり、割込みとポーリングは完了や状態をどう知るかの違いである。したがってDMA＋割込み、DMA＋ポーリングなど組合せも可能で、概念を同一視しない。","application":"高速I/OではDMAバッファの所有権、CPUキャッシュとの整合性、転送後にCPUが安全に参照できる時点を管理する必要がある。DMAが使えればすべてのI/Oが速いという意味ではない。","case":"","syllabus_mapping":"共通知識：OS・コンピュータ／入出力制御"},{"question_id":"T26-A1-005","question_version":"1.0.0","section":"A1","major":"データベース","minor":"複合索引の列順","difficulty":"応用","stem":"受注表は(店舗ID, 受注日時, 状態, 金額)を持つ。主な検索は「店舗IDを指定し、受注日時の範囲で絞る」であり、状態の値は約3種類、店舗は数千ある。B-tree複合索引を1本追加する場合、最も合理的な先頭2列の順序はどれか。","options":["(受注日時, 店舗ID)：期間の指定を先頭に置いて全店舗を走査する","(状態, 受注日時)：種類が少ない状態で先に絞り込む","(店舗ID, 受注日時)：店舗の等価条件の後に日時範囲を置く","(金額, 状態)：集計対象の金額と状態を先に並べる"],"answer":"C","why":"検索は店舗IDの等価条件と受注日時の範囲条件を組み合わせる。一般的なB-treeの左側からの利用特性を踏まえると、店舗IDを先頭にし、その店舗内を受注日時で範囲走査する構成が適合しやすい。","optionNotes":["全店舗の期間検索が主なら日時を先頭にする合理性がある。ただし今回の店舗指定が中心というクエリ特性では、日時範囲後の店舗条件を索引探索に使いにくい。","状態で絞るクエリが支配的なら候補になるが、設問では状態を主条件としていない。選択性の低さだけで常に不利と判断するわけでもない。","正解。店舗ごとに並んだ受注日時を範囲走査でき、主要クエリのアクセスパターンに合わせた配置になる。","金額集計をカバリング索引にしたい場合などは一部で有効だが、店舗・日時の検索条件を索引の先頭から利用しづらい。"],"depth":"複合B-tree索引では一般に等価述語を前に、範囲述語をその後に置くと探索範囲を絞りやすい。ただしDBエンジン、統計、クラスタ化、索引スキップスキャンなどにより実際の実行計画は異なる。","application":"本番相当の分布でEXPLAINや実行計画を測定し、追加索引の書込みコストも評価する。店舗IDの偏りが大きい場合、平均的な店舗の実行時間だけで設計しない。","case":"","syllabus_mapping":"共通知識：データベース／索引設計"},{"question_id":"T26-A1-006","question_version":"1.0.0","section":"A1","major":"開発・品質","minor":"ミューテーションテスト","difficulty":"応用","stem":"金額計算モジュールの単体テストは全分岐を実行している。しかし、比較演算子を「>=」から「>」へ変更した不具合を検出できない懸念がある。既存テストの識別力を評価する方法として最も直接的なのはどれか。","options":["比較演算子を意図的に変えた変異体を作り、テストの失敗を確認する","分岐カバレッジを再計測し、目標100%達成を再び確認する","テスト実行時間と実行頻度を測り、単位時間の実行回数を増やす","静的解析の警告件数を測り、変更箇所の警告が出ないことを確認する"],"answer":"A","why":"ミューテーションテストは演算子などに小さな人工的欠陥（変異）を入れ、テストが異常を検出できるかを確認する。比較演算子の変異が生き残れば、その境界を区別するテストが不足している可能性を示す。","optionNotes":["正解。>=を>へ変える変異体は境界値そのものを問うテストで検出できるかを評価する材料になる。等価な変異体である可能性の除外も必要。","分岐カバレッジは両分岐を通ったかを測るもので、境界値や比較演算子の意味差を観測できたかは示さない。カバレッジ不足の発見には有効。","短い実行時間はCI運用で重要だが、同じ入力の実行を増やしても検出能力を直接測る指標ではない。","静的解析は欠陥候補を検出できる一方、テストが条件の違いを見分ける能力を測定するものではない。"],"depth":"100%の網羅率と、誤った結果を検出できることは異なる。変異体を検出した場合は「kill」、テストが通ってしまう場合は「survive」と呼ぶ。境界値テストや期待結果のアサーションが弱いと変異体が生き残る。","application":"変異テストは計算量が大きくなるため、金額計算・権限判定など重要なロジックに絞って採用できる。テストの期待値を実装から再計算すると同じ誤りを見逃しやすい。","case":"","syllabus_mapping":"共通知識：ソフトウェア開発／テスト"},{"question_id":"T26-A1-007","question_version":"1.0.0","section":"A1","major":"データ・マネジメント","minor":"データリネージ","difficulty":"標準","stem":"経営ダッシュボードで売上が前日より大きく減少した。原因が現実の売上変化か、複数の加工処理の欠陥かを追跡するため、集計値から元データと変換処理まで遡れるようにしたい。最も直接的に役立つ管理情報はどれか。","options":["データ辞書で、売上列の名称・単位・算定定義などを統一して登録する","データカタログで、分析基盤の表の所有部門だけを登録する","アクセスログで、ダッシュボードを閲覧した人を記録する","データリネージで、入力源・変換処理・出力先の依存関係を記録する"],"answer":"D","why":"リネージはデータがどこから来て、どの変換を通り、どの出力へ使われたかを辿る情報である。異常値の原因を特定するとき、入力データの変化と変換ロジックの変更を切り分ける経路を提供する。","optionNotes":["売上列の算定定義が変わった場合にはデータ辞書が異常の切分けに役立つ。ただしデータが通過した各変換処理と依存先の追跡までは提供しない。","所有者情報は問い合わせ先を特定する際には重要だが、処理間の依存関係や発生箇所を直接追跡する情報ではない。","アクセスログは閲覧監査に有効だが、集計値の生成経路や欠陥の伝播を示すものではない。","正解。売上ソース、抽出・フィルタ・通貨換算・結合、表示テーブルを関連付ければ、どの段で件数が減ったかを調べられる。"],"depth":"リネージには表単位と列単位など粒度がある。列単位では「税込金額」がどの入力列と換算処理から生まれたかを追える。辞書・カタログ・品質ルールとの連携で分析資産の信頼性を高める。","application":"前日の急減がソース側の遅延によるものなら、リネージだけでなく処理時刻・到着遅延・品質検証の記録が必要になる。監視と根本原因調査の役割を分ける。","case":"","syllabus_mapping":"共通知識：データ活用／データ管理"},{"question_id":"T26-A1-008","question_version":"1.0.0","section":"A1","major":"AI・データ分析","minor":"データリーク","difficulty":"標準","stem":"顧客の来月の解約を予測するモデルを評価する。顧客ごとに月次レコードがあり、同じ顧客の翌月情報や予測時点後に確定する情報が含まれる。実運用性能を過大評価しない検証設計として最も適切なのはどれか。","options":["月次レコードをランダムに分割し、学習・評価に同じ顧客が含まれるようにする","予測時点で利用可能な特徴量に限定し、未来期間のデータで時系列評価する","全データで特徴量を標準化した後に、学習・評価へランダム分割する","解約確定後に計算できる指標を特徴に加え、テストデータの精度を確認する"],"answer":"B","why":"本番では予測時点より未来の情報を使えない。特徴量の利用可能時点を固定し、未来期間を評価に回すと、時間の逆流によるデータリークを抑制し実際の予測条件に近づけられる。","optionNotes":["同一顧客の時間的に近い記録が学習・評価へ混入すると、個人固有の傾向を過剰に利用して精度が高く見える場合がある。将来への一般化検証には不向き。","正解。学習時点より後の月をテストに使い、特徴量がその時点で取得できることを確認する。必要に応じ顧客単位の分割制約も加える。","全データから平均・分散を求めると、評価期間の情報が前処理に流入する。学習データだけでfitし評価へ適用する。","解約確定後の情報は学習時には強い説明変数になり得るが、予測時には取得できないためオンライン性能を評価できない。"],"depth":"データリークは目的変数そのものが特徴に混じるケースだけでなく、未来情報を用いた集計や前処理、重複顧客の分割によっても発生する。時系列検証では学習窓と評価窓、必要なら情報公開遅延のギャップを設ける。","application":"本番で解約確定まで2週間かかる属性なら、特徴量作成時に確定日を持たせる必要がある。評価指標が高いほど、ラベルの生成経路を監査する価値がある。","case":"","syllabus_mapping":"共通知識：AI・データ活用／モデル評価"},{"question_id":"T26-A1-009","question_version":"1.0.0","section":"A1","major":"ビジネス変革","minor":"調達・契約方式","difficulty":"標準","stem":"新サービスの実証実験で外部エンジニアに3か月間の技術調査を依頼する。調査結果によって作業内容を毎週協議して調整し、成果物の完成を支払条件とすることは難しい。自社から技術者への直接の指揮命令は行わない。契約方式の方向性として最も適切なのはどれか。","options":["業務遂行の役務提供を中心に定め、稼働条件と報告内容を明確にする準委任型の契約","完成成果物を特定して検収することを重視し、仕様変更を契約変更で管理する請負型の契約","外部技術者を自社の指揮命令下に置き、作業を日々指示する労働者派遣契約","共同の研究成果と知的財産を持ち、双方で費用を分担する共同研究契約"],"answer":"A","why":"調査という役務を継続して遂行し、作業内容が変動し、完成物の引渡しを支払条件としにくいなら、準委任型の考え方が合う。契約類型の名称だけでなく成果物・責任範囲・報告義務を具体化する必要がある。","optionNotes":["正解。業務遂行の善管注意義務、報告・協議、稼働時間などを明確にし、完成の有無によらない業務遂行を評価する。","成果物・受入基準が固まっている開発では請負が有効だが、毎週変化する調査範囲では仕様確定・検収を前提にしづらい。","労働者派遣は発注側が直接指揮命令する場合に適するが、設問では個々の技術者へ直接の指揮命令を行わず、委託先と協議して調査を進める。","共同研究は当事者双方が研究目的や費用・知財を共有する場合に合理的だが、ここでは外部の専門家に役務提供を依頼する業務が中心で、共同事業の前提がない。"],"depth":"日本の民法上、請負は仕事の完成、準委任は委託された事務処理を目的とする。報酬や検収の具体条件は契約で定め、契約名だけで実質が確定するとは限らない。業務委託では指揮命令など労働者派遣との区別にも留意する。","application":"試行錯誤が多いPoCは、調査部分を準委任とし、仕様確定後の実装部分を別途請負とする分離調達が考えられる。途中成果の共有方法と知的財産・秘密保持を明示する。","case":"","syllabus_mapping":"共通知識：企業活動／調達"},{"question_id":"T26-A1-010","question_version":"1.0.0","section":"A1","major":"IoT・組込み","minor":"ウォッチドッグタイマ","difficulty":"基礎","stem":"無人設備の制御プログラムがまれに無限ループへ入り、外部からの通信にも応じなくなる。装置側で停止状態を検知して安全な再起動処理につなげたい。実装上、最も目的に合うのはどれか。","options":["操作ログを定期的に遠隔サーバーへ送信し、応答がなくなれば運用者が遠隔から再起動を命じる","CPUの平均使用率を計測し、平均が低いときにソフトウェア再起動する","独立したウォッチドッグを正常処理から定期更新し、更新停止時にリセット信号を出す","制御ループ内で例外ハンドラを追加し、想定する例外を捕捉して再実行する"],"answer":"C","why":"ウォッチドッグタイマは正常に進捗する処理から一定時間内に更新されることを前提に、更新が途絶えるとリセットなどを起こす監視機構。プログラム自体が応答不能な状態にも外側から対処できる。","optionNotes":["遠隔監視は運用面で有益だが、通信にも応じないという条件では遠隔命令が実行される保証がない。独立した遠隔電源制御がある場合は補完策になる。","CPU使用率が高い無限ループも低い待機ハングもあり、平均CPUだけでは異常検知が不安定。ソフトウェア自身が生存している前提も残る。","正解。外部ハードウェアのウォッチドッグ等なら制御プログラムのフリーズ時もタイムアウト検知ができる。","例外処理は明示的に発生する例外に対応できるが、無限ループに入ったまま例外が発生しない状況では動作しない。"],"depth":"ウォッチドッグを単に割込みで定期更新すると、本来の制御タスクが停止していても生存と誤認する。重要なタスクの正常進捗を確認できたときだけ更新する設計が必要。リセットと安全停止を同義としない。","application":"再起動時に駆動部が危険な動きをしないよう、出力を安全状態へ遷移させる回路や初期化シーケンスを別途設計する。原因追跡のためリセット原因を記録する。","case":"","syllabus_mapping":"共通知識：組込みシステム／信頼性"},{"question_id":"T26-A2-001","question_version":"1.0.0","section":"A2","major":"ネットワーク設計","minor":"顧客別API流量制御","difficulty":"応用","stem":"公開検索APIで顧客ごとの呼出し頻度を制御したい。顧客ごとに長期平均5件/秒を許容し、通常時には瞬間的な20件の要求も受け付ける。超過した要求は429応答として、待ち行列には入れない。他の顧客の利用状況で個々の許容量が減らない方式として、最も適切なのはどれか。","options":["顧客全体で100並列の共有セマフォを置き、空いた順に処理を開始する","顧客別に60秒固定窓で300回を許容し、窓の境界でカウンタを戻す","顧客別に流入要求を順にキューへ蓄積し、上限なく待ち時間を許容する","顧客別に容量20のトークンバケットを持ち、毎秒5個の割合で補充する"],"answer":"D","why":"トークンバケットは容量でバーストの上限を、補充速度で長期平均の処理量を制御する。顧客ごとに独立してバケットを設け、残数が足りないときに429を返せば、指定された3つの条件に対応できる。","optionNotes":["同時実行数を制御するセマフォはバックエンドの負荷保護に有効だが、顧客単位の5件/秒という要求頻度を制限できず、共有枠の取り合いも起こる。","60秒窓で300回は平均5件/秒の目安にはなるが、窓の境界付近で大量要求が集中することを制限しにくい。瞬間20件の制約に合わない。","キューによる平滑化は処理遅延を許容する非同期バッチに向くが、超過時には429を返し待ち行列へ入れないという設問条件に反する。","正解。バケット容量20が瞬間的な受入上限、毎秒5個の補充が長期的な持続率を定める。超過要求は待たせず429を返す。"],"depth":"トークンバケットは要求1件につきトークンを1個消費し、空なら拒否する。バケット容量は貯められる最大のトークン数であり、連続した大量要求に対する上限となる。漏出バケット方式とはバースト許容の性質が異なる。","application":"複数サーバーにAPIを分散する場合、各サーバーが独立したバケットを持つと全体の上限が倍増する。顧客別カウンタの一貫性と低遅延のバランス、429のRetry-Afterなどを設計する。","case":"","syllabus_mapping":"専門知識：ネットワーク／API設計・流量制御"},{"question_id":"T26-A2-002","question_version":"1.0.0","section":"A2","major":"データベース設計","minor":"ホットパーティション対策","difficulty":"応用","stem":"複数拠点の計測データを時刻順のキーで分散DBに格納したところ、最新時刻への書込みが一つのパーティションに集中した。全件に対する時間範囲検索も必要で、書込み負荷が課題である。候補のうち最も妥当な設計変更はどれか。","options":["時刻順の単一キーを維持し、対象パーティションの読取りレプリカの台数を増やす","拠点又は分散用バケットをキーに加えて書込みを分散し、時間検索で集約する","時刻をミリ秒から秒へ丸め、同じ時刻値へ書込みを集中させる","検索のために時刻索引を増やし、単一キーの分散方式は維持する"],"answer":"B","why":"単調増加する時刻を分散キーにすると、最も新しい範囲への書込みが一箇所に偏る可能性がある。分散用のキーを加えて書込み先を分け、読み出し側で複数パーティションを集約するのが、書込みと範囲検索のトレードオフに合う。","optionNotes":["読取りレプリカ増強は読取り性能や可用性には役立つが、集中している書込み先の負荷は基本的に解消しない。","正解。ハッシュバケットや拠点キーを組み合わせると新規書込みを分散できるが、期間検索は対象バケット横断となるため集約負荷を見積もる。","丸めは記録の時間精度を落とし、同じ値が増えて衝突を生みやすい。高精度が不要な分析用集計では有効な場合がある。","時刻索引は範囲検索を助けるが、分散キーのホットスポットは残る。索引更新の書込み負荷も増える可能性がある。"],"depth":"シャーディングキーはデータの局所性と負荷均等性の両方に影響する。時刻が連続的に増えるワークロードでは、単純な範囲シャーディングでホットスポットが起こりやすい。ハッシュ分散は書込みを均等化できる一方、範囲走査を複雑にする。","application":"監視では各パーティションの書込みQPSと遅延P99を見る。拠点ごとのデータ量が極端に異なるなら拠点キーだけでなく補助的な分散バケットを設ける。","case":"","syllabus_mapping":"専門知識：データベース／分散データ設計"},{"question_id":"T26-A2-003","question_version":"1.0.0","section":"A2","major":"IoT・組込み設計","minor":"OTA更新の復旧設計","difficulty":"応用","stem":"遠隔地の制御端末をOTAで更新する。更新中に電源断が発生する場合があり、現場へ保守員を派遣できるのは翌日以降。更新後のプログラムが起動に失敗しても、旧版で基本通信を再開できることが最優先である。方式として最も適切なのはどれか。","options":["単一領域に新ファームウェアを上書きし、書込み完了時に起動可能フラグを立てる","更新ファイルをクラウドに保管し、起動失敗後にネットワークから再取得する","A/B領域へ新旧を分けて格納し、起動検証に失敗したら旧領域へ戻す","新ファームウェアの署名検証を行い、既存領域へ順次上書きしてから再起動する"],"answer":"C","why":"電源断や起動失敗に対して現地作業なしで通信可能な状態へ戻すには、旧版を保持したA/Bスロットと起動確認・ロールバック制御が適合する。署名検証だけでは更新途中の破損や起動不良を回復できない。","optionNotes":["単一領域上書きでも電源断耐性のある更新方式は構築できるが、旧版を保持しない設計では起動失敗からの復旧保証が弱い。","ネットワーク起動や回復用ブートローダが使える環境では選択肢になるが、基本通信自体が起動できない条件では再取得に頼りにくい。","正解。ブートローダが旧領域を保持し、新版の起動成功・ヘルスチェックが確認できない場合に旧版へ戻せる。","署名検証は改ざんされたイメージを拒否する重要な対策だが、署名が正しいソフトウェアも起動失敗し得る。旧版の保持と切戻しは別問題。"],"depth":"A/B更新は未使用側へイメージを書き込み、検証後に起動先を変更する。起動成功を確定する仕組み（ブートカウンタやヘルスチェック）がなければ、新版の無限再起動を防げない。安全な書込み順序とブートローダ保護が重要。","application":"実際には設定データの互換性も考慮し、旧版へ戻したときに読める形式を維持する。試験では書込み途中の電断、署名失敗、起動失敗、通信復旧を別々に再現する。","case":"","syllabus_mapping":"専門知識：IoT・組込みシステム／OTA・信頼性"},{"question_id":"T26-B-001","question_version":"1.0.0","section":"B","major":"業務システム設計","minor":"規則改定と審査の説明責任","difficulty":"応用","stem":"この条件を同時に満たす実装・運用の組合せとして、最も適切なものはどれか。","options":["受理時の規則版と申請内容・証憑の履歴を保持し、承認・再審査を追記する。案件別に閲覧を制御する。","審査開始時の最新規則を参照し、承認理由と閲覧権限を保存する。再審査は元の結果へ反映する。","受理時の規則版を保存し、証憑は申請者の更新で上書きする。閲覧権限は案件別に管理する。","申請番号と承認時刻を記録し、証憑は月次監査CSVへ集約する。閲覧権限は職務ごとに管理する。"],"answer":"A","why":"規則版と当時の申請内容を保持し、承認や再審査を独立した追記型履歴とすることが重要。加えて、案件単位で閲覧権限を判定すれば、時間基準・監査・アクセス制限のすべてに対応できる。","optionNotes":["正解。規則版と証憑の各世代を残し、審査判断を追記すれば、受理時点の根拠と差替え前後を再現できる。担当案件と監査権限の両方を確認して閲覧を制御する。","審査開始時の最新版は新規の規則適用には有益だが、受理から審査まで20日空く要件では別版を使ってしまう。再審査の上書きも履歴要件と合わない。","規則版と閲覧権限の管理は適切だが、差替え前の証憑内容が消える。監査時に元の判断根拠を再現できるよう、差替え版の保存が別途必要。","月次CSVによる監査資料生成には意味があるが、証憑変更の逐次履歴を代替しない。また職務別権限だけでは他案件への不要な閲覧を抑制できない。"],"depth":"業務上のイベントには、申請受理、証憑差替え、審査実行、承認・差戻し、再審査などがある。処理時刻と業務上の基準時刻を別に残し、規則版と入力版から結果を再現できる構成が重要になる。","application":"政策上の基準が遡及改定される場合は、当初判定を改ざんせず、再計算の根拠・承認者・新しい結果を追記する。監査権限と担当者の編集権限は分ける。","case":"【自治体の事例】中小企業向け補助金申請のオンライン審査を新設する。募集要項は年度途中で見直されることがある。\n①申請受理後、担当者が審査を開始するまで最大20日かかる。適用する所得・設備要件は「受理時点で有効だった規則」とする。\n②申請者は審査中に添付証憑を差し替えることがあり、変更前後の証憑内容と担当者による承認理由を監査で再現できなければならない。\n③不服申立てによる再審査は元の審査結果を書き換えず、別の意思決定として追跡する。\n④証憑には機微な情報が含まれ、閲覧権限は案件担当者と監査担当者に限定する。","syllabus_mapping":"科目B：業務要件に基づくシステム設計・運用／監査"},{"question_id":"T26-B-002","question_version":"1.0.0","section":"B","major":"業務システム設計","minor":"遅延データと人間承認","difficulty":"応用","stem":"配送計画の誤更新を避けつつ、現場の意思決定に使える分析基盤の設計として、最も適切なのはどれか。","options":["サーバー受信時刻が新しいデータを最新とし、推薦された経路を10分ごとに自動で確定する。","端末時刻でイベントを整列し、予定到着時刻が短くなる経路なら承認履歴を置き換えて適用する。","通信遅延がある車両を分析対象から除き、運転者が手入力した走行実績を監査可能な配送履歴として利用する。","位置イベントに発生時刻と連番を持たせ、遅延・重複を処理する。推薦と承認済み指示を分けて版管理する。"],"answer":"D","why":"位置情報の到着順が現場での発生順と一致しないため、発生時刻と車両ごとの連番・重複排除で位置の鮮度を判断する。同時に推薦は意思決定の候補にとどめ、承認された指示版を保持する必要がある。","optionNotes":["受信時刻ベースはサーバーの処理順序把握には有効だが、20分遅れて到着した古い位置が最新と誤認される。人間承認の要件にも反する。","端末時刻は重要だが時計ずれがあり、単独では順序保証にならない。承認済み指示を上書きすると、どの経路を実際に指示したか説明できない。","通信遅延時に一部車両を除外する暫定運用はあり得るが、復帰後の情報を扱えず、全車両の配送履歴を維持する要求を十分に満たさない。","正解。端末側の発生時刻・連番・時計同期状態を管理してイベントの順序と鮮度を評価し、承認プロセスを推薦の計算から独立させる。"],"depth":"イベント時刻は現場で事象が起きた時刻、処理時刻はサーバーが受け取った時刻。到着遅延と重複を許容するストリーム処理ではウォーターマークや遅延データの訂正方針を設定する。業務指示の版管理はそれとは別の整合性要件である。","application":"車載端末の時計がずれる事象や連番のリセットにも備え、車両ID・セッションID・イベントIDなどを用いる。経路確定後に情報が更新されても、変更提案と再承認として扱えば監査と安全性を両立できる。","case":"【物流会社の事例】200台の車両の配送予定を、道路状況と位置情報から10分ごとに再計算して配車担当者へ提示する。\n①車載端末は通信断の間に位置情報を蓄積し、復帰後にまとめて送る。サーバー到着は発生から最大20分遅れる。再送による重複も起こる。\n②端末の時計は補正する運用だが、数秒程度のずれは残る。車両ごとにイベント連番を付けられる。\n③配車変更は担当者の承認後に運転者へ配信し、承認済み指示の内容と時刻を後から再現できる必要がある。\n④通信遅延中の車両も履歴集計から欠落させず、必要に応じ分析結果を遡及訂正する。","syllabus_mapping":"科目B：データ駆動の運用設計／ストリーム処理・業務統制"}],"display_name":"2026/11/22 品質監査テスト15問","audit_status":"内部品質監査済み（Q1/Q2/Q4）"}</script>
+<script type="application/json" id="legacy-meta">{"questions":[{"id":"A1-001","section":"A1","major":"セキュリティ","minor":"機密性・完全性","answer":"D"},{"id":"A1-011","section":"A1","major":"ネットワーク","minor":"TCP","answer":"B"},{"id":"A1-021","section":"A1","major":"OS・コンピュータ","minor":"プロセスとスレッド","answer":"C"},{"id":"A1-031","section":"A1","major":"データベース・データ","minor":"正規化","answer":"D"},{"id":"A1-041","section":"A1","major":"開発・運用","minor":"単体テスト","answer":"D"},{"id":"A1-051","section":"A1","major":"ビジネス・AI・法務","minor":"投資評価","answer":"B"},{"id":"A1-002","section":"A1","major":"セキュリティ","minor":"SQLインジェクション","answer":"A"},{"id":"A1-012","section":"A1","major":"ネットワーク","minor":"DNS","answer":"D"},{"id":"A1-022","section":"A1","major":"OS・コンピュータ","minor":"仮想メモリ","answer":"C"},{"id":"A1-032","section":"A1","major":"データベース・データ","minor":"外部キー","answer":"C"},{"id":"A1-042","section":"A1","major":"開発・運用","minor":"境界値分析","answer":"A"},{"id":"A1-052","section":"A1","major":"ビジネス・AI・法務","minor":"KPI","answer":"C"},{"id":"A1-003","section":"A1","major":"セキュリティ","minor":"XSS","answer":"B"},{"id":"A1-013","section":"A1","major":"ネットワーク","minor":"サブネット","answer":"B"},{"id":"A1-023","section":"A1","major":"OS・コンピュータ","minor":"ページフォールト","answer":"D"},{"id":"A1-033","section":"A1","major":"データベース・データ","minor":"ACID","answer":"A"},{"id":"A1-043","section":"A1","major":"開発・運用","minor":"分岐網羅","answer":"C"},{"id":"A1-053","section":"A1","major":"ビジネス・AI・法務","minor":"PERT","answer":"A"},{"id":"A1-004","section":"A1","major":"セキュリティ","minor":"多要素認証","answer":"B"},{"id":"A1-014","section":"A1","major":"ネットワーク","minor":"TLS","answer":"C"},{"id":"A1-024","section":"A1","major":"OS・コンピュータ","minor":"競合状態","answer":"B"},{"id":"A1-034","section":"A1","major":"データベース・データ","minor":"分離レベル","answer":"A"},{"id":"A1-044","section":"A1","major":"開発・運用","minor":"CI","answer":"D"},{"id":"A1-054","section":"A1","major":"ビジネス・AI・法務","minor":"WBS","answer":"A"},{"id":"A1-005","section":"A1","major":"セキュリティ","minor":"パスワード管理","answer":"B"},{"id":"A1-015","section":"A1","major":"ネットワーク","minor":"NAT","answer":"A"},{"id":"A1-025","section":"A1","major":"OS・コンピュータ","minor":"デッドロック","answer":"C"},{"id":"A1-035","section":"A1","major":"データベース・データ","minor":"索引","answer":"C"},{"id":"A1-045","section":"A1","major":"開発・運用","minor":"デプロイと切戻し","answer":"D"},{"id":"A1-055","section":"A1","major":"ビジネス・AI・法務","minor":"RACI","answer":"A"},{"id":"A1-006","section":"A1","major":"セキュリティ","minor":"ゼロトラスト","answer":"D"},{"id":"A1-016","section":"A1","major":"ネットワーク","minor":"TTL","answer":"A"},{"id":"A1-026","section":"A1","major":"OS・コンピュータ","minor":"キャッシュ","answer":"C"},{"id":"A1-036","section":"A1","major":"データベース・データ","minor":"CAP定理","answer":"D"},{"id":"A1-046","section":"A1","major":"開発・運用","minor":"SLO","answer":"D"},{"id":"A1-056","section":"A1","major":"ビジネス・AI・法務","minor":"スクラム","answer":"B"},{"id":"A1-007","section":"A1","major":"セキュリティ","minor":"最小権限","answer":"C"},{"id":"A1-017","section":"A1","major":"ネットワーク","minor":"CDN","answer":"A"},{"id":"A1-027","section":"A1","major":"OS・コンピュータ","minor":"コンテキストスイッチ","answer":"B"},{"id":"A1-037","section":"A1","major":"データベース・データ","minor":"ETL","answer":"B"},{"id":"A1-047","section":"A1","major":"開発・運用","minor":"RPO・RTO","answer":"A"},{"id":"A1-057","section":"A1","major":"ビジネス・AI・法務","minor":"RAG","answer":"D"},{"id":"A1-008","section":"A1","major":"セキュリティ","minor":"サプライチェーン","answer":"A"},{"id":"A1-018","section":"A1","major":"ネットワーク","minor":"ロードバランサー","answer":"A"},{"id":"A1-028","section":"A1","major":"OS・コンピュータ","minor":"ファイル更新","answer":"D"},{"id":"A1-038","section":"A1","major":"データベース・データ","minor":"スキーマ","answer":"B"},{"id":"A1-048","section":"A1","major":"開発・運用","minor":"冪等性","answer":"C"},{"id":"A1-058","section":"A1","major":"ビジネス・AI・法務","minor":"AIエージェント","answer":"C"},{"id":"A1-009","section":"A1","major":"セキュリティ","minor":"プロンプトインジェクション","answer":"A"},{"id":"A1-019","section":"A1","major":"ネットワーク","minor":"レイテンシとスループット","answer":"D"},{"id":"A1-029","section":"A1","major":"OS・コンピュータ","minor":"RAID","answer":"D"},{"id":"A1-039","section":"A1","major":"データベース・データ","minor":"OLAP","answer":"A"},{"id":"A1-049","section":"A1","major":"開発・運用","minor":"可観測性","answer":"A"},{"id":"A1-059","section":"A1","major":"ビジネス・AI・法務","minor":"個人情報","answer":"A"},{"id":"A1-010","section":"A1","major":"セキュリティ","minor":"認証と認可","answer":"D"},{"id":"A1-020","section":"A1","major":"ネットワーク","minor":"DHCP","answer":"B"},{"id":"A1-030","section":"A1","major":"OS・コンピュータ","minor":"可用性計算","answer":"C"},{"id":"A1-040","section":"A1","major":"データベース・データ","minor":"データ品質","answer":"C"},{"id":"A1-050","section":"A1","major":"開発・運用","minor":"IaC","answer":"C"},{"id":"A1-060","section":"A1","major":"ビジネス・AI・法務","minor":"エッジ処理","answer":"D"},{"id":"A2-001","section":"A2","major":"要件定義","minor":"機能要件と非機能要件","answer":"D"},{"id":"A2-002","section":"A2","major":"要件定義","minor":"トレーサビリティ","answer":"A"},{"id":"A2-003","section":"A2","major":"システム設計","minor":"単一責任と疎結合","answer":"C"},{"id":"A2-004","section":"A2","major":"システム設計","minor":"シングルポイント障害","answer":"C"},{"id":"A2-005","section":"A2","major":"システム設計","minor":"キャパシティ計画","answer":"A"},{"id":"A2-006","section":"A2","major":"クラウド設計","minor":"責任共有","answer":"C"},{"id":"A2-007","section":"A2","major":"クラウド設計","minor":"オブジェクトストレージ","answer":"D"},{"id":"A2-008","section":"A2","major":"クラウド設計","minor":"状態を持つアプリ","answer":"D"},{"id":"A2-009","section":"A2","major":"アーキテクチャ","minor":"サーキットブレーカー","answer":"C"},{"id":"A2-010","section":"A2","major":"アーキテクチャ","minor":"リトライ","answer":"B"},{"id":"A2-011","section":"A2","major":"データ設計","minor":"イベント駆動","answer":"A"},{"id":"A2-012","section":"A2","major":"データ設計","minor":"データ整合性","answer":"A"},{"id":"A2-013","section":"A2","major":"API設計","minor":"HTTPメソッド","answer":"A"},{"id":"A2-014","section":"A2","major":"実行管理","minor":"ジョブ排他","answer":"B"},{"id":"A2-015","section":"A2","major":"デプロイ設計","minor":"ブルーグリーン","answer":"D"},{"id":"A2-016","section":"A2","major":"IoT・組込み","minor":"エッジ処理","answer":"B"},{"id":"A2-017","section":"A2","major":"セキュリティ設計","minor":"脅威モデリング","answer":"C"},{"id":"A2-018","section":"A2","major":"テスト設計","minor":"契約テスト","answer":"C"},{"id":"A2-019","section":"A2","major":"運用設計","minor":"可観測性","answer":"D"},{"id":"A2-020","section":"A2","major":"業務設計","minor":"合意形成","answer":"C"},{"id":"A2-021","section":"A2","major":"運用設計","minor":"バックアップ","answer":"D"},{"id":"A2-022","section":"A2","major":"アーキテクチャ","minor":"コスト設計","answer":"D"},{"id":"A2-023","section":"A2","major":"システム設計","minor":"監査と操作記録","answer":"C"},{"id":"B-001","section":"B","major":"障害復旧","minor":"ジョブ状態の復元","answer":"A"},{"id":"B-002","section":"B","major":"並行処理","minor":"排他制御と復旧","answer":"B"},{"id":"B-003","section":"B","major":"データ整合性","minor":"CSVとS3","answer":"D"},{"id":"B-004","section":"B","major":"可用性","minor":"復旧目標の検証","answer":"D"},{"id":"B-005","section":"B","major":"デプロイ","minor":"段階的切替え","answer":"D"},{"id":"B-006","section":"B","major":"移行","minor":"データ移行の整合性","answer":"E"},{"id":"B-007","section":"B","major":"組込み・IoT","minor":"通信断と電力制約","answer":"D"},{"id":"B-008","section":"B","major":"セキュリティ設計","minor":"アクセス制御","answer":"B"},{"id":"B-009","section":"B","major":"システム運用","minor":"障害調査","answer":"D"},{"id":"B-010","section":"B","major":"災害対策","minor":"リージョン障害","answer":"C"},{"id":"B-011","section":"B","major":"要件定義","minor":"非機能要件と受入","answer":"B"},{"id":"B-012","section":"B","major":"移行と運用","minor":"継続的な品質保証","answer":"A"}],"groups":[{"section":"A1","from":0,"to":10},{"section":"A1","from":10,"to":20},{"section":"A1","from":20,"to":30},{"section":"A1","from":30,"to":40},{"section":"A1","from":40,"to":50},{"section":"A1","from":50,"to":60},{"section":"A2","from":60,"to":68},{"section":"A2","from":68,"to":76},{"section":"A2","from":76,"to":83},{"section":"B","from":83,"to":87},{"section":"B","from":87,"to":91},{"section":"B","from":91,"to":95}]}</script>
+<script>'use strict';
+(() => {
+  const STORAGE_KEY = 'ipa-system-unified-study-v1';
+  const LEGACY_STORAGE_KEY = 'ipa-systems-quality-test-15q-v1-records';
+  const SCHEMA = 'ipa-unified-study-1';
+  const PARTS = ['A1', 'A2', 'B'];
+  const PART_NAMES = { A1: '科目A-1｜共通知識', A2: '科目A-2｜専門知識', B: '科目B｜応用技能' };
+  const LETTERS = 'ABCD';
+  const SEED = JSON.parse(document.getElementById('seed-bank').textContent);
+  const LEGACY = JSON.parse(document.getElementById('legacy-meta').textContent);
+  const fresh = () => ({
+    schema_version: SCHEMA, banks: {}, records: [], attempts: [], drafts: {},
+    schedule: { exam: '', applicationFrom: '', applicationTo: '' },
+    selectedBank: SEED.bank_version, selectedSection: 'A1',
+    view: 'study', dashboardMode: 'first', dashboardBank: 'all',
+    dashboardSection: 'all', reportMajor: 'all', catalogStatus: '起動中'
+  });
+  let state = fresh();
+  let storageMessage = '保存状況を確認中';
+  let pendingAction = null;
+  let confirmationBusy = false;
+  let noticeTimer = null;
+  let storageLocked = false;
+  let loadedSources = {};
+
+  const $ = id => document.getElementById(id);
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+  const uniqueId = () => typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() :
+    `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  const localDate = (value = new Date()) => {
+    const d = value instanceof Date ? value : new Date(value);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  };
+  const percentage = (numerator, denominator) => denominator ? `${(100 * numerator / denominator).toFixed(1)}%` : '—';
+  const jpDate = value => {
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? '—' : d.toLocaleString('ja-JP', {
+      year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'
+    });
+  };
+  const isDate = str => {
+    if (typeof str !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(str)) return false;
+    const date = new Date(`${str}T00:00:00`);
+    return !Number.isNaN(date.getTime()) && localDate(date) === str;
+  };
+  const dateMillis = str => new Date(`${str}T00:00:00`).valueOf();
+  const bankLabel = bank => bank.display_name || bank.title || bank.bank_version;
+  const entryKey = (bankVersion, section) => `${bankVersion}::${section}`;
+  const recordQuestionKey = r => `${r.bank_version}::${r.question_id}::${r.question_version}`;
+  const bankList = () => Object.values(state.banks);
+  const currentBank = () => state.banks[state.selectedBank] || bankList()[0];
+  const questionsFor = (bank, section) => bank ? bank.questions.filter(q => q.section === section) : [];
+  const questionAt = (version, id, qVersion = null) => {
+    const bank = state.banks[version];
+    return bank?.questions.find(q => q.question_id === id && (qVersion === null || q.question_version === qVersion));
+  };
+
+  function notify(message, failure = false) {
+    const el = $('notice');
+    el.textContent = String(message);
+    el.className = `notice ${failure ? 'notice-error' : ''}`;
+    el.hidden = false;
+    if (noticeTimer) clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(() => { el.hidden = true; }, 8500);
+  }
+  function reportError(e) { notify(`処理に失敗しました：${String(e?.message || e)}`, true); }
+  window.addEventListener('error', event => {
+    if (event.message) notify(`画面の処理でエラーが発生しました：${event.message}`, true);
+  });
+  window.addEventListener('unhandledrejection', event => reportError(event.reason));
+  function ask(message, action) {
+    pendingAction = action;
+    $('modal-message').textContent = message;
+    $('modal').hidden = false;
+    $('modal-yes').focus();
+  }
+  function completeAsk(approve) {
+    const action = pendingAction;
+    pendingAction = null;
+    $('modal').hidden = true;
+    if (approve && action && !confirmationBusy) {
+      confirmationBusy = true;
+      try { action(); } catch (error) { reportError(error); }
+      finally { confirmationBusy = false; }
+    }
+  }
+  function persist() {
+    if (storageLocked) {
+      storageMessage = '既存データの読込に失敗：安全のため自動上書きを停止中';
+      return false;
+    }
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      storageMessage = 'ブラウザ内に保存済み';
+      return true;
+    } catch (error) {
+      storageMessage = 'ブラウザ保存不可：JSONバックアップを出力してください';
+      notify(storageMessage, true);
+      return false;
+    }
+  }
+
+  function normalizedBank(raw) {
+    if (!raw || typeof raw !== 'object' || typeof raw.bank_version !== 'string' ||
+        raw.bank_version.length < 3 || raw.bank_version.length > 170 || !Array.isArray(raw.questions) || !raw.questions.length)
+      throw new Error('問題集JSONには bank_version と questions（1問以上）が必要です');
+    if (raw.questions.length > 500) throw new Error('1問題集の上限は500問です');
+    if (raw.questions.length !== new Set(raw.questions.map(q => q.question_id || q.id)).size)
+      throw new Error('同じ問題集内に重複する問題IDがあります');
+    const questions = raw.questions.map((q, index) => {
+      if (!q || !PARTS.includes(q.section) || typeof q.question_id !== 'string' ||
+          !q.question_id || !q.question_version || !q.major || !q.minor || !q.difficulty ||
+          !q.stem || !Array.isArray(q.options) || q.options.length !== 4 ||
+          q.options.some(t => typeof t !== 'string' || !t.trim()) ||
+          !LETTERS.includes(q.answer) || typeof q.why !== 'string' || !q.why.trim() ||
+          !Array.isArray(q.optionNotes) || q.optionNotes.length !== 4 ||
+          q.optionNotes.some(t => typeof t !== 'string' || !t.trim()) ||
+          typeof q.depth !== 'string' || !q.depth.trim() ||
+          typeof q.application !== 'string' || !q.application.trim())
+        throw new Error(`${index + 1}問目：設問・解説・4選択肢・分野などの必須項目が不足しています`);
+      return {
+        question_id: q.question_id, question_version: String(q.question_version),
+        section: q.section, major: String(q.major), minor: String(q.minor),
+        difficulty: String(q.difficulty), stem: String(q.stem),
+        case: String(q.case || ''), options: q.options.map(String), answer: q.answer,
+        why: q.why, optionNotes: q.optionNotes, depth: q.depth,
+        application: q.application
+      };
+    });
+    const ids = new Set(questions.map(q => q.question_id));
+    if (ids.size !== questions.length) throw new Error('問題IDが重複しています');
+    return {
+      bank_version: raw.bank_version, display_name: String(raw.display_name || raw.title || raw.bank_version),
+      source_notice: String(raw.source_notice || '非公式の予想問題'),
+      questions, source: String(raw.source || ''),
+      audit_status: String(raw.audit_status || '未検証（構造チェックのみ）')
+    };
+  }
+  function sameBank(a, b) {
+    // Source labels differ for inline/published/user imports; question and answer content must not.
+    return JSON.stringify(a.questions) === JSON.stringify(b.questions);
+  }
+  function registerBanks(inputs, source = 'JSON追加') {
+    const incoming = inputs.map(normalizedBank);
+    const batch = new Map();
+    for (const bank of incoming) {
+      if (batch.has(bank.bank_version) && !sameBank(batch.get(bank.bank_version), bank))
+        throw new Error('同じbank_versionに異なる内容の問題集があります');
+      if (state.banks[bank.bank_version] && !sameBank(state.banks[bank.bank_version], bank))
+        throw new Error(`問題集 ${bank.bank_version} の内容が登録済みデータと異なります。改訂版は新しいbank_versionにしてください`);
+      batch.set(bank.bank_version, bank);
+    }
+    let added = 0;
+    for (const bank of batch.values()) {
+      if (!state.banks[bank.bank_version]) {
+        bank.source = source;
+        state.banks[bank.bank_version] = bank;
+        loadedSources[bank.bank_version] = source;
+        added++;
+      }
+    }
+    return added;
+  }
+  function legacyV11Data() {
+    const saved = localStorage.getItem(LEGACY_STORAGE_KEY);
+    if (!saved) return null;
+    const obj = JSON.parse(saved);
+    if (obj.schema_version !== 'ipa-study-records-1' || !Array.isArray(obj.records)) return null;
+    return obj;
+  }
+  function hydrate() {
+    let existing = null;
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed.schema_version !== SCHEMA || !Array.isArray(parsed.records) || !Array.isArray(parsed.attempts))
+          throw new Error('既存の保存データの形式が異なります');
+        existing = parsed;
+      }
+    } catch (e) { storageLocked = true; notify('既存の保存データの形式が不正です。保護のため上書きを停止しました。元データは削除していません。', true); }
+    if (existing) {
+      state = { ...fresh(), ...existing, banks: existing.banks || {},
+        drafts: existing.drafts || {}, schedule: { ...fresh().schedule, ...(existing.schedule || {}) } };
+    }
+    // Inline source is available even if the catalog fetch fails in a local-file preview.
+    try { registerBanks([SEED], '内蔵サンプル（品質監査済み）'); }
+    catch (e) { notify(`内蔵問題の読込に失敗：${e.message}`, true); }
+    if (!state.banks[state.selectedBank]) state.selectedBank = SEED.bank_version;
+    // The old 15-question app uses an independent key. Import it without destroying the source.
+    try {
+      const previous = legacyV11Data();
+      if (previous) {
+        const merged = mergeRecords(previous);
+        if (merged.added) notify(`旧15問アプリの履歴を ${merged.added} 件自動取込みしました。元データも残しています。`);
+      }
+    } catch (e) { notify('旧アプリの自動移行に失敗しました。成績JSONをインポートしてください。', true); }
+    persist();
+  }
+  function getDraft(bank, part) {
+    const key = entryKey(bank.bank_version, part);
+    if (!state.drafts[key]) state.drafts[key] = { answers: {}, timestamps: {}, startedAt: new Date().toISOString() };
+    return state.drafts[key];
+  }
+  function lastAttempt(bank, part) {
+    const draft = getDraft(bank, part);
+    if (draft.retake) return null;
+    return [...state.attempts].reverse().find(a => a.bank_version === bank.bank_version && a.section === part) || null;
+  }
+  function openSet(version, part) {
+    if (!state.banks[version] || !PARTS.includes(part) || questionsFor(state.banks[version], part).length === 0)
+      throw new Error('問題集・科目を確認できませんでした');
+    state.selectedBank = version;
+    state.selectedSection = part;
+    state.view = 'study';
+    getDraft(state.banks[version], part);
+    persist(); render(); window.scrollTo(0, 0);
+  }
+  function switchView(view) {
+    if (!['study', 'dashboard', 'history', 'library'].includes(view)) return;
+    state.view = view; persist(); render(); window.scrollTo(0, 0);
+  }
+  function selectAnswer(id, value) {
+    const bank = currentBank(), part = state.selectedSection;
+    if (!bank || lastAttempt(bank, part)) return;
+    if (!questionsFor(bank, part).some(q => q.question_id === id) || !'ABCD?'.includes(value)) return;
+    const draft = getDraft(bank, part);
+    draft.answers[id] = value;
+    draft.timestamps[id] = new Date().toISOString();
+    persist(); render();
+  }
+  function submitSet() {
+    const bank = currentBank(), part = state.selectedSection, qs = questionsFor(bank, part);
+    if (!qs.length) return notify('採点対象がありません', true);
+    const draft = getDraft(bank, part);
+    const missing = qs.filter(q => !draft.answers[q.question_id]);
+    if (missing.length) return notify(`未回答が${missing.length}問あります。「わからない」も選択できます。`, true);
+    if (lastAttempt(bank, part)) return notify('既に採点済みです。再演習は専用ボタンを押してください。', true);
+    ask(`${bankLabel(bank)}｜${PART_NAMES[part]} の${qs.length}問を採点します。回答を確定してよろしいですか？`, () => gradeSet(bank.bank_version, part));
+  }
+  function gradeSet(version, part) {
+    const bank = state.banks[version], qs = questionsFor(bank, part);
+    const draft = getDraft(bank, part);
+    if (lastAttempt(bank, part) || qs.some(q => !draft.answers[q.question_id]))
+      throw new Error('採点対象の回答状態が変化しました。もう一度確認してください');
+    const now = new Date(), when = now.toISOString(), day = localDate(now), attempt_id = uniqueId();
+    const records = qs.map(q => {
+      const answer = draft.answers[q.question_id], prior = state.records.some(r =>
+        r.question_id === q.question_id && r.question_version === q.question_version && r.bank_version === version);
+      return {
+        record_id: uniqueId(), attempt_id, bank_version: version,
+        question_id: q.question_id, question_version: q.question_version,
+        section: part, major: q.major, minor: q.minor, difficulty: q.difficulty,
+        answer, correct: answer === q.answer, unknown: answer === '?', mode: 'learning',
+        is_first_seen: !prior, answered_at: draft.timestamps[q.question_id] || when,
+        submitted_at: when, answer_date: day, elapsed_seconds: Math.max(0, Math.round((now - new Date(draft.startedAt || when)) / 1000))
+      };
+    });
+    const correct = records.filter(r => r.correct).length, unknown = records.filter(r => r.unknown).length;
+    state.records.push(...records);
+    state.attempts.push({ attempt_id, bank_version: version, section: part, submitted_at: when,
+      answer_date: day, total: qs.length, correct, unknown, mode: 'learning' });
+    // Reset retake marker; keep answers for the just-graded review.
+    delete draft.retake;
+    const saved = persist();
+    render();
+    notify(`採点完了：${correct}/${qs.length}問正解・わからない${unknown}問${saved ? '／ブラウザ保存済み' : '／JSONバックアップが必要'}`, !saved);
+  }
+  function retrySet() {
+    const bank = currentBank(), part = state.selectedSection;
+    ask(`${bankLabel(bank)} の${PART_NAMES[part]}を再演習します。採点済みの履歴は保持します。`, () => {
+      state.drafts[entryKey(bank.bank_version, part)] = {
+        answers: {}, timestamps: {}, startedAt: new Date().toISOString(), retake: true
+      };
+      persist(); render(); notify('再演習を開始しました。過去の結果は残っています。');
+    });
+  }
+
+  function chosenRecords() {
+    const all = state.records.filter(r => r.mode === 'learning' &&
+      (state.dashboardBank === 'all' || r.bank_version === state.dashboardBank) &&
+      (state.dashboardSection === 'all' || r.section === state.dashboardSection));
+    const ordered = [...all].sort((a, b) => (a.submitted_at || '').localeCompare(b.submitted_at || ''));
+    const mode = state.dashboardMode;
+    if (mode === 'all') return ordered;
+    const chosen = new Map();
+    for (const r of ordered) {
+      const key = recordQuestionKey(r);
+      if (mode === 'first' && !chosen.has(key)) chosen.set(key, r);
+      if (mode === 'latest') chosen.set(key, r);
+    }
+    return [...chosen.values()];
+  }
+  function groupBy(records, selector) {
+    const map = new Map();
+    for (const r of records) {
+      const name = String(selector(r) || '未分類');
+      if (!map.has(name)) map.set(name, { name, n: 0, c: 0, u: 0 });
+      const o = map.get(name); o.n++; o.c += Number(!!r.correct); o.u += Number(!!r.unknown);
+    }
+    return [...map.values()].sort((a, b) => a.name.localeCompare(b.name, 'ja'));
+  }
+  function groupTable(items) {
+    if (!items.length) return '<p class="empty">対象の記録はありません。</p>';
+    return `<div class="tablewrap"><table><thead><tr><th>分類</th><th>解答数</th><th>正解</th><th>正答率</th><th>わからない</th></tr></thead><tbody>${items.map(r =>
+      `<tr><td>${esc(r.name)}</td><td>${r.n}</td><td>${r.c}</td><td>${percentage(r.c, r.n)}</td><td>${r.u}</td></tr>`
+    ).join('')}</tbody></table></div>`;
+  }
+  function dayGraph(records) {
+    const days = groupBy(records.filter(r => isDate(r.answer_date)), r => r.answer_date)
+      .sort((a, b) => a.name.localeCompare(b.name));
+    if (!days.length) return '<div class="empty">採点すると日付別の推移が表示されます。</div>';
+    const baseDates = days.map(d => dateMillis(d.name));
+    const exam = state.schedule.exam;
+    const validExam = isDate(exam) && dateMillis(exam) >= Math.max(...baseDates) ? dateMillis(exam) : null;
+    let min = Math.min(...baseDates), max = validExam || Math.max(...baseDates);
+    if (min === max) { min -= 86400000; max += 86400000; }
+    const w = 880, h = 280, l = 53, r = 33, top = 28, bottom = 57;
+    const x = t => l + (t - min) / (max - min) * (w - l - r);
+    const y = n => top + (100 - n) / 100 * (h - top - bottom);
+    let svg = `<svg role="img" aria-label="日付を横軸、正答率を縦軸とした推移" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">`;
+    const start = state.schedule.applicationFrom, end = state.schedule.applicationTo;
+    if (isDate(start) && isDate(end) && dateMillis(start) <= dateMillis(end)) {
+      const a = Math.max(min, dateMillis(start)), b = Math.min(max, dateMillis(end));
+      if (a <= b) {
+        svg += `<rect x="${x(a).toFixed(1)}" y="${top}" width="${Math.max(2, x(b) - x(a)).toFixed(1)}" height="${h - top - bottom}" fill="#d5e9ed" opacity="0.72"/>`;
+        svg += `<text x="${x(a) + 4}" y="${top + 12}" fill="#426c7a" font-size="11">申込期間</text>`;
+      }
+    }
+    for (const rate of [0, 25, 50, 75, 100]) {
+      svg += `<line x1="${l}" x2="${w - r}" y1="${y(rate)}" y2="${y(rate)}" stroke="#dfe9ed"/>`;
+      svg += `<text x="${l - 12}" y="${y(rate) + 4}" text-anchor="end" font-size="12" fill="#6b7b89">${rate}%</text>`;
+    }
+    const points = days.map(d => ({ d, px: x(dateMillis(d.name)), py: y(100 * d.c / d.n) }));
+    if (points.length > 1) svg += `<polyline fill="none" stroke="#147d87" stroke-width="3" points="${points.map(o => `${o.px.toFixed(1)},${o.py.toFixed(1)}`).join(' ')}"/>`;
+    for (const p of points) {
+      svg += `<circle cx="${p.px}" cy="${p.py}" r="5" fill="#0c7c81" stroke="white" stroke-width="2"><title>${p.d.name} 正答率 ${percentage(p.d.c, p.d.n)} (${p.d.c}/${p.d.n})</title></circle>`;
+    }
+    if (validExam) svg += `<line x1="${x(validExam)}" x2="${x(validExam)}" y1="${top}" y2="${h - bottom}" stroke="#b16d30" stroke-dasharray="5,4"/><text x="${x(validExam) - 6}" y="${top + 9}" text-anchor="end" font-size="11" fill="#9a653a">試験日</text>`;
+    for (const t of [min, (min + max) / 2, max]) {
+      svg += `<text x="${x(t)}" y="${h - 19}" text-anchor="middle" fill="#6b7b89" font-size="11">${localDate(new Date(t))}</text>`;
+    }
+    svg += '</svg>';
+    return `<div class="graph">${svg}</div><details><summary>日付ごとの数値を表示</summary>${groupTable(days)}</details>`;
+  }
+  function recentTrend() {
+    const matching = state.attempts.filter(a => (state.dashboardBank === 'all' || a.bank_version === state.dashboardBank) &&
+      (state.dashboardSection === 'all' || a.section === state.dashboardSection))
+      .sort((a, b) => a.submitted_at.localeCompare(b.submitted_at));
+    if (!matching.length) return '<p class="empty">セット採点後に過去との比較を表示します。</p>';
+    const recent = matching.slice(-5), older = matching.slice(-10, -5);
+    const total = xs => xs.reduce((a, t) => a + t.total, 0);
+    const correct = xs => xs.reduce((a, t) => a + t.correct, 0);
+    return `<p>直近${recent.length}セット：<strong>${percentage(correct(recent), total(recent))}</strong> (${correct(recent)}/${total(recent)}問)${older.length ?
+      ` ／ その前の${older.length}セット：<strong>${percentage(correct(older), total(older))}</strong> (${correct(older)}/${total(older)}問)` :
+      ' ／ 比較可能な過去セットはまだありません'}</p><p class="micro">問題構成や難易度の違いを調整していない比較です。異なる問題集の得点をそのまま同難易度と見なさないでください。</p>`;
+  }
+  function metric(title, value, note = '') {
+    return `<div class="metric"><strong>${esc(value)}</strong><span>${esc(title)}</span>${note ? `<small>${esc(note)}</small>` : ''}</div>`;
+  }
+
+  function renderSidebar() {
+    const chosen = currentBank();
+    const active = state.view;
+    const localRecords = state.records.length;
+    return `<div class="side-title">学習メニュー</div><div class="navlist">
+      <button class="navbtn ${active === 'library' ? 'active' : ''}" data-view="library">問題集ライブラリ<small>${bankList().length}種類の問題集を利用可能</small></button>
+      ${PARTS.map(p => {
+        const count = questionsFor(chosen, p).length;
+        if (!count) return '';
+        const att = lastAttempt(chosen, p);
+        const d = getDraft(chosen, p);
+        return `<button class="navbtn ${active === 'study' && p === state.selectedSection ? 'active' : ''}" data-section="${p}" data-bank="${esc(chosen.bank_version)}">${PART_NAMES[p]}<small>${count}問 · ${att ? `直近 ${att.correct}/${att.total}問正解` : `${Object.keys(d.answers).length}/${count}問選択済`}</small></button>`;
+      }).join('')}
+      <button class="navbtn ${active === 'dashboard' ? 'active' : ''}" data-view="dashboard">成績ダッシュボード<small>全問題集・日付別・分野別</small></button>
+      <button class="navbtn ${active === 'history' ? 'active' : ''}" data-view="history">復習・全履歴<small>不正解・わからない・再演習</small></button>
+    </div><div class="side-info"><b>${localRecords}</b>件の問題別記録<br>保存状態：${esc(storageMessage)}<hr>
+      <button class="btn full" data-export="1">成績JSONをエクスポート</button>
+      <p>新しい問題集を追加しても、このアプリの成績履歴は保持されます。別の端末やURLにはJSONで引き継いでください。</p>
+    </div>`;
+  }
+  function renderChoices(q, answer, done) {
+    const choices = q.options.map((option, i) => {
+      const letter = LETTERS[i];
+      const tone = done ? (letter === q.answer ? 'right-choice' : letter === answer ? 'wrong-choice' : '') : '';
+      return `<label class="choice ${tone}"><input type="radio" data-question="${esc(q.question_id)}" name="answer-${esc(q.question_id)}" value="${letter}" ${answer === letter ? 'checked' : ''} ${done ? 'disabled' : ''}><b>${letter}</b><span>${esc(option)}</span></label>`;
+    }).join('');
+    return choices + `<label class="choice unknown-choice ${done && answer === '?' ? 'wrong-choice' : ''}"><input type="radio" data-question="${esc(q.question_id)}" name="answer-${esc(q.question_id)}" value="?" ${answer === '?' ? 'checked' : ''} ${done ? 'disabled' : ''}><b>?</b><span>わからない（回答済み・0点で別集計）</span></label>`;
+  }
+  function renderExplanation(q, answer) {
+    const correct = answer === q.answer;
+    const result = correct ? '正解' : answer === '?' ? 'わからない（0点）' : '不正解';
+    return `<div class="explain"><div class="result-heading ${correct ? 'right-text' : 'wrong-text'}">${result}・正解：${esc(q.answer)} ${esc(q.options[LETTERS.indexOf(q.answer)])}</div>
+      <details ${correct ? '' : 'open'}><summary>解説：判断根拠・全選択肢の評価・背景・実務応用</summary>
+        <p><b>① 正解の判断根拠</b>　${esc(q.why)}</p>
+        <p><b>② 全選択肢の評価</b></p><ul class="option-notes">${q.optionNotes.map((t, i) => `<li class="${LETTERS[i] === q.answer ? 'right-note' : ''}"><b>${LETTERS[i]} ${LETTERS[i] === q.answer ? '✓' : ''}</b> ${esc(t)}</li>`).join('')}</ul>
+        <p><b>③ 技術的背景</b>　${esc(q.depth)}</p><p><b>④ 実務上の応用・注意</b>　${esc(q.application)}</p>
+      </details></div>`;
+  }
+  function renderQuestion(q, index, answer, done) {
+    return `<article class="question" data-question-id="${esc(q.question_id)}"><div class="question-meta"><span class="question-num">問${index + 1} ／ ${esc(q.question_id)}</span><span class="micro">${esc(q.major)} › ${esc(q.minor)} · ${esc(q.difficulty)}</span></div>
+      ${q.case ? `<div class="case">${esc(q.case)}</div>` : ''}<div class="stem">${esc(q.stem)}</div>
+      <div class="choices">${renderChoices(q, answer, done)}</div>${done ? renderExplanation(q, answer) : ''}</article>`;
+  }
+  function renderStudy() {
+    const bank = currentBank(), part = state.selectedSection;
+    if (!bank) return renderLibrary();
+    const qs = questionsFor(bank, part);
+    if (!qs.length) return `<div class="panel"><h2>この科目の問題はありません</h2><button class="btn" data-view="library">問題集を選ぶ</button></div>`;
+    const attempt = lastAttempt(bank, part), done = !!attempt, draft = getDraft(bank, part);
+    const answers = done ? Object.fromEntries(state.records.filter(r => r.attempt_id === attempt.attempt_id).map(r => [r.question_id, r.answer])) : draft.answers;
+    const answered = qs.filter(q => answers[q.question_id]).length;
+    const banner = done ? `<div class="metrics">${metric('今回の正答率', percentage(attempt.correct, attempt.total))}${metric('正解数', `${attempt.correct}/${attempt.total}`)}${metric('わからない', String(attempt.unknown))}${metric('採点日時', jpDate(attempt.submitted_at))}</div>
+      <div class="pills">${qs.map((q, i) => `<span class="pill ${answers[q.question_id] === q.answer ? 'pass' : 'fail'}">問${i + 1} ${answers[q.question_id] === '?' ? '？' : answers[q.question_id] === q.answer ? '✓' : '×'}</span>`).join('')}</div>
+      <p class="micro">不正解・わからないの解説は初期表示します。正解問題の解説も展開できます。</p>` :
+      `<div class="summary">全${qs.length}問を選択してからセット単位で採点します。<b>採点確定まで正解を表示しません。</b><div class="progress"><span style="width:${100 * answered / qs.length}%"></span></div><p>${answered}/${qs.length}問を選択済み</p></div>`;
+    const next = PARTS.slice(PARTS.indexOf(part) + 1).find(p => questionsFor(bank, p).length);
+    return `<div class="panel"><div class="head-row"><div><p class="eyebrow">${esc(bankLabel(bank))}</p><h2>${PART_NAMES[part]}</h2></div><span class="tag">${qs.length}問・1セット</span></div>
+      ${banner}${qs.map((q, i) => renderQuestion(q, i, answers[q.question_id] || '', done)).join('')}
+      <div class="sticky-actions">${done ? `<span class="micro">復習後に次の科目へ進めます</span><div class="actions"><button class="btn" data-retry="1">このセットを再演習</button><button class="btn" data-view="dashboard">ダッシュボード</button>${next ? `<button class="btn primary" data-bank="${esc(bank.bank_version)}" data-section="${next}">次の科目へ</button>` : `<button class="btn primary" data-view="library">他の問題集へ</button>`}</div>` :
+      `<span class="micro">${answered}/${qs.length}問 回答済み</span><button id="submit-set" class="btn primary" data-submit="1" ${answered !== qs.length ? 'disabled' : ''}>${qs.length}問をまとめて採点</button>`}</div></div>`;
+  }
+  function renderLibrary() {
+    const rows = bankList().map(bank => {
+      const attempted = state.attempts.filter(a => a.bank_version === bank.bank_version).length;
+      return `<section class="library-bank"><div><div class="eyebrow">${esc(bank.audit_status)} · ${esc(bank.source || '保存済')}</div><h3>${esc(bankLabel(bank))}</h3><p class="micro">ID: ${esc(bank.bank_version)} ／ 問題数 ${bank.questions.length} ／ 採点済みセット数 ${attempted}</p><p class="micro">${esc(bank.source_notice)}</p></div><div class="actions">${PARTS.map(p => {
+        const total = questionsFor(bank, p).length;
+        return total ? `<button class="btn" data-bank="${esc(bank.bank_version)}" data-section="${p}">${p === 'A1' ? 'A-1' : p === 'A2' ? 'A-2' : 'B'} ${total}問</button>` : '';
+      }).join('')}</div></section>`;
+    }).join('');
+    return `<div class="panel"><div class="head-row"><div><p class="eyebrow">QUESTION CATALOG</p><h2>問題集ライブラリ</h2></div><span class="tag">${bankList().length}問題集</span></div>
+      <p>新しく品質監査した問題集JSONを追加すれば、学習画面はそのままで新規セットが利用できます。過去の採点履歴は消しません。</p>
+      <div class="actions"><button id="add-bank" class="btn primary" data-import-bank="1">問題集JSONを追加</button><button class="btn" data-sync="1">公開カタログを再読込</button></div>
+      <p id="catalog-status" class="micro">カタログ：${esc(state.catalogStatus)}</p>
+      <p class="micro">JSONの項目や解説の欠落・ID重複を検査します。ただし技術的な正確性・誤答の妥当性は自動で保証できません。品質監査済みのデータを追加してください。</p>
+      <div class="library-list">${rows}</div></div>${renderBackupPanel()}`;
+  }
+  function renderDashboard() {
+    const rows = chosenRecords(), major = state.reportMajor;
+    const counted = rows.length, correct = rows.filter(r => r.correct).length, unknown = rows.filter(r => r.unknown).length;
+    const majors = groupBy(rows, r => r.major), minors = groupBy(rows, r => `${r.major} › ${r.minor}`);
+    const trendRecords = major === 'all' ? rows : rows.filter(r => r.major === major);
+    const competent = majors.filter(r => r.n >= 2).sort((a, b) => b.c / b.n - a.c / a.n).slice(0, 3);
+    const weak = majors.filter(r => r.n >= 2).sort((a, b) => a.c / a.n - b.c / b.n).slice(0, 3);
+    const countByBank = groupBy(rows, r => state.banks[r.bank_version] ? bankLabel(state.banks[r.bank_version]) : r.bank_version);
+    return `<div class="panel"><div class="head-row"><div><p class="eyebrow">LIFETIME LEARNING ANALYTICS</p><h2>成績ダッシュボード</h2></div><span class="tag">全問題集を横断</span></div>
+      <div class="filter-bar"><label>集計対象 <select id="dashboard-bank"><option value="all">全問題集</option>${bankList().map(b => `<option value="${esc(b.bank_version)}" ${state.dashboardBank === b.bank_version ? 'selected' : ''}>${esc(bankLabel(b))}</option>`).join('')}</select></label>
+      <label>科目 <select id="dashboard-section"><option value="all">すべて</option>${PARTS.map(p => `<option value="${p}" ${state.dashboardSection === p ? 'selected' : ''}>${PART_NAMES[p]}</option>`).join('')}</select></label>
+      <label>記録区分 <select id="dashboard-mode"><option value="first" ${state.dashboardMode === 'first' ? 'selected' : ''}>初見（各問題の初回）</option><option value="all" ${state.dashboardMode === 'all' ? 'selected' : ''}>すべての演習</option><option value="latest" ${state.dashboardMode === 'latest' ? 'selected' : ''}>各問題の最新回答</option></select></label></div>
+      <div class="metrics">${metric('正答率', percentage(correct, counted))}${metric('正解 / 解答', `${correct}/${counted}`)}${metric('わからない', `${unknown}件`)}${metric('わからない率', percentage(unknown, counted))}</div>
+      <p class="micro">初見は「同じ問題集・問題ID・問題版」の最初の記録を指します。学習モードの履歴を集計し、異なる問題集・難易度の結果は参考比較です。</p></div>
+      <div class="panel"><h3>科目別・問題集別</h3><div class="subsection-title">科目別</div>${groupTable(groupBy(rows, r => PART_NAMES[r.section] || r.section))}<div class="subsection-title">問題集別</div>${groupTable(countByBank)}</div>
+      <div class="panel"><h3>分野別・小分類別</h3>${groupTable(majors)}<details><summary>小分類別の成績を開く</summary>${groupTable(minors)}</details>
+      <div class="subsection-title">得意分野・重点復習候補</div><p>得意候補：${competent.length ? competent.map(r => `${esc(r.name)}（${percentage(r.c, r.n)}・${r.n}件）`).join('、') : '集計に必要な回答がまだ不足しています'}</p>
+      <p>重点復習候補：${weak.length ? weak.map(r => `${esc(r.name)}（${percentage(r.c, r.n)}・${r.n}件）`).join('、') : '集計に必要な回答がまだ不足しています'}</p><p class="micro">2問以上の分野を暫定評価。問題数が少ない場合は順位の信頼性が低いことに注意してください。</p></div>
+      <div class="panel"><div class="head-row"><h3>日付別正答率の推移</h3><label class="micro">対象分野 <select id="report-major"><option value="all">全分野</option>${majors.map(m => `<option value="${esc(m.name)}" ${major === m.name ? 'selected' : ''}>${esc(m.name)}</option>`).join('')}</select></label></div>
+      ${dayGraph(trendRecords)}<h3>試験日・申込期間（公式確定後に設定）</h3><div class="filter-bar schedule"><label>試験日<input type="date" data-schedule="exam" value="${esc(state.schedule.exam)}"></label><label>申込開始日<input type="date" data-schedule="applicationFrom" value="${esc(state.schedule.applicationFrom)}"></label><label>申込終了日<input type="date" data-schedule="applicationTo" value="${esc(state.schedule.applicationTo)}"></label></div>
+      <p class="micro">試験日はデータの右端以降の日付なら右端に表示し、申込期間は帯で表示します。公式情報の自動取得は行いません。</p></div>
+      <div class="panel"><h3>過去との比較</h3>${recentTrend()}</div>${renderBackupPanel()}`;
+  }
+  function renderHistory() {
+    const rows = [...state.records].sort((a, b) => (b.submitted_at || '').localeCompare(a.submitted_at || ''));
+    const latest = new Map();
+    for (const r of rows) if (!latest.has(recordQuestionKey(r))) latest.set(recordQuestionKey(r), r);
+    const wrong = [...latest.values()].filter(r => !r.correct);
+    const review = wrong.slice(0, 50).map(r => {
+      const q = questionAt(r.bank_version, r.question_id, r.question_version);
+      if (!q) return `<p class="micro">${esc(r.question_id)}（問題本文未登録） · ${r.unknown ? 'わからない' : '不正解'}</p>`;
+      return `<details class="review" open><summary>${esc(r.question_id)} · ${esc(q.minor)} · ${r.unknown ? 'わからない' : '不正解'}</summary><p class="stem">${esc(q.stem)}</p>${renderExplanation(q, r.answer)}</details>`;
+    }).join('');
+    return `<div class="panel"><div class="head-row"><h2>復習・全履歴</h2><span class="tag">${rows.length}記録</span></div><p class="micro">最新の回答が不正解・「わからない」の問題を復習できます。古い記録も削除されません。</p>
+      <h3>重点復習 ${wrong.length}問</h3>${wrong.length ? review : '<p class="empty">現在、重点復習の対象はありません。</p>'}
+      <h3>問題単位の採点履歴</h3><div class="tablewrap"><table><thead><tr><th>日時</th><th>問題集・ID・版</th><th>科目・分類</th><th>区分</th><th>回答</th><th>正誤</th></tr></thead><tbody>${rows.slice(0, 300).map(r => `<tr><td>${esc(jpDate(r.submitted_at))}</td><td><span class="micro">${esc(r.bank_version)}</span><br>${esc(r.question_id)} / ${esc(r.question_version)}</td><td>${esc(r.section)} · ${esc(r.major)} › ${esc(r.minor)}</td><td>${r.is_first_seen ? '初見' : '再演習'}</td><td>${r.unknown ? 'わからない' : esc(r.answer)}</td><td>${r.correct ? '正解' : r.unknown ? 'わからない' : '不正解'}</td></tr>`).join('')}</tbody></table></div>${rows.length > 300 ? `<p class="micro">画面は最新300件を表示中（${rows.length}件の記録はJSONにすべて保存）。</p>` : ''}</div>${renderBackupPanel()}`;
+  }
+  function renderBackupPanel() {
+    return `<div class="panel"><h3>成績の保存・移行</h3><p>このアプリは成績をブラウザ内に保存します。JSONバックアップには、履歴と登録済み問題集の両方を収録します。</p>
+      <div class="actions"><button class="btn primary" data-export="1">全成績・問題集をJSON出力</button><button class="btn" data-import-records="1">成績JSONを取込み（追記）</button></div>
+      <p class="micro">旧15問アプリ形式、旧95問v2形式、共通アプリ形式に対応。記録IDが同じ行は重複排除し、内容が異なれば拒否します。URLを変えたり、別端末へ移すときは出力JSONが必要です。クラウド同期は未実装です。</p></div>`;
+  }
+  function render() {
+    $('side').innerHTML = renderSidebar();
+    const view = state.view;
+    $('main').innerHTML = view === 'dashboard' ? renderDashboard() : view === 'history' ? renderHistory() : view === 'library' ? renderLibrary() : renderStudy();
+  }
+
+  function exportJSON() {
+    const contents = { ...state, exported_at: new Date().toISOString(), export_format: 'ipa-unified-backup-v1' };
+    const blob = new Blob([JSON.stringify(contents, null, 2)], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `IPA_SYSTEM_ALL_RECORDS_${localDate()}.json`;
+    document.body.append(link);
+    link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 3000);
+    notify(`成績 ${state.records.length}件・問題集 ${bankList().length}件をJSON出力しました`);
+  }
+  function legacyV2Backup(x) {
+    const body = x?.state?.version === 'ipa-pds-95-revised-v2' ? x.state : x;
+    if (body?.version !== 'ipa-pds-95-revised-v2' || !body.answers || !body.submitted)
+      throw new Error('旧95問バックアップの形式に一致しません');
+    const result = { records: [], attempts: [], schedule: {
+      exam: body.exam || '', applicationFrom: body.applicationFrom || '', applicationTo: body.applicationTo || ''
+    } };
+    for (let i = 0; i < LEGACY.groups.length; i++) {
+      const submitted = body.submitted[String(i)];
+      if (!submitted) continue;
+      const group = LEGACY.groups[i];
+      const when = submitted.submittedAt || `${submitted.date}T12:00:00+09:00`;
+      const day = submitted.date || localDate(new Date(when));
+      const attempt_id = `legacy-v2-${i}-${day}`;
+      let correct = 0, unknown = 0;
+      for (const q of LEGACY.questions.slice(group.from, group.to)) {
+        const answer = body.answers[q.id];
+        if (!['A', 'B', 'C', 'D', '?'].includes(answer)) throw new Error(`旧問題 ${q.id} に採点済み回答がありません`);
+        correct += Number(answer === q.answer);
+        unknown += Number(answer === '?');
+        result.records.push({
+          record_id: `legacy-v2-${i}-${q.id}-${day}`, attempt_id,
+          bank_version: 'ipa-pds-95-revised-v2', question_id: q.id, question_version: '2.0.0',
+          section: q.section, major: q.major, minor: q.minor, difficulty: '未設定（旧版）',
+          answer, correct: answer === q.answer, unknown: answer === '?', mode: 'learning',
+          is_first_seen: true, answered_at: when, submitted_at: when, answer_date: day, elapsed_seconds: null
+        });
+      }
+      result.attempts.push({ attempt_id, bank_version: 'ipa-pds-95-revised-v2', section: group.section,
+        submitted_at: when, answer_date: day, total: group.to - group.from, correct, unknown, mode: 'learning' });
+    }
+    return result;
+  }
+  function validRecord(record) {
+    if (!record || typeof record.record_id !== 'string' || !record.record_id ||
+        typeof record.attempt_id !== 'string' || !record.attempt_id ||
+        !record.bank_version || !record.question_id || !record.question_version ||
+        !PARTS.includes(record.section) || !['A', 'B', 'C', 'D', '?'].includes(record.answer) ||
+        typeof record.correct !== 'boolean' || typeof record.unknown !== 'boolean' ||
+        !record.submitted_at || !isDate(record.answer_date) || !record.major || !record.minor)
+      throw new Error('成績行の必須項目が不足しています');
+    if (record.unknown !== (record.answer === '?') || (record.unknown && record.correct))
+      throw new Error('成績行の「わからない」と正誤が矛盾しています');
+  }
+  function validAttempt(attempt) {
+    if (!attempt || !attempt.attempt_id || !attempt.bank_version || !PARTS.includes(attempt.section) ||
+        !Number.isInteger(attempt.total) || !Number.isInteger(attempt.correct) ||
+        !Number.isInteger(attempt.unknown) || attempt.total < 1 || attempt.correct < 0 ||
+        attempt.unknown < 0 || attempt.correct + attempt.unknown > attempt.total || !attempt.submitted_at)
+      throw new Error('採点セットの形式に問題があります');
+  }
+  function stableRecord(r) {
+    // UI-specific or legacy-specific optional fields may be absent; compare core immutable data.
+    return ['record_id', 'attempt_id', 'bank_version', 'question_id', 'question_version',
+      'section', 'major', 'minor', 'answer', 'correct', 'unknown', 'submitted_at', 'answer_date']
+      .map(k => JSON.stringify(r[k])).join('|');
+  }
+  function mergeRecords(incoming) {
+    if (!Array.isArray(incoming.records) || !Array.isArray(incoming.attempts))
+      throw new Error('成績データにはrecordsとattemptsが必要です');
+    const original = new Map(state.records.map(r => [r.record_id, r]));
+    const seen = new Map();
+    for (const record of incoming.records) {
+      validRecord(record);
+      const prev = seen.get(record.record_id) || original.get(record.record_id);
+      if (prev && stableRecord(prev) !== stableRecord(record))
+        throw new Error(`同じ記録IDに異なる成績が指定されています：${record.record_id}`);
+      seen.set(record.record_id, record);
+      const bank = state.banks[record.bank_version] || incoming.banks?.[record.bank_version];
+      if (bank) {
+        const q = bank.questions.find(z => z.question_id === record.question_id && z.question_version === record.question_version);
+        if (!q) throw new Error(`記録に対応する問題版が存在しません：${record.question_id}`);
+        if (record.correct !== (record.answer === q.answer))
+          throw new Error(`正解と成績が一致しません：${record.question_id}`);
+      }
+    }
+    const attemptsById = new Map(state.attempts.map(a => [a.attempt_id, a]));
+    const importAttempts = new Map();
+    for (const attempt of incoming.attempts) {
+      validAttempt(attempt);
+      const prior = attemptsById.get(attempt.attempt_id) || importAttempts.get(attempt.attempt_id);
+      if (prior && (prior.total !== attempt.total || prior.correct !== attempt.correct || prior.unknown !== attempt.unknown || prior.bank_version !== attempt.bank_version))
+        throw new Error(`同じ採点IDの件数が不一致です：${attempt.attempt_id}`);
+      importAttempts.set(attempt.attempt_id, attempt);
+    }
+    const additions = [...seen.values()].filter(r => !original.has(r.record_id));
+    const newAttempts = [...importAttempts.values()].filter(a => !attemptsById.has(a.attempt_id));
+    state.records.push(...additions);
+    state.attempts.push(...newAttempts);
+    for (const key of ['exam', 'applicationFrom', 'applicationTo'])
+      if (!state.schedule[key] && incoming.schedule?.[key]) state.schedule[key] = incoming.schedule[key];
+    return { added: additions.length, attempts: newAttempts.length, duplicates: incoming.records.length - additions.length };
+  }
+  function parseRecordJSON(x) {
+    if (x?.version === 'ipa-pds-95-revised-v2' || x?.state?.version === 'ipa-pds-95-revised-v2')
+      return legacyV2Backup(x);
+    if (!['ipa-study-records-1', SCHEMA].includes(x?.schema_version)) throw new Error('対応していない成績JSON形式です');
+    if (!Array.isArray(x.records) || !Array.isArray(x.attempts)) throw new Error('成績のrecords/attemptsが不正です');
+    return x;
+  }
+  async function importRecordFile(file) {
+    if (!file) return;
+    try {
+      const parsed = parseRecordJSON(JSON.parse(await file.text()));
+      const incomingBanks = parsed.banks ? Object.values(parsed.banks).map(normalizedBank) : [];
+      // preflight on isolated copies to avoid partially modifying state.
+      const before = state;
+      const testState = JSON.parse(JSON.stringify(state));
+      state = testState;
+      let result;
+      try {
+        registerBanks(incomingBanks, '成績バックアップから復元');
+        result = mergeRecords(parsed);
+      } finally { state = before; }
+      ask(`問題別記録${parsed.records.length}件から${result.added}件を追加し、問題集${incomingBanks.length}件を確認します。既存の履歴は保持します。続けますか？`, () => {
+        registerBanks(incomingBanks, '成績バックアップから復元');
+        const finalResult = mergeRecords(parsed);
+        persist(); render(); notify(`成績を${finalResult.added}件追加、重複${finalResult.duplicates}件を除外しました`);
+      });
+    } catch (e) { reportError(e); }
+    finally { $('record-file').value = ''; }
+  }
+  async function importBankFiles(files) {
+    if (!files?.length) return;
+    try {
+      const input = [];
+      for (const file of files) {
+        const raw = JSON.parse(await file.text());
+        input.push(...(Array.isArray(raw) ? raw : [raw]));
+      }
+      // Validate every file before inserting any new bank.
+      const normalized = input.map(normalizedBank);
+      for (const bank of normalized) if (state.banks[bank.bank_version] && !sameBank(state.banks[bank.bank_version], bank))
+        throw new Error('既存bank_versionと設問内容が異なるため取込みできません');
+      ask(`${normalized.length}問題集を登録します。形式を検査しましたが、問題内容の品質は別途監査が必要です。登録しますか？`, () => {
+        const added = registerBanks(normalized, '手動JSON取込み');
+        if (added) {
+          state.selectedBank = normalized[0].bank_version;
+          state.selectedSection = PARTS.find(p => questionsFor(state.banks[normalized[0].bank_version], p).length) || 'A1';
+        }
+        persist(); render(); notify(`問題集${added}件を追加しました（既登録${normalized.length - added}件）`);
+      });
+    } catch (e) { reportError(e); }
+    finally { $('bank-file').value = ''; }
+  }
+  async function syncCatalog() {
+    if (!['http:', 'https:'].includes(location.protocol)) {
+      state.catalogStatus = 'ローカルHTMLでは公開カタログを自動読込できません。JSON追加を利用してください';
+      persist(); render(); return;
+    }
+    state.catalogStatus = '公開カタログを確認中'; render();
+    try {
+      const response = await fetch('./catalog/manifest.json', { cache: 'no-store' });
+      if (!response.ok) throw new Error(`manifest: HTTP ${response.status}`);
+      const manifest = await response.json();
+      if (manifest.schema_version !== 'ipa-study-catalog-manifest-v1' || !Array.isArray(manifest.banks))
+        throw new Error('manifest.jsonの形式が不正です');
+      const downloaded = [];
+      for (const entry of manifest.banks) {
+        if (typeof entry.file !== 'string' || !/^catalog\/[a-zA-Z0-9._\/-]+\.json$/.test(entry.file) || entry.file.includes('..'))
+          throw new Error('不正な公開問題集パスが含まれています');
+        const res = await fetch(`./${entry.file}`, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`${entry.file}: HTTP ${res.status}`);
+        const bank = await res.json();
+        if (entry.bank_version && entry.bank_version !== bank.bank_version)
+          throw new Error(`${entry.file}: bank_versionがmanifestと一致しません`);
+        if (entry.audit_status) bank.audit_status = entry.audit_status;
+        downloaded.push(bank);
+      }
+      const count = registerBanks(downloaded, '公開カタログ');
+      state.catalogStatus = `確認済み：${downloaded.length}問題集（今回追加${count}件）`;
+      persist(); render();
+      if (count) notify(`公開カタログから新しい問題集を${count}件追加しました`);
+    } catch (e) {
+      state.catalogStatus = `更新失敗：${e.message}（ローカル履歴・登録済問題は保持）`;
+      render(); notify(state.catalogStatus, true);
+    }
+  }
+
+  document.addEventListener('click', event => {
+    const button = event.target.closest('button');
+    if (!button) return;
+    try {
+      if (button.dataset.modal) { completeAsk(button.dataset.modal === 'yes'); return; }
+      if (!$('modal').hidden) return;
+      if (button.dataset.section && button.dataset.bank) openSet(button.dataset.bank, button.dataset.section);
+      else if (button.dataset.view) switchView(button.dataset.view);
+      else if (button.dataset.submit) submitSet();
+      else if (button.dataset.retry) retrySet();
+      else if (button.dataset.export) exportJSON();
+      else if (button.dataset.importBank) $('bank-file').click();
+      else if (button.dataset.importRecords) $('record-file').click();
+      else if (button.dataset.sync) syncCatalog();
+    } catch (e) { reportError(e); }
+  });
+  document.addEventListener('change', event => {
+    const field = event.target;
+    try {
+      if (field.matches('input[data-question]')) selectAnswer(field.dataset.question, field.value);
+      else if (field.id === 'dashboard-mode') { state.dashboardMode = field.value; persist(); render(); }
+      else if (field.id === 'dashboard-bank') { state.dashboardBank = field.value; state.reportMajor = 'all'; persist(); render(); }
+      else if (field.id === 'dashboard-section') { state.dashboardSection = field.value; state.reportMajor = 'all'; persist(); render(); }
+      else if (field.id === 'report-major') { state.reportMajor = field.value; persist(); render(); }
+      else if (field.dataset.schedule) { state.schedule[field.dataset.schedule] = field.value; persist(); render(); }
+    } catch (e) { reportError(e); }
+  });
+  $('bank-file').addEventListener('change', e => importBankFiles([...e.target.files]));
+  $('record-file').addEventListener('change', e => importRecordFile(e.target.files[0]));
+  hydrate(); render(); syncCatalog();
+  // Expose a limited read-only state summary for local automated diagnostics.
+  Object.defineProperty(window, '__IPA_APP_STATUS__', {
+    get: () => ({ banks: bankList().length, records: state.records.length,
+      attempts: state.attempts.length, storageMessage, catalogStatus: state.catalogStatus })
+  });
+})();
+</script></body></html>

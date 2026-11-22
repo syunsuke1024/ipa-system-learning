@@ -1,0 +1,22 @@
+# Never publish a user's personal learning history.
+*.env
+.env*
+*.token
+*.pem
+*.key
+secrets/
+private/
+backups/
+exports/
+records/
+study-records/
+*_records_*.json
+*成績*.json
+# Generated site and test artifacts.
+dist/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.zip
+IPA_SYSTEM_COMMON_APP_QA*.json
+IPA_SYSTEM_COMMON_APP_dashboard_preview.png

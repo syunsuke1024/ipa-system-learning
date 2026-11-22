@@ -1,0 +1,731 @@
+{
+  "questions": [
+    {
+      "id": "A1-001",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "機密性・完全性",
+      "answer": "D"
+    },
+    {
+      "id": "A1-011",
+      "section": "A1",
+      "major": "ネットワーク",
+      "minor": "TCP",
+      "answer": "B"
+    },
+    {
+      "id": "A1-021",
+      "section": "A1",
+      "major": "OS・コンピュータ",
+      "minor": "プロセスとスレッド",
+      "answer": "C"
+    },
+    {
+      "id": "A1-031",
+      "section": "A1",
+      "major": "データベース・データ",
+      "minor": "正規化",
+      "answer": "D"
+    },
+    {
+      "id": "A1-041",
+      "section": "A1",
+      "major": "開発・運用",
+      "minor": "単体テスト",
+      "answer": "D"
+    },
+    {
+      "id": "A1-051",
+      "section": "A1",
+      "major": "ビジネス・AI・法務",
+      "minor": "投資評価",
+      "answer": "B"
+    },
+    {
+      "id": "A1-002",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "SQLインジェクション",
+      "answer": "A"
+    },
+    {
+      "id": "A1-012",
+      "section": "A1",
+      "major": "ネットワーク",
+      "minor": "DNS",
+      "answer": "D"
+    },
+    {
+      "id": "A1-022",
+      "section": "A1",
+      "major": "OS・コンピュータ",
+      "minor": "仮想メモリ",
+      "answer": "C"
+    },
+    {
+      "id": "A1-032",
+      "section": "A1",
+      "major": "データベース・データ",
+      "minor": "外部キー",
+      "answer": "C"
+    },
+    {
+      "id": "A1-042",
+      "section": "A1",
+      "major": "開発・運用",
+      "minor": "境界値分析",
+      "answer": "A"
+    },
+    {
+      "id": "A1-052",
+      "section": "A1",
+      "major": "ビジネス・AI・法務",
+      "minor": "KPI",
+      "answer": "C"
+    },
+    {
+      "id": "A1-003",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "XSS",
+      "answer": "B"
+    },
+    {
+      "id": "A1-013",
+      "section": "A1",
+      "major": "ネットワーク",
+      "minor": "サブネット",
+      "answer": "B"
+    },
+    {
+      "id": "A1-023",
+      "section": "A1",
+      "major": "OS・コンピュータ",
+      "minor": "ページフォールト",
+      "answer": "D"
+    },
+    {
+      "id": "A1-033",
+      "section": "A1",
+      "major": "データベース・データ",
+      "minor": "ACID",
+      "answer": "A"
+    },
+    {
+      "id": "A1-043",
+      "section": "A1",
+      "major": "開発・運用",
+      "minor": "分岐網羅",
+      "answer": "C"
+    },
+    {
+      "id": "A1-053",
+      "section": "A1",
+      "major": "ビジネス・AI・法務",
+      "minor": "PERT",
+      "answer": "A"
+    },
+    {
+      "id": "A1-004",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "多要素認証",
+      "answer": "B"
+    },
+    {
+      "id": "A1-014",
+      "section": "A1",
+      "major": "ネットワーク",
+      "minor": "TLS",
+      "answer": "C"
+    },
+    {
+      "id": "A1-024",
+      "section": "A1",
+      "major": "OS・コンピュータ",
+      "minor": "競合状態",
+      "answer": "B"
+    },
+    {
+      "id": "A1-034",
+      "section": "A1",
+      "major": "データベース・データ",
+      "minor": "分離レベル",
+      "answer": "A"
+    },
+    {
+      "id": "A1-044",
+      "section": "A1",
+      "major": "開発・運用",
+      "minor": "CI",
+      "answer": "D"
+    },
+    {
+      "id": "A1-054",
+      "section": "A1",
+      "major": "ビジネス・AI・法務",
+      "minor": "WBS",
+      "answer": "A"
+    },
+    {
+      "id": "A1-005",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "パスワード管理",
+      "answer": "B"
+    },
+    {
+      "id": "A1-015",
+      "section": "A1",
+      "major": "ネットワーク",
+      "minor": "NAT",
+      "answer": "A"
+    },
+    {
+      "id": "A1-025",
+      "section": "A1",
+      "major": "OS・コンピュータ",
+      "minor": "デッドロック",
+      "answer": "C"
+    },
+    {
+      "id": "A1-035",
+      "section": "A1",
+      "major": "データベース・データ",
+      "minor": "索引",
+      "answer": "C"
+    },
+    {
+      "id": "A1-045",
+      "section": "A1",
+      "major": "開発・運用",
+      "minor": "デプロイと切戻し",
+      "answer": "D"
+    },
+    {
+      "id": "A1-055",
+      "section": "A1",
+      "major": "ビジネス・AI・法務",
+      "minor": "RACI",
+      "answer": "A"
+    },
+    {
+      "id": "A1-006",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "ゼロトラスト",
+      "answer": "D"
+    },
+    {
+      "id": "A1-016",
+      "section": "A1",
+      "major": "ネットワーク",
+      "minor": "TTL",
+      "answer": "A"
+    },
+    {
+      "id": "A1-026",
+      "section": "A1",
+      "major": "OS・コンピュータ",
+      "minor": "キャッシュ",
+      "answer": "C"
+    },
+    {
+      "id": "A1-036",
+      "section": "A1",
+      "major": "データベース・データ",
+      "minor": "CAP定理",
+      "answer": "D"
+    },
+    {
+      "id": "A1-046",
+      "section": "A1",
+      "major": "開発・運用",
+      "minor": "SLO",
+      "answer": "D"
+    },
+    {
+      "id": "A1-056",
+      "section": "A1",
+      "major": "ビジネス・AI・法務",
+      "minor": "スクラム",
+      "answer": "B"
+    },
+    {
+      "id": "A1-007",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "最小権限",
+      "answer": "C"
+    },
+    {
+      "id": "A1-017",
+      "section": "A1",
+      "major": "ネットワーク",
+      "minor": "CDN",
+      "answer": "A"
+    },
+    {
+      "id": "A1-027",
+      "section": "A1",
+      "major": "OS・コンピュータ",
+      "minor": "コンテキストスイッチ",
+      "answer": "B"
+    },
+    {
+      "id": "A1-037",
+      "section": "A1",
+      "major": "データベース・データ",
+      "minor": "ETL",
+      "answer": "B"
+    },
+    {
+      "id": "A1-047",
+      "section": "A1",
+      "major": "開発・運用",
+      "minor": "RPO・RTO",
+      "answer": "A"
+    },
+    {
+      "id": "A1-057",
+      "section": "A1",
+      "major": "ビジネス・AI・法務",
+      "minor": "RAG",
+      "answer": "D"
+    },
+    {
+      "id": "A1-008",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "サプライチェーン",
+      "answer": "A"
+    },
+    {
+      "id": "A1-018",
+      "section": "A1",
+      "major": "ネットワーク",
+      "minor": "ロードバランサー",
+      "answer": "A"
+    },
+    {
+      "id": "A1-028",
+      "section": "A1",
+      "major": "OS・コンピュータ",
+      "minor": "ファイル更新",
+      "answer": "D"
+    },
+    {
+      "id": "A1-038",
+      "section": "A1",
+      "major": "データベース・データ",
+      "minor": "スキーマ",
+      "answer": "B"
+    },
+    {
+      "id": "A1-048",
+      "section": "A1",
+      "major": "開発・運用",
+      "minor": "冪等性",
+      "answer": "C"
+    },
+    {
+      "id": "A1-058",
+      "section": "A1",
+      "major": "ビジネス・AI・法務",
+      "minor": "AIエージェント",
+      "answer": "C"
+    },
+    {
+      "id": "A1-009",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "プロンプトインジェクション",
+      "answer": "A"
+    },
+    {
+      "id": "A1-019",
+      "section": "A1",
+      "major": "ネットワーク",
+      "minor": "レイテンシとスループット",
+      "answer": "D"
+    },
+    {
+      "id": "A1-029",
+      "section": "A1",
+      "major": "OS・コンピュータ",
+      "minor": "RAID",
+      "answer": "D"
+    },
+    {
+      "id": "A1-039",
+      "section": "A1",
+      "major": "データベース・データ",
+      "minor": "OLAP",
+      "answer": "A"
+    },
+    {
+      "id": "A1-049",
+      "section": "A1",
+      "major": "開発・運用",
+      "minor": "可観測性",
+      "answer": "A"
+    },
+    {
+      "id": "A1-059",
+      "section": "A1",
+      "major": "ビジネス・AI・法務",
+      "minor": "個人情報",
+      "answer": "A"
+    },
+    {
+      "id": "A1-010",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "認証と認可",
+      "answer": "D"
+    },
+    {
+      "id": "A1-020",
+      "section": "A1",
+      "major": "ネットワーク",
+      "minor": "DHCP",
+      "answer": "B"
+    },
+    {
+      "id": "A1-030",
+      "section": "A1",
+      "major": "OS・コンピュータ",
+      "minor": "可用性計算",
+      "answer": "C"
+    },
+    {
+      "id": "A1-040",
+      "section": "A1",
+      "major": "データベース・データ",
+      "minor": "データ品質",
+      "answer": "C"
+    },
+    {
+      "id": "A1-050",
+      "section": "A1",
+      "major": "開発・運用",
+      "minor": "IaC",
+      "answer": "C"
+    },
+    {
+      "id": "A1-060",
+      "section": "A1",
+      "major": "ビジネス・AI・法務",
+      "minor": "エッジ処理",
+      "answer": "D"
+    },
+    {
+      "id": "A2-001",
+      "section": "A2",
+      "major": "要件定義",
+      "minor": "機能要件と非機能要件",
+      "answer": "D"
+    },
+    {
+      "id": "A2-002",
+      "section": "A2",
+      "major": "要件定義",
+      "minor": "トレーサビリティ",
+      "answer": "A"
+    },
+    {
+      "id": "A2-003",
+      "section": "A2",
+      "major": "システム設計",
+      "minor": "単一責任と疎結合",
+      "answer": "C"
+    },
+    {
+      "id": "A2-004",
+      "section": "A2",
+      "major": "システム設計",
+      "minor": "シングルポイント障害",
+      "answer": "C"
+    },
+    {
+      "id": "A2-005",
+      "section": "A2",
+      "major": "システム設計",
+      "minor": "キャパシティ計画",
+      "answer": "A"
+    },
+    {
+      "id": "A2-006",
+      "section": "A2",
+      "major": "クラウド設計",
+      "minor": "責任共有",
+      "answer": "C"
+    },
+    {
+      "id": "A2-007",
+      "section": "A2",
+      "major": "クラウド設計",
+      "minor": "オブジェクトストレージ",
+      "answer": "D"
+    },
+    {
+      "id": "A2-008",
+      "section": "A2",
+      "major": "クラウド設計",
+      "minor": "状態を持つアプリ",
+      "answer": "D"
+    },
+    {
+      "id": "A2-009",
+      "section": "A2",
+      "major": "アーキテクチャ",
+      "minor": "サーキットブレーカー",
+      "answer": "C"
+    },
+    {
+      "id": "A2-010",
+      "section": "A2",
+      "major": "アーキテクチャ",
+      "minor": "リトライ",
+      "answer": "B"
+    },
+    {
+      "id": "A2-011",
+      "section": "A2",
+      "major": "データ設計",
+      "minor": "イベント駆動",
+      "answer": "A"
+    },
+    {
+      "id": "A2-012",
+      "section": "A2",
+      "major": "データ設計",
+      "minor": "データ整合性",
+      "answer": "A"
+    },
+    {
+      "id": "A2-013",
+      "section": "A2",
+      "major": "API設計",
+      "minor": "HTTPメソッド",
+      "answer": "A"
+    },
+    {
+      "id": "A2-014",
+      "section": "A2",
+      "major": "実行管理",
+      "minor": "ジョブ排他",
+      "answer": "B"
+    },
+    {
+      "id": "A2-015",
+      "section": "A2",
+      "major": "デプロイ設計",
+      "minor": "ブルーグリーン",
+      "answer": "D"
+    },
+    {
+      "id": "A2-016",
+      "section": "A2",
+      "major": "IoT・組込み",
+      "minor": "エッジ処理",
+      "answer": "B"
+    },
+    {
+      "id": "A2-017",
+      "section": "A2",
+      "major": "セキュリティ設計",
+      "minor": "脅威モデリング",
+      "answer": "C"
+    },
+    {
+      "id": "A2-018",
+      "section": "A2",
+      "major": "テスト設計",
+      "minor": "契約テスト",
+      "answer": "C"
+    },
+    {
+      "id": "A2-019",
+      "section": "A2",
+      "major": "運用設計",
+      "minor": "可観測性",
+      "answer": "D"
+    },
+    {
+      "id": "A2-020",
+      "section": "A2",
+      "major": "業務設計",
+      "minor": "合意形成",
+      "answer": "C"
+    },
+    {
+      "id": "A2-021",
+      "section": "A2",
+      "major": "運用設計",
+      "minor": "バックアップ",
+      "answer": "D"
+    },
+    {
+      "id": "A2-022",
+      "section": "A2",
+      "major": "アーキテクチャ",
+      "minor": "コスト設計",
+      "answer": "D"
+    },
+    {
+      "id": "A2-023",
+      "section": "A2",
+      "major": "システム設計",
+      "minor": "監査と操作記録",
+      "answer": "C"
+    },
+    {
+      "id": "B-001",
+      "section": "B",
+      "major": "障害復旧",
+      "minor": "ジョブ状態の復元",
+      "answer": "A"
+    },
+    {
+      "id": "B-002",
+      "section": "B",
+      "major": "並行処理",
+      "minor": "排他制御と復旧",
+      "answer": "B"
+    },
+    {
+      "id": "B-003",
+      "section": "B",
+      "major": "データ整合性",
+      "minor": "CSVとS3",
+      "answer": "D"
+    },
+    {
+      "id": "B-004",
+      "section": "B",
+      "major": "可用性",
+      "minor": "復旧目標の検証",
+      "answer": "D"
+    },
+    {
+      "id": "B-005",
+      "section": "B",
+      "major": "デプロイ",
+      "minor": "段階的切替え",
+      "answer": "D"
+    },
+    {
+      "id": "B-006",
+      "section": "B",
+      "major": "移行",
+      "minor": "データ移行の整合性",
+      "answer": "E"
+    },
+    {
+      "id": "B-007",
+      "section": "B",
+      "major": "組込み・IoT",
+      "minor": "通信断と電力制約",
+      "answer": "D"
+    },
+    {
+      "id": "B-008",
+      "section": "B",
+      "major": "セキュリティ設計",
+      "minor": "アクセス制御",
+      "answer": "B"
+    },
+    {
+      "id": "B-009",
+      "section": "B",
+      "major": "システム運用",
+      "minor": "障害調査",
+      "answer": "D"
+    },
+    {
+      "id": "B-010",
+      "section": "B",
+      "major": "災害対策",
+      "minor": "リージョン障害",
+      "answer": "C"
+    },
+    {
+      "id": "B-011",
+      "section": "B",
+      "major": "要件定義",
+      "minor": "非機能要件と受入",
+      "answer": "B"
+    },
+    {
+      "id": "B-012",
+      "section": "B",
+      "major": "移行と運用",
+      "minor": "継続的な品質保証",
+      "answer": "A"
+    }
+  ],
+  "groups": [
+    {
+      "section": "A1",
+      "from": 0,
+      "to": 10
+    },
+    {
+      "section": "A1",
+      "from": 10,
+      "to": 20
+    },
+    {
+      "section": "A1",
+      "from": 20,
+      "to": 30
+    },
+    {
+      "section": "A1",
+      "from": 30,
+      "to": 40
+    },
+    {
+      "section": "A1",
+      "from": 40,
+      "to": 50
+    },
+    {
+      "section": "A1",
+      "from": 50,
+      "to": 60
+    },
+    {
+      "section": "A2",
+      "from": 60,
+      "to": 68
+    },
+    {
+      "section": "A2",
+      "from": 68,
+      "to": 76
+    },
+    {
+      "section": "A2",
+      "from": 76,
+      "to": 83
+    },
+    {
+      "section": "B",
+      "from": 83,
+      "to": 87
+    },
+    {
+      "section": "B",
+      "from": 87,
+      "to": 91
+    },
+    {
+      "section": "B",
+      "from": 91,
+      "to": 95
+    }
+  ]
+}

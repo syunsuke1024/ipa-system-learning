@@ -1,0 +1,289 @@
+{
+  "qa_type": "creator_self_audit_not_independent_expert_review",
+  "date": "2026-11-22",
+  "bank_version": "ipa-pds-system-original-quality-test-20261122-v1",
+  "total_questions": 15,
+  "sections": {
+    "A1": 10,
+    "A2": 3,
+    "B": 2
+  },
+  "difficulties": {
+    "標準": 5,
+    "応用": 8,
+    "基礎": 2
+  },
+  "answer_positions": {
+    "C": 4,
+    "A": 4,
+    "D": 4,
+    "B": 3
+  },
+  "answer_is_longest_count": 5,
+  "per_question": [
+    {
+      "question_id": "T26-A1-001",
+      "section": "A1",
+      "major": "ビジネス変革",
+      "minor": "投資判断・感度分析",
+      "difficulty": "標準",
+      "answer": "C",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 9,
+      "nearest_existing_by_character_similarity": {
+        "id": "A2-021",
+        "ratio": 0.262
+      },
+      "review_note": "将来件数という主要な不確実性を感度分析で検証。回収期間・割引なし集計・過去平均はそれぞれ合理的な別指標だが本件の不確実性を直接評価しない。"
+    },
+    {
+      "question_id": "T26-A1-002",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "暗号鍵管理",
+      "difficulty": "応用",
+      "answer": "A",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 10,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-005",
+        "ratio": 0.348
+      },
+      "review_note": "旧鍵を保持する可用性要件と露出を抑える鍵管理を両立。鍵ID変更・旧鍵破棄・ID使い回しの失敗を個別に区別した。"
+    },
+    {
+      "question_id": "T26-A1-003",
+      "section": "A1",
+      "major": "ネットワーク",
+      "minor": "HTTP条件付き要求",
+      "difficulty": "標準",
+      "answer": "D",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 9,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-028",
+        "ratio": 0.321
+      },
+      "review_note": "ETagによる再検証と304を区別。no-store、更新日時、URL版管理も別条件では有用だが今回の転送削減と新鮮度の両立には劣る。"
+    },
+    {
+      "question_id": "T26-A1-004",
+      "section": "A1",
+      "major": "OS・コンピュータ",
+      "minor": "DMAと割込み",
+      "difficulty": "基礎",
+      "answer": "B",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 9,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-033",
+        "ratio": 0.316
+      },
+      "review_note": "CPUのデータ転送と転送完了通知を分離して問う。割込みI/O・ポーリング・MMIOの部分的な利点を認めつつDMAとの違いを説明。"
+    },
+    {
+      "question_id": "T26-A1-005",
+      "section": "A1",
+      "major": "データベース",
+      "minor": "複合索引の列順",
+      "difficulty": "応用",
+      "answer": "C",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 9,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-035",
+        "ratio": 0.272
+      },
+      "review_note": "複合索引の等価条件と範囲条件の優先を問う。全店舗検索や状態起点の検索など、索引順が変わり得る条件を対比。"
+    },
+    {
+      "question_id": "T26-A1-006",
+      "section": "A1",
+      "major": "開発・品質",
+      "minor": "ミューテーションテスト",
+      "difficulty": "応用",
+      "answer": "A",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 10,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-044",
+        "ratio": 0.314
+      },
+      "review_note": "分岐網羅とテストの欠陥検出能力の違いを測る。ミューテーションの等価変異体と境界値テストの観点まで説明。"
+    },
+    {
+      "question_id": "T26-A1-007",
+      "section": "A1",
+      "major": "データ・マネジメント",
+      "minor": "データリネージ",
+      "difficulty": "標準",
+      "answer": "D",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 9,
+      "nearest_existing_by_character_similarity": {
+        "id": "A2-002",
+        "ratio": 0.257
+      },
+      "review_note": "辞書・カタログ・閲覧ログと、変換経路の追跡可能性を区別。異常分析のメタデータにおける分担を明記。"
+    },
+    {
+      "question_id": "T26-A1-008",
+      "section": "A1",
+      "major": "AI・データ分析",
+      "minor": "データリーク",
+      "difficulty": "標準",
+      "answer": "B",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 10,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-032",
+        "ratio": 0.346
+      },
+      "review_note": "時系列リークの発生箇所を、分割方法・全データ前処理・解約後特徴量で区別。特徴量利用可能時点の制約を明示。"
+    },
+    {
+      "question_id": "T26-A1-009",
+      "section": "A1",
+      "major": "ビジネス変革",
+      "minor": "調達・契約方式",
+      "difficulty": "標準",
+      "answer": "A",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 9,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-044",
+        "ratio": 0.282
+      },
+      "review_note": "準委任・請負・労働者派遣・共同研究の各契約の成立条件を比較。直接指揮命令なし、完成検収が難しいという制約を追加し多解を抑制。"
+    },
+    {
+      "question_id": "T26-A1-010",
+      "section": "A1",
+      "major": "IoT・組込み",
+      "minor": "ウォッチドッグタイマ",
+      "difficulty": "基礎",
+      "answer": "C",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 9,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-044",
+        "ratio": 0.255
+      },
+      "review_note": "通信不能な無限ループでも独立して検知する条件を設置。遠隔監視・CPU監視・例外処理との機能差を明示。"
+    },
+    {
+      "question_id": "T26-A2-001",
+      "section": "A2",
+      "major": "ネットワーク設計",
+      "minor": "顧客別API流量制御",
+      "difficulty": "応用",
+      "answer": "D",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 10,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-006",
+        "ratio": 0.236
+      },
+      "review_note": "顧客ごと・平均5件/秒・バースト20件・キュー不可・429を同時に満たすトークンバケットを問う。固定窓の境界超過と共有セマフォを比較。"
+    },
+    {
+      "question_id": "T26-A2-002",
+      "section": "A2",
+      "major": "データベース設計",
+      "minor": "ホットパーティション対策",
+      "difficulty": "応用",
+      "answer": "B",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 9,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-045",
+        "ratio": 0.267
+      },
+      "review_note": "単調増加キーのホットパーティションと範囲検索のトレードオフを問う。書込み負荷と読取りの影響を区別。"
+    },
+    {
+      "question_id": "T26-A2-003",
+      "section": "A2",
+      "major": "IoT・組込み設計",
+      "minor": "OTA更新の復旧設計",
+      "difficulty": "応用",
+      "answer": "C",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 10,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-023",
+        "ratio": 0.299
+      },
+      "review_note": "OTAにおける途中電断・起動不良と通信復帰をA/Bスロットで扱う。署名検証・単一領域・ネット再取得だけでは復旧要件に足りない。"
+    },
+    {
+      "question_id": "T26-B-001",
+      "section": "B",
+      "major": "業務システム設計",
+      "minor": "規則改定と審査の説明責任",
+      "difficulty": "応用",
+      "answer": "A",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 10,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-044",
+        "ratio": 0.144
+      },
+      "review_note": "受理時規則、証憑差替履歴、再審査追記、案件ごとのアクセス制御という4制約を照合。正答に証憑履歴保持と閲覧制御を明記。"
+    },
+    {
+      "question_id": "T26-B-002",
+      "section": "B",
+      "major": "業務システム設計",
+      "minor": "遅延データと人間承認",
+      "difficulty": "応用",
+      "answer": "D",
+      "gate_Q1": "PASS (自己監査)",
+      "gate_Q2": "PASS (自己監査)",
+      "gate_Q4": "PASS (自己監査)",
+      "quality_score_out_of_10": 10,
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-033",
+        "ratio": 0.163
+      },
+      "review_note": "遅延・重複・時計ずれ・承認済み指示の版保持を同時評価。受信時刻・端末時刻・手入力を比較し、推薦と最終承認を分離。"
+    }
+  ],
+  "browser_QA_passed": 14,
+  "browser_QA_total": 14,
+  "browser_environment": "Chromium headless / Playwright。管理ポリシーにより file:// とHTTP(S) URLへのページ遷移はブロックされたため、page.set_contentで実DOMを生成して操作した。localStorageはページ内に実装したメモリモックを使用。JSONダウンロードはChromiumの実Downloadで取得し、別コンテキストでインポートを実行。",
+  "limitations": [
+    "HTMLファイルをChromeで直接ダブルクリックした場合のページ起動は未検証",
+    "ブラウザのネイティブlocalStorageを利用した実リロード・実再起動後の永続性は未検証",
+    "プロジェクト共通保存場所への自動同期機能はない（手動JSONアップロード）",
+    "公式科目A-1シラバス案PDFと科目Bサンプル問題PDFの本文は未確認"
+  ]
+}
