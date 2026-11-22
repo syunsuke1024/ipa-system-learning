@@ -36,6 +36,9 @@ FAKE='''(initial)=>{
 def make_page(browser,cloud_rows=None,local=None):
   ctx=browser.new_context(accept_downloads=True)
   p=ctx.new_page()
+  # Avoid external OAuth script changing the injected mock during CI.
+  p.route('https://accounts.google.com/gsi/client',
+          lambda route: route.fulfill(status=200,content_type='application/javascript',body=''))
   p.add_init_script("window.confirm=()=>{throw Error('native dialog blocked')};window.alert=()=>{throw Error('native dialog blocked')};window.prompt=()=>{throw Error('native dialog blocked')};")
   p.evaluate(POLY)
   if local:p.evaluate('(obj)=>{for(const [k,v] of Object.entries(obj))localStorage.setItem(k,v)}',local)
