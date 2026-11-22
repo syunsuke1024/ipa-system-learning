@@ -6,6 +6,12 @@
       "bank_version": "ipa-pds-system-original-quality-test-20261122-v1",
       "audit_status": "内部品質監査済み（Q1/Q2/Q4）",
       "audit_file": "audits/2026-11-22-quality15-audit.json"
+    },
+    {
+      "file": "catalog/2026-11-22-week02.json",
+      "bank_version": "ipa-pds-system-week02-20261122-v1",
+      "audit_status": "問題別自己監査済み（独立第三者監査ではない）",
+      "audit_file": "audits/2026-11-22-week02-audit.json"
     }
   ]
 }
