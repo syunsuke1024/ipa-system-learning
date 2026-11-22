@@ -31,6 +31,8 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Run all 28 HTML regression tests (including dialog-disabled grading)
         run: python tests/test_common_app.py
+      - name: Test private Google Sheets sync with mocked OAuth and API (no credentials)
+        run: python tests/test_cloud_sync.py
       - name: Prepare public site (no study records)
         run: python tools/build_site.py
       - uses: actions/configure-pages@v5

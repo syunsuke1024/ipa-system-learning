@@ -14,6 +14,9 @@ LEGACY=json.loads((ROOT/'tests'/'legacy_v2_example.json').read_text())
 HTML=(ROOT/'index.html').read_text()
 STORE_POLY='''() => { const store = {}; Object.defineProperty(window,'localStorage',{configurable:true,value:{getItem:k=>Object.hasOwn(store,k)?store[k]:null,setItem:(k,v)=>{store[k]=String(v)},removeItem:k=>delete store[k],_dump:()=>({...store})}}) }'''
 def initialize(page, saved=None):
+    # Keep grading regression deterministic independently of external OAuth script availability.
+    page.route('https://accounts.google.com/gsi/client',
+               lambda route: route.fulfill(status=200,content_type='application/javascript',body=''))
     page.evaluate(STORE_POLY)
     if saved is not None: page.evaluate('(data)=>{for(const [k,v] of Object.entries(data))localStorage.setItem(k,v)}',saved)
     page.set_content(HTML,wait_until='domcontentloaded')

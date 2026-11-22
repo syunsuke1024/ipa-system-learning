@@ -22,6 +22,22 @@
   let noticeTimer = null;
   let storageLocked = false;
   let loadedSources = {};
+  const cloud = window.IPACloudSync.create({
+    getState: () => state,
+    render: () => render(),
+    notify: (message, isError) => notify(message, isError),
+    validateMerge: incoming => {
+      const original=state;
+      state=JSON.parse(JSON.stringify(original));
+      try { mergeRecords(incoming); } finally { state=original; }
+    },
+    mergeRemote: incoming => {
+      const result=mergeRecords(incoming);
+      if (!persist()) throw Error("ローカル保存に失敗しました。JSONエクスポートしてください");
+      render();
+      return result;
+    }
+  });
 
   const $ = id => document.getElementById(id);
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({
@@ -219,7 +235,7 @@
     persist(); render(); window.scrollTo(0, 0);
   }
   function switchView(view) {
-    if (!['study', 'dashboard', 'history', 'library'].includes(view)) return;
+    if (!['study', 'dashboard', 'history', 'library', 'cloud'].includes(view)) return;
     state.view = view; persist(); render(); window.scrollTo(0, 0);
   }
   function selectAnswer(id, value) {
@@ -267,6 +283,7 @@
     const saved = persist();
     render();
     notify(`採点完了：${correct}/${qs.length}問正解・わからない${unknown}問${saved ? '／ブラウザ保存済み' : '／JSONバックアップが必要'}`, !saved);
+    if (saved) cloud.autoSync();
   }
   function retrySet() {
     const bank = currentBank(), part = state.selectedSection;
@@ -376,6 +393,7 @@
       }).join('')}
       <button class="navbtn ${active === 'dashboard' ? 'active' : ''}" data-view="dashboard">成績ダッシュボード<small>全問題集・日付別・分野別</small></button>
       <button class="navbtn ${active === 'history' ? 'active' : ''}" data-view="history">復習・全履歴<small>不正解・わからない・再演習</small></button>
+      <button class="navbtn ${active === 'cloud' ? 'active' : ''}" data-view="cloud">クラウド成績同期<small>${esc(cloud.statusBrief())}・Google Sheets</small></button>
     </div><div class="side-info"><b>${localRecords}</b>件の問題別記録<br>保存状態：${esc(storageMessage)}<hr>
       <button class="btn full" data-export="1">成績JSONをエクスポート</button>
       <p>新しい問題集を追加しても、このアプリの成績履歴は保持されます。別の端末やURLにはJSONで引き継いでください。</p>
@@ -477,12 +495,12 @@
   function renderBackupPanel() {
     return `<div class="panel"><h3>成績の保存・移行</h3><p>このアプリは成績をブラウザ内に保存します。JSONバックアップには、履歴と登録済み問題集の両方を収録します。</p>
       <div class="actions"><button class="btn primary" data-export="1">全成績・問題集をJSON出力</button><button class="btn" data-import-records="1">成績JSONを取込み（追記）</button></div>
-      <p class="micro">旧15問アプリ形式、旧95問v2形式、共通アプリ形式に対応。記録IDが同じ行は重複排除し、内容が異なれば拒否します。URLを変えたり、別端末へ移すときは出力JSONが必要です。クラウド同期は未実装です。</p></div>`;
+      <p class="micro">旧15問アプリ形式、旧95問v2形式、共通アプリ形式に対応。記録IDが同じ行は重複排除し、内容が異なれば拒否します。URLを変えたり、別端末へ移すときは出力JSONが必要です。クラウド同期は左メニュー「クラウド成績同期」から設定できます。</p></div>`;
   }
   function render() {
     $('side').innerHTML = renderSidebar();
     const view = state.view;
-    $('main').innerHTML = view === 'dashboard' ? renderDashboard() : view === 'history' ? renderHistory() : view === 'library' ? renderLibrary() : renderStudy();
+    $('main').innerHTML = view === 'dashboard' ? renderDashboard() : view === 'history' ? renderHistory() : view === 'library' ? renderLibrary() : view === 'cloud' ? cloud.render() : renderStudy();
   }
 
   function exportJSON() {
@@ -690,6 +708,7 @@
       else if (button.dataset.importBank) $('bank-file').click();
       else if (button.dataset.importRecords) $('record-file').click();
       else if (button.dataset.sync) syncCatalog();
+      else if (button.dataset.cloud) void cloud.onAction(button.dataset.cloud);
     } catch (e) { reportError(e); }
   });
   document.addEventListener('change', event => {
