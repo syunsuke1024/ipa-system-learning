@@ -50,3 +50,18 @@
 - `ipa-study-records-1`：旧15問アプリの成績バックアップ。`records` と `attempts` を維持し、既存の重複を除外。
 - `ipa-pds-95-revised-v2`：旧95問v2の`state`ラッパーを含むJSON。採点済みセットを旧メタデータに照らして成績に変換。問題集そのものは自動で演習登録しません。
 - 記録元が別オリジン／端末の場合は、ユーザーがJSONをエクスポートして新アプリへインポートする必要があります。
+
+
+## Google Sheetsクラウド成績ログ v1
+
+Googleユーザーがブラウザから初回接続時に作成する非公開の台帳（他の全Google Sheetsへのアクセスではなく `drive.file` OAuth）。
+
+- `Config!A1:B1` = `schema_version` / `ipa-study-cloud-log-v1`。異なる台帳への誤書込みを防ぐ。
+- `LearningLog!A1:T1` = `kind,id,attempt_id,bank_version,question_id,question_version,section,major,minor,difficulty,answer,correct,unknown,mode,is_first_seen,answered_at,submitted_at,answer_date,elapsed_seconds,payload_json`。
+- `kind=RECORD`：各問題別の変更不能な記録を1行で保存。末尾 `payload_json` は成績JSONと同一の完全レコード。
+- `kind=ATTEMPT`：科目別セット採点履歴を1行で保存。末尾JSONに`total`/`correct`/`unknown`等が入る。
+- Google Sheets API `values.append` / `RAW` / `INSERT_ROWS` で未同期行のみ追記。同期時には全件を再取得しID重複を除外。重複IDの不整合を検出したら同期中断。
+- ローカル `localStorage` のキー `ipa-system-unified-study-v1` は維持。Client IDとSheet IDは別の設定キーに保存し、アクセストークンは永続化しない。
+- Google Sheetsの共有権限は所有者の設定に従う。Google認証に成功しても閲覧権限が無いシートへは同期しない。
+
+備考：複数端末で同時に同じ記録IDを送った場合、クラウド台帳に重複行が発生する可能性がある（読込み時に同一内容を重複排除）。同一IDの内容が異なればエラーとする。

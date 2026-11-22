@@ -88,3 +88,21 @@
 - 旧95問v2、旧15問、共通アプリの成績JSONを取り込める。問題集別の初見と再演習の履歴を保持し、履歴を上書きしない。
 - 公開問題JSONからは採点前でも技術的に正解を閲覧できる。アプリ画面は提出前には表示しないが、不正閲覧を防ぐ試験配信方式ではない。
 - この実行環境でのテストは、HTMLをChromiumのDOMへ直接読み込んだ検証と、ローカルスクリプトによる構造検査。**実際のGitHub Pages公開、公開HTTP読込、ブラウザ再起動後のネイティブ保存永続性は未確認**。
+
+
+## Step 3: クラウド成績同期（Google Sheets / OAuth）
+
+GitHub Pagesの公開アプリ左メニュー「クラウド成績同期」から設定。
+現状はGoogle OAuthクライアントIDをユーザーが用意する初期設定が必要。
+詳細は `CLOUD_SYNC_SETUP.md` を参照。
+
+- Google Identity Services のポップアップ認証、`drive.file` 権限（非機密・他のGoogle Driveファイルには原則アクセスしない）
+- ユーザーのGoogleアカウントに**非公開**の成績スプレッドシート `IPA_SYSTEM_PRIVATE_LEARNING_RECORDS_v1` を新規作成
+- 同期は問題・採点セットIDで重複排除する追記専用ログ。古い行の書き換え・削除を行わない
+- 既存の `ipa-system-unified-study-v1` のlocalStorageと成績JSON入出力を保持
+- OAuthアクセストークンはメモリだけ。利用設定（Client IDとSheet ID）だけを `ipa-system-cloud-settings-v1` に保存
+- 接続中は採点後に同期を試行。ページを再起動した後は「Googleで接続して同期」を再実行する必要がある
+- Googleでの実認証やネットワークを経由した同期はGitHub Actionsでは試せない。Google APIモック12ケースと従来の28ケースをCIで実施
+- ChatGPT新チャットの成績参照には同じGoogleアカウントのGoogle Driveコネクタと対象シートへのアクセスが別途必要
+
+**Google Sheetsの成績データは非公開のままとし、public GitHubへ学習履歴やトークンをコミットしない。**

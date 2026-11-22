@@ -91,7 +91,7 @@ def verify(root):
             insist(key not in seen_questions, f'異なる問題集で同一ID/版を再利用: {key}, {seen_questions.get(key)} と {version}')
             seen_questions[key]=version
     # 配信成果物とその保守資材のJSが標準ダイアログを利用しないことを静的検査。
-    for file in (root/'app.js', root/'index.html'):
+    for file in (root/'app.js', root/'cloud_sync.js', root/'index.html'):
         s=file.read_text(encoding='utf-8')
         insist(not re.search(r'\b(?:window\s*\.\s*)?(?:alert|confirm|prompt)\s*\(',s),
                f'標準ブラウザダイアログ呼出しが残っています: {file.name}')
