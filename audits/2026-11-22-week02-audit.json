@@ -1,0 +1,539 @@
+{
+  "qa_type": "creator_self_audit_not_independent_expert_review",
+  "date": "2026-11-22",
+  "bank_version": "ipa-pds-system-week02-20261122-v1",
+  "total_questions": 15,
+  "sections": {
+    "A1": 10,
+    "A2": 3,
+    "B": 2
+  },
+  "difficulties": {
+    "基礎": 2,
+    "応用": 10,
+    "標準": 3
+  },
+  "answer_positions": {
+    "A": 4,
+    "C": 4,
+    "D": 3,
+    "B": 4
+  },
+  "answer_is_longest_count": 7,
+  "per_question": [
+    {
+      "question_id": "W02-A1-001",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "IT基盤",
+      "minor": "並列化・性能評価",
+      "difficulty": "基礎",
+      "answer": "A",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "A2-021",
+        "ratio": 0.222
+      },
+      "option_length": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "answer_is_one_of_longest": true,
+      "review_note": "逐次40%が速度上限を制約するため1/(0.4+0.6/3)で一意に1.67。倍率と短縮時間の取り違えを誤答に配置。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-A1-002",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "IT基盤",
+      "minor": "DNSキャッシュ・切替運用",
+      "difficulty": "応用",
+      "answer": "C",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "T26-A1-008",
+        "ratio": 0.244
+      },
+      "option_length": [
+        33,
+        28,
+        34,
+        28
+      ],
+      "answer_is_one_of_longest": true,
+      "review_note": "すでに配布されたTTLは後から変更できない。権威DNS更新と再帰キャッシュの相違を問う。TTL厳守の条件で旧IP維持が有効。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-A1-003",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "データの利活用",
+      "minor": "SQL・分析関数",
+      "difficulty": "標準",
+      "answer": "D",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "T26-A1-005",
+        "ratio": 0.23
+      },
+      "option_length": [
+        48,
+        34,
+        33,
+        41
+      ],
+      "answer_is_one_of_longest": false,
+      "review_note": "装置別の最新1行かつ同時刻時のタイブレークを要件化。MAX結合とGROUP BYと全体LIMITはそれぞれ特定条件で使える。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-A1-004",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "IT基盤",
+      "minor": "OS・時刻計測",
+      "difficulty": "標準",
+      "answer": "B",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "A2-021",
+        "ratio": 0.309
+      },
+      "option_length": [
+        28,
+        30,
+        31,
+        34
+      ],
+      "answer_is_one_of_longest": false,
+      "review_note": "時刻補正で壁時計が戻る前提を明記。単調時計で経過、壁時計で発生時刻という役割分担が一意。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-A1-005",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "匿名化・属性推測",
+      "difficulty": "応用",
+      "answer": "A",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "T26-A1-002",
+        "ratio": 0.236
+      },
+      "option_length": [
+        33,
+        33,
+        30,
+        29
+      ],
+      "answer_is_one_of_longest": true,
+      "review_note": "4匿名性と機微属性の同質性を区別。kを増やすこと自体、ID再ハッシュ、年齢細分化は本問の病名推測に十分でない。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-A1-006",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "システムの開発・運用",
+      "minor": "メタモルフィックテスト",
+      "difficulty": "応用",
+      "answer": "C",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "B-011",
+        "ratio": 0.241
+      },
+      "option_length": [
+        32,
+        29,
+        28,
+        28
+      ],
+      "answer_is_one_of_longest": false,
+      "review_note": "正答の値が不明な最適化で、並び順不変という仕様をテストオラクルに使う。乱数・再実行・分岐網羅と比較。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-A1-007",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "データの利活用",
+      "minor": "機械学習・評価指標",
+      "difficulty": "応用",
+      "answer": "D",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "T26-A1-006",
+        "ratio": 0.255
+      },
+      "option_length": [
+        32,
+        34,
+        31,
+        33
+      ],
+      "answer_is_one_of_longest": false,
+      "review_note": "見逃しの損失と500件/日の人的上限を両立させる評価指標を指定。Accuracy・閾値変更・学習分布調整だけではSLOを評価できない。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-A1-008",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "ビジネス変革",
+      "minor": "投資評価・機会費用",
+      "difficulty": "基礎",
+      "answer": "C",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "T26-A1-006",
+        "ratio": 0.209
+      },
+      "option_length": [
+        28,
+        27,
+        29,
+        28
+      ],
+      "answer_is_one_of_longest": true,
+      "review_note": "新たな賃料がないことと代替賃貸収益の機会費用を分離。減価償却・契約成立条件の誤認を誤答に配置。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-A1-009",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "IT基盤",
+      "minor": "標本化・アンチエイリアシング",
+      "difficulty": "標準",
+      "answer": "A",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "T26-A1-008",
+        "ratio": 0.282
+      },
+      "option_length": [
+        43,
+        39,
+        33,
+        37
+      ],
+      "answer_is_one_of_longest": true,
+      "review_note": "最高有効周波数80Hz・100Hzでの折返しを問う。200Hz標本化だけでなく標本化前フィルタが必要。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-A1-010",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "システムの開発・運用",
+      "minor": "キャッシュ運用・負荷分散",
+      "difficulty": "応用",
+      "answer": "D",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "T26-A1-002",
+        "ratio": 0.276
+      },
+      "option_length": [
+        36,
+        34,
+        34,
+        33
+      ],
+      "answer_is_one_of_longest": false,
+      "review_note": "期限の同期とキーへの同時要求という二重の問題に対し、TTLジッターと単一再計算が直接効く。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-A2-001",
+      "question_version": "1.0.0",
+      "section": "A2",
+      "major": "セキュリティ",
+      "minor": "サービス間認証・認可",
+      "difficulty": "応用",
+      "answer": "B",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "B-010",
+        "ratio": 0.244
+      },
+      "option_length": [
+        43,
+        47,
+        44,
+        43
+      ],
+      "answer_is_one_of_longest": true,
+      "review_note": "接続サービス実体と代理ユーザーの認可という別主体。mTLS単独、Bearer単独、IP ACLの効力を区別。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-A2-002",
+      "question_version": "1.0.0",
+      "section": "A2",
+      "major": "システムの開発・運用",
+      "minor": "非同期処理・自動スケーリング",
+      "difficulty": "応用",
+      "answer": "A",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-044",
+        "ratio": 0.244
+      },
+      "option_length": [
+        46,
+        35,
+        40,
+        43
+      ],
+      "answer_is_one_of_longest": true,
+      "review_note": "I/O待ちでCPUが低いこと、キュー年齢SLO、外部API上限を与え、スケーリング指標と流量制御を問う。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-A2-003",
+      "question_version": "1.0.0",
+      "section": "A2",
+      "major": "データの利活用",
+      "minor": "履歴データ・二時点管理",
+      "difficulty": "応用",
+      "answer": "C",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "T26-A1-003",
+        "ratio": 0.245
+      },
+      "option_length": [
+        37,
+        33,
+        31,
+        33
+      ],
+      "answer_is_one_of_longest": false,
+      "review_note": "業務有効日とシステム認識日が逆転する遡及訂正の条件。二時点を分離しなければ両as-ofを再現できない。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-B-001",
+      "question_version": "1.0.0",
+      "section": "B",
+      "major": "システムアーキテクチャ",
+      "minor": "オフライン認証・安全性・監査",
+      "difficulty": "応用",
+      "answer": "B",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "T26-A2-001",
+        "ratio": 0.186
+      },
+      "option_length": [
+        40,
+        47,
+        48,
+        44
+      ],
+      "answer_is_one_of_longest": false,
+      "review_note": "オフライン入室・現場失効・独立非常退避・耐改ざん後送の4条件。中央集約、失効遅延、ログ欠落案を排除。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W02-B-002",
+      "question_version": "1.0.0",
+      "section": "B",
+      "major": "システムの開発・運用",
+      "minor": "オフライン同期・競合解決・監査",
+      "difficulty": "応用",
+      "answer": "B",
+      "gate_Q1": "PASS (自己監査: 条件から単一正答)",
+      "gate_Q2": "PASS (自己監査: 技術的に有力な誤答)",
+      "gate_Q4": "PASS (自己監査: 選択肢4件を固有に評価)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "nearest_existing_by_character_similarity": {
+        "id": "A1-033",
+        "ratio": 0.189
+      },
+      "option_length": [
+        38,
+        38,
+        43,
+        41
+      ],
+      "answer_is_one_of_longest": false,
+      "review_note": "複数オフライン端末・時計ずれ・重複送信・監督者承認を同時に扱い、基準版と操作IDの役割を特定。",
+      "reviewer": "self_review_not_independent_expert"
+    }
+  ],
+  "syllabus_sources": [
+    "https://www.ipa.go.jp/shiken/syllabus/henkou/2026/20260630.html",
+    "https://www.ipa.go.jp/shiken/syllabus/henkou/2026/rcu1hd0000011v6g-att/syllabus_pd-s_ver0_2.pdf",
+    "https://www.ipa.go.jp/shiken/syllabus/henkou/2026/20260622.html",
+    "https://www.ipa.go.jp/shiken/syllabus/henkou/2025/20260331.html"
+  ],
+  "browser_QA_passed": null,
+  "browser_QA_total": null,
+  "browser_environment": "Pending update: existing 28-test CI suite passes for unchanged app; new bank integration not deployed/verified",
+  "limitations": [
+    "正解の一意性・誤答の妥当性について実施者による自己監査であり独立第三者監査ではない",
+    "GitHub接続の書込み403で本番サイト未登録、公開サイトの新問題表示は未確認",
+    "過去学習結果はブラウザのローカル保存のみであり、新チャットから自動読取り不可"
+  ],
+  "nonregression": {
+    "existing_question_id_count": 110,
+    "exact_stem_duplicates": 0,
+    "high_similarity_over_0_65": 0
+  }
+}
