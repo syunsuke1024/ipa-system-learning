@@ -24,6 +24,7 @@
   let loadedSources = {};
   const cloud = window.IPACloudSync.create({
     getState: () => state,
+    isBankRetained: version => !bankList().some(isFullMock) || isFullMock(state.banks[version]),
     render: () => render(),
     notify: (message, isError) => notify(message, isError),
     validateMerge: incoming => {
