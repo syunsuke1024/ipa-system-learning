@@ -33,6 +33,8 @@ jobs:
         run: python tests/test_common_app.py
       - name: Test timed 95-question mock mode with synthetic fixture (no exam bank release)
         run: python tests/test_full_mock.py
+      - name: Test the audited 95-question bank through grading (93/95, one unknown)
+        run: python tests/test_real95_release.py
       - name: Test private Google Sheets sync with mocked OAuth and API (no credentials)
         run: python tests/test_cloud_sync.py
       - name: Prepare public site (no study records)
