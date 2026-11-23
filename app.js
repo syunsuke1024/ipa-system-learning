@@ -24,6 +24,7 @@
   let loadedSources = {};
   const cloud = window.IPACloudSync.create({
     getState: () => state,
+    isBankRetained: version => !bankList().some(isFullMock) || isFullMock(state.banks[version]),
     render: () => render(),
     notify: (message, isError) => notify(message, isError),
     validateMerge: incoming => {
@@ -33,6 +34,7 @@
     },
     mergeRemote: incoming => {
       const result=mergeRecords(incoming);
+      retireShortPracticeData();
       if (!persist()) throw Error("ローカル保存に失敗しました。JSONエクスポートしてください");
       render();
       return result;
@@ -214,6 +216,7 @@
         if (merged.added) notify(`旧15問アプリの履歴を ${merged.added} 件自動取込みしました。元データも残しています。`);
       }
     } catch (e) { notify('旧アプリの自動移行に失敗しました。成績JSONをインポートしてください。', true); }
+    retireShortPracticeData();
     persist();
   }
   function studyGroups(bank,part){
@@ -320,17 +323,19 @@
   });
 }
   function chosenRecords() {
+    const recent=[...bankList()].filter(isFullMock).reverse().find(b=>state.records.some(r=>r.bank_version===b.bank_version&&(r.mode||'learning')===state.dashboardExamMode));
+    const target=state.dashboardBank==='all'&&recent?recent.bank_version:state.dashboardBank;
     const all = state.records.filter(r => (r.mode || 'learning') === state.dashboardExamMode &&
-      (state.dashboardBank === 'all' || r.bank_version === state.dashboardBank) &&
+      (target === 'all' || r.bank_version === target) &&
       (state.dashboardSection === 'all' || r.section === state.dashboardSection));
     const ordered = [...all].sort((a, b) => (a.submitted_at || '').localeCompare(b.submitted_at || ''));
     const mode = state.dashboardMode;
-    if (mode === 'all') return ordered;
+    if (mode === 'all' && !bankList().some(isFullMock)) return ordered;
     const chosen = new Map();
     for (const r of ordered) {
       const key = recordQuestionKey(r);
       if (mode === 'first' && !chosen.has(key)) chosen.set(key, r);
-      if (mode === 'latest') chosen.set(key, r);
+      if (mode === 'latest' || mode === 'all') chosen.set(key, r);
     }
     return [...chosen.values()];
   }
@@ -408,6 +413,40 @@
     return !!bank && bank.questions.length === 95 &&
       questionsFor(bank, 'A1').length === 60 && questionsFor(bank, 'A2').length === 23 &&
       questionsFor(bank, 'B').length === 12;
+  }
+  function retireShortPracticeData() {
+    const full=bankList().filter(isFullMock);
+    if(!full.length)return;
+    const permitted=new Set(full.map(b=>b.bank_version));
+    state.records=state.records.filter(r=>permitted.has(r.bank_version));
+    state.attempts=state.attempts.filter(a=>permitted.has(a.bank_version));
+    for(const version of Object.keys(state.banks))if(!permitted.has(version))delete state.banks[version];
+    for(const prop of ['drafts','studyPages']){
+      for(const key of Object.keys(state[prop]||{}))
+        if(![...permitted].some(v=>key.startsWith(v+'::')))delete state[prop][key];
+    }
+    for(const version of Object.keys(state.mockSessions||{}))if(!permitted.has(version))delete state.mockSessions[version];
+    if(!permitted.has(state.selectedBank)){state.selectedBank=full[full.length-1].bank_version;state.selectedSection='A1';}
+    if(state.dashboardBank!=='all'&&!permitted.has(state.dashboardBank))state.dashboardBank='all';
+  }
+  function renderFull95SetScores() {
+    const banks=bankList().filter(isFullMock);
+    if(!banks.length)return '<p class="empty">95問セットがまだ登録されていません。</p>';
+    const entries=banks.map(bank=>{
+      const records=state.records.filter(r=>r.bank_version===bank.bank_version&&(r.mode||'learning')===state.dashboardExamMode)
+        .sort((a,b)=>(a.submitted_at||'').localeCompare(b.submitted_at||''));
+      const byQuestion=new Map();
+      for(const r of records){const key=r.question_id+'::'+r.question_version;
+        if(state.dashboardMode!=='first'||!byQuestion.has(key))byQuestion.set(key,r);}
+      const rows=[...byQuestion.values()], correct=rows.filter(r=>r.correct).length;
+      const part=s=>{const a=rows.filter(r=>r.section===s);return a.filter(r=>r.correct).length+'/'+a.length;};
+      const date=rows.reduce((d,r)=>!d||r.answer_date>d?r.answer_date:d,'');
+      return {bank,date,rows,correct,a1:part('A1'),a2:part('A2'),b:part('B')};
+    });
+    return '<div class="tablewrap"><table><thead><tr><th>95問セット</th><th>解答日</th><th>A-1</th><th>A-2</th><th>B</th><th>セット別得点</th></tr></thead><tbody>'+
+      entries.map(x=>'<tr><td>'+esc(bankLabel(x.bank))+'</td><td>'+esc(x.date||'未受験')+'</td><td>'+x.a1+'</td><td>'+x.a2+'</td><td>'+x.b+'</td><td>'+
+        (x.rows.length===95?'<b>'+percentage(x.correct,95)+'</b>（'+x.correct+'/95）':x.rows.length+'/95問 回答済み')+'</td></tr>').join('')+
+      '</tbody></table></div><p class="micro">各行は独立した95問セットです。異なるセットを合算した累計正答率は表示しません。</p>';
   }
   const phaseLimit = phase => phase === 'A1' ? 90 * 60 : 120 * 60;
   const activeMock = () => Object.values(state.mockSessions || {}).find(m => m.phase !== 'done') || null;
@@ -638,20 +677,20 @@
     const competent = majors.filter(r => r.n >= 2).sort((a, b) => b.c / b.n - a.c / a.n).slice(0, 3);
     const weak = majors.filter(r => r.n >= 2).sort((a, b) => a.c / a.n - b.c / b.n).slice(0, 3);
     const countByBank = groupBy(rows, r => state.banks[r.bank_version] ? bankLabel(state.banks[r.bank_version]) : r.bank_version);
-    return `<div class="panel"><div class="head-row"><div><p class="eyebrow">LIFETIME LEARNING ANALYTICS</p><h2>成績ダッシュボード</h2></div><span class="tag">全問題集を横断</span></div>
-      <div class="filter-bar"><label>試験区分 <select id="dashboard-exam-mode"><option value="learning" ${state.dashboardExamMode === 'learning' ? 'selected' : ''}>短時間・科目別演習</option><option value="mock" ${state.dashboardExamMode === 'mock' ? 'selected' : ''}>本番95問模試</option></select></label><label>集計対象 <select id="dashboard-bank"><option value="all">全問題集</option>${bankList().map(b => `<option value="${esc(b.bank_version)}" ${state.dashboardBank === b.bank_version ? 'selected' : ''}>${esc(bankLabel(b))}</option>`).join('')}</select></label>
+    return `<div class="panel"><div class="head-row"><div><p class="eyebrow">95-QUESTION SET ANALYTICS</p><h2>成績ダッシュボード</h2></div><span class="tag">95問セット単位</span></div>
+      <div class="filter-bar"><label>試験区分 <select id="dashboard-exam-mode"><option value="learning" ${state.dashboardExamMode === 'learning' ? 'selected' : ''}>短時間・科目別演習</option><option value="mock" ${state.dashboardExamMode === 'mock' ? 'selected' : ''}>本番95問模試</option></select></label><label>集計対象 <select id="dashboard-bank"><option value="all">最新の95問セット</option>${bankList().map(b => `<option value="${esc(b.bank_version)}" ${state.dashboardBank === b.bank_version ? 'selected' : ''}>${esc(bankLabel(b))}</option>`).join('')}</select></label>
       <label>科目 <select id="dashboard-section"><option value="all">すべて</option>${PARTS.map(p => `<option value="${p}" ${state.dashboardSection === p ? 'selected' : ''}>${PART_NAMES[p]}</option>`).join('')}</select></label>
       <label>記録区分 <select id="dashboard-mode"><option value="first" ${state.dashboardMode === 'first' ? 'selected' : ''}>初見（各問題の初回）</option><option value="all" ${state.dashboardMode === 'all' ? 'selected' : ''}>すべての演習</option><option value="latest" ${state.dashboardMode === 'latest' ? 'selected' : ''}>各問題の最新回答</option></select></label></div>
-      <div class="metrics">${metric('正答率', percentage(correct, counted))}${metric('正解 / 解答', `${correct}/${counted}`)}${metric('わからない', `${unknown}件`)}${metric('わからない率', percentage(unknown, counted))}</div>
+      <div class="metrics">${metric('対象の問題記録', `${counted}件`)}${metric('正解 / 解答', `${correct}/${counted}`)}${metric('わからない', `${unknown}件`)}${metric('集計単位', '95問セット')}</div>
       <p class="micro">初見は「同じ問題集・問題ID・問題版」の最初の記録を指します。選択した試験区分だけを集計します。短時間演習と本番模試の成績は混ぜません。</p></div>
-      <div class="panel"><h3>科目別・問題集別</h3><div class="subsection-title">科目別</div>${groupTable(groupBy(rows, r => PART_NAMES[r.section] || r.section))}<div class="subsection-title">問題集別</div>${groupTable(countByBank)}</div>
+      <div class="panel"><h3>95問セット別の結果</h3>${renderFull95SetScores()}</div><div class="panel"><h3>科目別・問題集別</h3><div class="subsection-title">科目別</div>${groupTable(groupBy(rows, r => PART_NAMES[r.section] || r.section))}<div class="subsection-title">問題集別</div>${groupTable(countByBank)}</div>
       <div class="panel"><h3>分野別・小分類別</h3>${groupTable(majors)}<details><summary>小分類別の成績を開く</summary>${groupTable(minors)}</details>
       <div class="subsection-title">得意分野・重点復習候補</div><p>得意候補：${competent.length ? competent.map(r => `${esc(r.name)}（${percentage(r.c, r.n)}・${r.n}件）`).join('、') : '集計に必要な回答がまだ不足しています'}</p>
       <p>重点復習候補：${weak.length ? weak.map(r => `${esc(r.name)}（${percentage(r.c, r.n)}・${r.n}件）`).join('、') : '集計に必要な回答がまだ不足しています'}</p><p class="micro">2問以上の分野を暫定評価。問題数が少ない場合は順位の信頼性が低いことに注意してください。</p></div>
       <div class="panel"><div class="head-row"><h3>日付別正答率の推移</h3><label class="micro">対象分野 <select id="report-major"><option value="all">全分野</option>${majors.map(m => `<option value="${esc(m.name)}" ${major === m.name ? 'selected' : ''}>${esc(m.name)}</option>`).join('')}</select></label></div>
       ${dayGraph(trendRecords)}<h3>試験日・申込期間（公式確定後に設定）</h3><div class="filter-bar schedule"><label>試験日<input type="date" data-schedule="exam" value="${esc(state.schedule.exam)}"></label><label>申込開始日<input type="date" data-schedule="applicationFrom" value="${esc(state.schedule.applicationFrom)}"></label><label>申込終了日<input type="date" data-schedule="applicationTo" value="${esc(state.schedule.applicationTo)}"></label></div>
       <p class="micro">試験日はデータの右端以降の日付なら右端に表示し、申込期間は帯で表示します。公式情報の自動取得は行いません。</p></div>
-      <div class="panel"><h3>過去との比較</h3>${recentTrend()}</div>${renderBackupPanel()}`;
+      ${renderBackupPanel()}`;
   }
   function renderHistory() {
     const rows = [...state.records].sort((a, b) => (b.submitted_at || '').localeCompare(a.submitted_at || ''));
@@ -807,6 +846,7 @@
       ask(`問題別記録${parsed.records.length}件から${result.added}件を追加し、問題集${incomingBanks.length}件を確認します。既存の履歴は保持します。続けますか？`, () => {
         registerBanks(incomingBanks, '成績バックアップから復元');
         const finalResult = mergeRecords(parsed);
+        retireShortPracticeData();
         persist(); render(); notify(`成績を${finalResult.added}件追加、重複${finalResult.duplicates}件を除外しました`);
       });
     } catch (e) { reportError(e); }
@@ -824,8 +864,10 @@
       const normalized = input.map(normalizedBank);
       for (const bank of normalized) if (state.banks[bank.bank_version] && !sameBank(state.banks[bank.bank_version], bank))
         throw new Error('既存bank_versionと設問内容が異なるため取込みできません');
+      if (bankList().some(isFullMock) && normalized.some(b => !isFullMock(b))) throw Error('95問未満の練習用問題集は登録できません');
       ask(`${normalized.length}問題集を登録します。形式を検査しましたが、問題内容の品質は別途監査が必要です。登録しますか？`, () => {
         const added = registerBanks(normalized, '手動JSON取込み');
+        retireShortPracticeData();
         if (added) {
           state.selectedBank = normalized[0].bank_version;
           state.selectedSection = PARTS.find(p => questionsFor(state.banks[normalized[0].bank_version], p).length) || 'A1';
@@ -860,6 +902,7 @@
         downloaded.push(bank);
       }
       const count = registerBanks(downloaded, '公開カタログ');
+      retireShortPracticeData();
       state.catalogStatus = `確認済み：${downloaded.length}問題集（今回追加${count}件）`;
       persist(); render();
       if (count) notify(`公開カタログから新しい問題集を${count}件追加しました`);
