@@ -6,6 +6,12 @@
       "bank_version": "ipa-pds-system-full95-editorial-20261123-v4",
       "audit_status": "全95問Q1/Q2/Q4作問者自己監査（独立第三者監査ではない）",
       "audit_file": "audits/2026-11-23-full95-v4-audit.json"
+    },
+    {
+      "file": "catalog/2026-11-23-original95-v1.json",
+      "bank_version": "ipa-pds-system-original95-20261123-v1",
+      "audit_status": "作問者自己監査Q1/Q2/Q4各95問合格、最低8/10。独立第三者監査未実施。",
+      "audit_file": "audits/2026-11-23-original95-v1-audit.json"
     }
   ]
 }
