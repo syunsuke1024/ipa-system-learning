@@ -37,7 +37,7 @@ if not manifest_path.exists():
 else:
     manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
     if manifest.get('schema_version')!='ipa-study-catalog-manifest-v1' or not any(
-        b.get('bank_version') == seed['bank_version'] and b.get('file')=='catalog/2026-11-22-quality15.json'
+        b.get('bank_version') == 'ipa-pds-system-full95-editorial-20261123-v4'
         for b in manifest.get('banks',[])):
-        raise ValueError('公開カタログの初期問題集参照が不正です。manifestを勝手に再作成しません')
+        raise ValueError('公開カタログに95問セットの参照がありません。manifestを勝手に再作成しません')
 print('Created html size:',len(html), 'legacy groups:',len(legacy.get('groups',[])), 'bankQs',len(seed['questions']))
