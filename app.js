@@ -9,10 +9,10 @@
   const SEED = JSON.parse(document.getElementById('seed-bank').textContent);
   const LEGACY = JSON.parse(document.getElementById('legacy-meta').textContent);
   const fresh = () => ({
-    schema_version: SCHEMA, banks: {}, records: [], attempts: [], drafts: {},
+    schema_version: SCHEMA, banks: {}, records: [], attempts: [], drafts: {}, mockSessions: {},
     schedule: { exam: '', applicationFrom: '', applicationTo: '' },
     selectedBank: SEED.bank_version, selectedSection: 'A1',
-    view: 'study', dashboardMode: 'first', dashboardBank: 'all',
+    view: 'study', dashboardMode: 'first', dashboardExamMode: 'learning', dashboardBank: 'all',
     dashboardSection: 'all', reportMajor: 'all', catalogStatus: '起動中'
   });
   let state = fresh();
@@ -199,7 +199,8 @@
     } catch (e) { storageLocked = true; notify('既存の保存データの形式が不正です。保護のため上書きを停止しました。元データは削除していません。', true); }
     if (existing) {
       state = { ...fresh(), ...existing, banks: existing.banks || {},
-        drafts: existing.drafts || {}, schedule: { ...fresh().schedule, ...(existing.schedule || {}) } };
+        drafts: existing.drafts || {}, mockSessions: existing.mockSessions || {},
+        schedule: { ...fresh().schedule, ...(existing.schedule || {}) } };
     }
     // Inline source is available even if the catalog fetch fails in a local-file preview.
     try { registerBanks([SEED], '内蔵サンプル（品質監査済み）'); }
@@ -223,7 +224,7 @@
   function lastAttempt(bank, part) {
     const draft = getDraft(bank, part);
     if (draft.retake) return null;
-    return [...state.attempts].reverse().find(a => a.bank_version === bank.bank_version && a.section === part) || null;
+    return [...state.attempts].reverse().find(a => a.bank_version === bank.bank_version && a.section === part && (a.mode || 'learning') === 'learning') || null;
   }
   function openSet(version, part) {
     if (!state.banks[version] || !PARTS.includes(part) || questionsFor(state.banks[version], part).length === 0)
@@ -235,7 +236,7 @@
     persist(); render(); window.scrollTo(0, 0);
   }
   function switchView(view) {
-    if (!['study', 'dashboard', 'history', 'library', 'cloud'].includes(view)) return;
+    if (!['study', 'dashboard', 'history', 'library', 'cloud', 'mock'].includes(view)) return;
     state.view = view; persist(); render(); window.scrollTo(0, 0);
   }
   function selectAnswer(id, value) {
@@ -296,7 +297,7 @@
   }
 
   function chosenRecords() {
-    const all = state.records.filter(r => r.mode === 'learning' &&
+    const all = state.records.filter(r => (r.mode || 'learning') === state.dashboardExamMode &&
       (state.dashboardBank === 'all' || r.bank_version === state.dashboardBank) &&
       (state.dashboardSection === 'all' || r.section === state.dashboardSection));
     const ordered = [...all].sort((a, b) => (a.submitted_at || '').localeCompare(b.submitted_at || ''));
@@ -363,7 +364,7 @@
     return `<div class="graph">${svg}</div><details><summary>日付ごとの数値を表示</summary>${groupTable(days)}</details>`;
   }
   function recentTrend() {
-    const matching = state.attempts.filter(a => (state.dashboardBank === 'all' || a.bank_version === state.dashboardBank) &&
+    const matching = state.attempts.filter(a => (a.mode || 'learning') === state.dashboardExamMode && (state.dashboardBank === 'all' || a.bank_version === state.dashboardBank) &&
       (state.dashboardSection === 'all' || a.section === state.dashboardSection))
       .sort((a, b) => a.submitted_at.localeCompare(b.submitted_at));
     if (!matching.length) return '<p class="empty">セット採点後に過去との比較を表示します。</p>';
@@ -376,6 +377,151 @@
   }
   function metric(title, value, note = '') {
     return `<div class="metric"><strong>${esc(value)}</strong><span>${esc(title)}</span>${note ? `<small>${esc(note)}</small>` : ''}</div>`;
+  }
+
+  // Two timed phases: A-1 60 questions / 90 min; A-2 + B 35 questions / 120 min.
+  // Answer keys and explanations are never rendered before final submission.
+  function isFullMock(bank) {
+    return !!bank && bank.questions.length === 95 &&
+      questionsFor(bank, 'A1').length === 60 && questionsFor(bank, 'A2').length === 23 &&
+      questionsFor(bank, 'B').length === 12;
+  }
+  const phaseLimit = phase => phase === 'A1' ? 90 * 60 : 120 * 60;
+  const activeMock = () => Object.values(state.mockSessions || {}).find(m => m.phase !== 'done') || null;
+  const mockForBank = version => state.mockSessions?.[version];
+  const phaseQuestions = (bank, phase) => phase === 'A1' ? questionsFor(bank, 'A1') :
+    [...questionsFor(bank, 'A2'), ...questionsFor(bank, 'B')];
+  const remainingSeconds = session => Math.max(0, phaseLimit(session.phase) -
+    Math.floor((Date.now() - Date.parse(session.phaseStartedAt)) / 1000));
+  const clockLabel = sec => `${String(Math.floor(sec / 3600)).padStart(2, '0')}:${String(Math.floor(sec / 60) % 60).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`;
+  function startMock(version) {
+    const bank = state.banks[version];
+    if (!isFullMock(bank)) return notify('本番模試はA-1:60問／A-2:23問／B:12問の問題集だけで利用できます', true);
+    const running = activeMock();
+    if (running && running.bank_version !== version) return notify('別の95問模試が進行中です。途中の結果を保護するため先に完了してください。', true);
+    let session = mockForBank(version);
+    if (!session || session.phase === 'done') {
+      if (session?.phase === 'done') return showMockReview(version);
+      session = {run_id: uniqueId(), bank_version:version, phase:'A1',
+        startedAt:new Date().toISOString(), phaseStartedAt:new Date().toISOString(),
+        answers:{},timestamps:{},phaseDurations:{},phaseCompleted:{}};
+      state.mockSessions[version] = session;
+    }
+    state.selectedBank = version;
+    state.view = 'mock';
+    if (!persist()) return;
+    render(); window.scrollTo(0,0);
+  }
+  function selectMockAnswer(id,value) {
+    const session=activeMock(),bank=session&&state.banks[session.bank_version];
+    if (!session||!bank||!['A','B','C','D','?'].includes(value)) return;
+    if (remainingSeconds(session)<=0) return closeMockPhase(true);
+    if (!phaseQuestions(bank,session.phase).some(q=>q.question_id===id)) return;
+    session.answers[id]=value;session.timestamps[id]=new Date().toISOString();
+    persist();
+    // Radio labels remain intact: DOM re-render only on explicit navigation.
+    const answered=phaseQuestions(bank,session.phase).filter(q=>session.answers[q.question_id]).length;
+    const progress=$('mock-progress');if(progress) progress.textContent=`${answered}/${phaseQuestions(bank,session.phase).length}問回答済み`;
+    const bar=$('mock-progress-bar');if(bar) bar.style.width=`${100*answered/phaseQuestions(bank,session.phase).length}%`;
+  }
+  function submitMockPhase() {
+    const session=activeMock();
+    if (!session||session.phase!=='A1') return;
+    if (remainingSeconds(session)<=0) return closeMockPhase(true);
+    const qs=phaseQuestions(state.banks[session.bank_version],'A1');
+    const missing=qs.filter(q=>!session.answers[q.question_id]);
+    ask(`A-1の60問を確定してA-2・Bへ進みます。未回答${missing.length}問は「わからない」として0点で記録されます。A-1には戻れません。`,()=>closeMockPhase(false));
+  }
+  function closeMockPhase(expired) {
+    const session=activeMock();if(!session||session.phase!=='A1') return;
+    const bank=state.banks[session.bank_version];
+    for(const q of phaseQuestions(bank,'A1')) {
+      if(!session.answers[q.question_id]) {session.answers[q.question_id]='?';session.timestamps[q.question_id]=new Date().toISOString();}
+    }
+    session.phaseDurations.A1=Math.min(phaseLimit('A1'),Math.max(0,Math.floor((Date.now()-Date.parse(session.phaseStartedAt))/1000)));
+    session.phaseCompleted.A1=new Date().toISOString();
+    session.phase='A2B';session.phaseStartedAt=new Date().toISOString();
+    if(!persist()) return;
+    render();window.scrollTo(0,0);
+    notify(`A-1の回答を確定しました。A-2・Bの120分を開始します。${expired?'制限時間終了により自動移行しました。':''}`);
+  }
+  function submitMockFinal() {
+    const session=activeMock();if(!session||session.phase!=='A2B') return;
+    if(remainingSeconds(session)<=0) return closeMockFinal(true);
+    const bank=state.banks[session.bank_version], qs=phaseQuestions(bank,'A2B');
+    const missing=qs.filter(q=>!session.answers[q.question_id]);
+    ask(`本番模試95問を最終提出します。A-2・Bの未回答${missing.length}問は「わからない」として0点です。最終提出後に初めて正解・全選択肢の解説を表示します。`,()=>closeMockFinal(false));
+  }
+  function closeMockFinal(expired) {
+    const session=activeMock();if(!session||session.phase!=='A2B') return;
+    const bank=state.banks[session.bank_version];
+    for(const q of phaseQuestions(bank,'A2B')) {
+      if(!session.answers[q.question_id]) {session.answers[q.question_id]='?';session.timestamps[q.question_id]=new Date().toISOString();}
+    }
+    session.phaseDurations.A2B=Math.min(phaseLimit('A2B'),Math.max(0,Math.floor((Date.now()-Date.parse(session.phaseStartedAt))/1000)));
+    const now=new Date(),when=now.toISOString(),day=localDate(now);
+    // One session is committed as 95 question records and three section attempts.
+    const records=[],attempts=[];
+    for(const part of PARTS) {
+      const questions=questionsFor(bank,part),attempt_id=uniqueId();
+      const subset=questions.map(q=>{
+        const answer=session.answers[q.question_id],prior=state.records.some(r=>r.bank_version===bank.bank_version && r.question_id===q.question_id && r.question_version===q.question_version);
+        return {record_id:uniqueId(),attempt_id,bank_version:bank.bank_version,
+          question_id:q.question_id,question_version:q.question_version,section:part,
+          major:q.major,minor:q.minor,difficulty:q.difficulty,answer,
+          correct:answer===q.answer,unknown:answer==='?',mode:'mock',
+          mock_run_id:session.run_id,is_first_seen:!prior,
+          answered_at:session.timestamps[q.question_id]||when,submitted_at:when,answer_date:day,
+          elapsed_seconds:session.phaseDurations[part==='A1'?'A1':'A2B']};
+      });
+      records.push(...subset);
+      attempts.push({attempt_id,bank_version:bank.bank_version,section:part,submitted_at:when,
+        answer_date:day,total:questions.length,correct:subset.filter(r=>r.correct).length,
+        unknown:subset.filter(r=>r.unknown).length,mode:'mock',mock_run_id:session.run_id});
+    }
+    if(records.length!==95||attempts.length!==3) throw Error('採点件数が一致しません。保存しません');
+    // Rollback local state if storage cannot persist; no phantom success.
+    const before=JSON.parse(JSON.stringify(session));
+    state.records.push(...records);state.attempts.push(...attempts);
+    session.phase='done';session.submittedAt=when;session.phaseCompleted.A2B=when;
+    if(!persist()) {
+      state.records.splice(-95);state.attempts.splice(-3);
+      state.mockSessions[bank.bank_version]=before;
+      return notify('本番模試の保存に失敗しました。再度提出するか、ブラウザ保存を確認してください',true);
+    }
+    render();window.scrollTo(0,0);
+    notify(`本番模試95問の採点完了。${expired?'残り時間が終了しました。':'最終提出が確定しました。'}成績を保存し同期します。`);
+    cloud.autoSync();
+  }
+  function showMockReview(version) {
+    const session=mockForBank(version);
+    if(!session||session.phase!=='done') return;
+    state.selectedBank=version;state.view='mock';persist();render();window.scrollTo(0,0);
+  }
+  function retakeMock() {
+    const bank=currentBank();if(!isFullMock(bank)) return;
+    ask('新しい本番95問模試を開始します。前回の95問の成績は残しますが、同一問題のため再演習として扱われます。',()=>{
+      delete state.mockSessions[bank.bank_version];startMock(bank.bank_version);
+    });
+  }
+  function renderMock() {
+    const running=activeMock();
+    const session=running||mockForBank(state.selectedBank);
+    const bank=session?state.banks[session.bank_version]:(isFullMock(currentBank())?currentBank():bankList().find(isFullMock));
+    if(!bank||!isFullMock(bank)) return `<div class="panel"><h2>本番95問模試</h2><p>95問（A-1 60問、A-2 23問、B 12問）の問題集が登録されると模試を開始できます。</p><button class="btn" data-view="library">問題集ライブラリを開く</button></div>`;
+    if(!session) return `<div class="panel"><h2>本番95問模試</h2><p>A-1 60問・90分とA-2＋B 35問・120分を続けて解答します。最終提出まで正解を表示しません。</p><button class="btn primary" data-mock-start="${esc(bank.bank_version)}">95問模試を開始する</button></div>`;
+    if(session.phase==='done') {
+      const rows=state.records.filter(r=>r.mock_run_id===session.run_id);
+      const c=rows.filter(r=>r.correct).length;
+      const parts=PARTS.map(p=>{const subset=rows.filter(r=>r.section===p);return metric(PART_NAMES[p],`${subset.filter(r=>r.correct).length}/${subset.length}`)}).join('');
+      const review=bank.questions.map((q,i)=>renderQuestion(q,i,session.answers[q.question_id]||'?',true)).join('');
+      return `<div class="panel"><p class="eyebrow">FULL MOCK RESULT · ${esc(bankLabel(bank))}</p><h2>本番95問模試の採点結果</h2><div class="metrics">${metric('合計',`${c}/95`)}${metric('正答率',percentage(c,95))}${metric('不明',String(rows.filter(r=>r.unknown).length))}${metric('所要時間',`${Math.round((session.phaseDurations.A1+session.phaseDurations.A2B)/60)}分`)}</div><div class="metrics">${parts}</div><p>最終提出後のため正解・個別解説を表示します。問題別成績は保存済みです。</p>${review}<div class="sticky-actions"><button class="btn" data-mock-retake="1">95問を再演習</button><button class="btn primary" data-view="dashboard">成績ダッシュボード</button></div></div>`;
+    }
+    const phase=session.phase,qs=phaseQuestions(bank,phase),answered=qs.filter(q=>session.answers[q.question_id]).length;
+    const list=qs.map((q,i)=>{const label=phase==='A2B'&&q.section==='B'?'科目B':phase==='A2B'?'科目A-2':'科目A-1';
+      return `<article class="question" data-question-id="${esc(q.question_id)}"><div class="question-meta"><span class="question-num">${label}・問${i+1} ／ ${esc(q.question_id)}</span><span class="micro">${esc(q.major)} › ${esc(q.minor)} · ${esc(q.difficulty)}</span></div>${q.case?`<div class="case">${esc(q.case)}</div>`:''}<div class="stem">${esc(q.stem)}</div><div class="choices">${q.options.map((option,j)=>`<label class="choice"><input type="radio" data-mock-answer="${esc(q.question_id)}" name="mock-${esc(q.question_id)}" value="${LETTERS[j]}" ${session.answers[q.question_id]===LETTERS[j]?'checked':''}><b>${LETTERS[j]}</b><span>${esc(option)}</span></label>`).join('')}<label class="choice unknown-choice"><input type="radio" data-mock-answer="${esc(q.question_id)}" name="mock-${esc(q.question_id)}" value="?" ${session.answers[q.question_id]==='?'?'checked':''}><b>?</b><span>わからない（0点として計上）</span></label></div></article>`;
+    }).join('');
+    return `<div class="panel"><p class="eyebrow">TIMED FULL MOCK · ${esc(bankLabel(bank))}</p><h2>${phase==='A1'?'第1段階：科目A-1（60問・90分）':'第2段階：科目A-2（23問）＋B（12問）・120分'}</h2><p><b>制限時間：</b><span id="mock-clock" class="mock-clock">${clockLabel(remainingSeconds(session))}</span> ／ <span id="mock-progress">${answered}/${qs.length}問回答済み</span></p><div class="progress"><span id="mock-progress-bar" style="width:${100*answered/qs.length}%"></span></div><p class="micro">途中の回答はこのブラウザに随時保存されます。ページを閉じても制限時間は進みます。A-1は次に進むと戻れません。未回答は確定時に「わからない」として処理します。正解は最終提出まで表示されません。</p>${list}<div class="sticky-actions"><span id="mock-progress-bottom" class="micro">${phase==='A1'?'A-1終了後に次へ':'最終提出時に全95問を採点'}</span><button class="btn primary" ${phase==='A1'?'data-mock-phase="1"':'data-mock-finalize="1"'}>${phase==='A1'?'A-1を確定してA-2＋Bへ':'本番95問を最終提出・採点'}</button></div></div>`;
   }
 
   function renderSidebar() {
@@ -391,6 +537,7 @@
         const d = getDraft(chosen, p);
         return `<button class="navbtn ${active === 'study' && p === state.selectedSection ? 'active' : ''}" data-section="${p}" data-bank="${esc(chosen.bank_version)}">${PART_NAMES[p]}<small>${count}問 · ${att ? `直近 ${att.correct}/${att.total}問正解` : `${Object.keys(d.answers).length}/${count}問選択済`}</small></button>`;
       }).join('')}
+      <button class="navbtn ${active === 'mock' ? 'active' : ''}" data-view="mock">本番95問模試<small>科目A-1 90分／A-2・B 120分</small></button>
       <button class="navbtn ${active === 'dashboard' ? 'active' : ''}" data-view="dashboard">成績ダッシュボード<small>全問題集・日付別・分野別</small></button>
       <button class="navbtn ${active === 'history' ? 'active' : ''}" data-view="history">復習・全履歴<small>不正解・わからない・再演習</small></button>
       <button class="navbtn ${active === 'cloud' ? 'active' : ''}" data-view="cloud">クラウド成績同期<small>${esc(cloud.statusBrief())}・Google Sheets</small></button>
@@ -446,7 +593,7 @@
       return `<section class="library-bank"><div><div class="eyebrow">${esc(bank.audit_status)} · ${esc(bank.source || '保存済')}</div><h3>${esc(bankLabel(bank))}</h3><p class="micro">ID: ${esc(bank.bank_version)} ／ 問題数 ${bank.questions.length} ／ 採点済みセット数 ${attempted}</p><p class="micro">${esc(bank.source_notice)}</p></div><div class="actions">${PARTS.map(p => {
         const total = questionsFor(bank, p).length;
         return total ? `<button class="btn" data-bank="${esc(bank.bank_version)}" data-section="${p}">${p === 'A1' ? 'A-1' : p === 'A2' ? 'A-2' : 'B'} ${total}問</button>` : '';
-      }).join('')}</div></section>`;
+      }).join('')}${isFullMock(bank) ? `<button class="btn primary" data-mock-start="${esc(bank.bank_version)}">本番95問模試を開始／再開</button>` : ''}</div></section>`;
     }).join('');
     return `<div class="panel"><div class="head-row"><div><p class="eyebrow">QUESTION CATALOG</p><h2>問題集ライブラリ</h2></div><span class="tag">${bankList().length}問題集</span></div>
       <p>新しく品質監査した問題集JSONを追加すれば、学習画面はそのままで新規セットが利用できます。過去の採点履歴は消しません。</p>
@@ -464,11 +611,11 @@
     const weak = majors.filter(r => r.n >= 2).sort((a, b) => a.c / a.n - b.c / b.n).slice(0, 3);
     const countByBank = groupBy(rows, r => state.banks[r.bank_version] ? bankLabel(state.banks[r.bank_version]) : r.bank_version);
     return `<div class="panel"><div class="head-row"><div><p class="eyebrow">LIFETIME LEARNING ANALYTICS</p><h2>成績ダッシュボード</h2></div><span class="tag">全問題集を横断</span></div>
-      <div class="filter-bar"><label>集計対象 <select id="dashboard-bank"><option value="all">全問題集</option>${bankList().map(b => `<option value="${esc(b.bank_version)}" ${state.dashboardBank === b.bank_version ? 'selected' : ''}>${esc(bankLabel(b))}</option>`).join('')}</select></label>
+      <div class="filter-bar"><label>試験区分 <select id="dashboard-exam-mode"><option value="learning" ${state.dashboardExamMode === 'learning' ? 'selected' : ''}>短時間・科目別演習</option><option value="mock" ${state.dashboardExamMode === 'mock' ? 'selected' : ''}>本番95問模試</option></select></label><label>集計対象 <select id="dashboard-bank"><option value="all">全問題集</option>${bankList().map(b => `<option value="${esc(b.bank_version)}" ${state.dashboardBank === b.bank_version ? 'selected' : ''}>${esc(bankLabel(b))}</option>`).join('')}</select></label>
       <label>科目 <select id="dashboard-section"><option value="all">すべて</option>${PARTS.map(p => `<option value="${p}" ${state.dashboardSection === p ? 'selected' : ''}>${PART_NAMES[p]}</option>`).join('')}</select></label>
       <label>記録区分 <select id="dashboard-mode"><option value="first" ${state.dashboardMode === 'first' ? 'selected' : ''}>初見（各問題の初回）</option><option value="all" ${state.dashboardMode === 'all' ? 'selected' : ''}>すべての演習</option><option value="latest" ${state.dashboardMode === 'latest' ? 'selected' : ''}>各問題の最新回答</option></select></label></div>
       <div class="metrics">${metric('正答率', percentage(correct, counted))}${metric('正解 / 解答', `${correct}/${counted}`)}${metric('わからない', `${unknown}件`)}${metric('わからない率', percentage(unknown, counted))}</div>
-      <p class="micro">初見は「同じ問題集・問題ID・問題版」の最初の記録を指します。学習モードの履歴を集計し、異なる問題集・難易度の結果は参考比較です。</p></div>
+      <p class="micro">初見は「同じ問題集・問題ID・問題版」の最初の記録を指します。選択した試験区分だけを集計します。短時間演習と本番模試の成績は混ぜません。</p></div>
       <div class="panel"><h3>科目別・問題集別</h3><div class="subsection-title">科目別</div>${groupTable(groupBy(rows, r => PART_NAMES[r.section] || r.section))}<div class="subsection-title">問題集別</div>${groupTable(countByBank)}</div>
       <div class="panel"><h3>分野別・小分類別</h3>${groupTable(majors)}<details><summary>小分類別の成績を開く</summary>${groupTable(minors)}</details>
       <div class="subsection-title">得意分野・重点復習候補</div><p>得意候補：${competent.length ? competent.map(r => `${esc(r.name)}（${percentage(r.c, r.n)}・${r.n}件）`).join('、') : '集計に必要な回答がまだ不足しています'}</p>
@@ -490,7 +637,7 @@
     }).join('');
     return `<div class="panel"><div class="head-row"><h2>復習・全履歴</h2><span class="tag">${rows.length}記録</span></div><p class="micro">最新の回答が不正解・「わからない」の問題を復習できます。古い記録も削除されません。</p>
       <h3>重点復習 ${wrong.length}問</h3>${wrong.length ? review : '<p class="empty">現在、重点復習の対象はありません。</p>'}
-      <h3>問題単位の採点履歴</h3><div class="tablewrap"><table><thead><tr><th>日時</th><th>問題集・ID・版</th><th>科目・分類</th><th>区分</th><th>回答</th><th>正誤</th></tr></thead><tbody>${rows.slice(0, 300).map(r => `<tr><td>${esc(jpDate(r.submitted_at))}</td><td><span class="micro">${esc(r.bank_version)}</span><br>${esc(r.question_id)} / ${esc(r.question_version)}</td><td>${esc(r.section)} · ${esc(r.major)} › ${esc(r.minor)}</td><td>${r.is_first_seen ? '初見' : '再演習'}</td><td>${r.unknown ? 'わからない' : esc(r.answer)}</td><td>${r.correct ? '正解' : r.unknown ? 'わからない' : '不正解'}</td></tr>`).join('')}</tbody></table></div>${rows.length > 300 ? `<p class="micro">画面は最新300件を表示中（${rows.length}件の記録はJSONにすべて保存）。</p>` : ''}</div>${renderBackupPanel()}`;
+      <h3>問題単位の採点履歴</h3><div class="tablewrap"><table><thead><tr><th>日時</th><th>問題集・ID・版</th><th>科目・分類</th><th>区分</th><th>回答</th><th>正誤</th></tr></thead><tbody>${rows.slice(0, 300).map(r => `<tr><td>${esc(jpDate(r.submitted_at))}</td><td><span class="micro">${esc(r.bank_version)}</span><br>${esc(r.question_id)} / ${esc(r.question_version)}</td><td>${esc(r.section)} · ${esc(r.major)} › ${esc(r.minor)}</td><td>${r.mode === 'mock' ? '模試' : '演習'}・${r.is_first_seen ? '初見' : '再演習'}</td><td>${r.unknown ? 'わからない' : esc(r.answer)}</td><td>${r.correct ? '正解' : r.unknown ? 'わからない' : '不正解'}</td></tr>`).join('')}</tbody></table></div>${rows.length > 300 ? `<p class="micro">画面は最新300件を表示中（${rows.length}件の記録はJSONにすべて保存）。</p>` : ''}</div>${renderBackupPanel()}`;
   }
   function renderBackupPanel() {
     return `<div class="panel"><h3>成績の保存・移行</h3><p>このアプリは成績をブラウザ内に保存します。JSONバックアップには、履歴と登録済み問題集の両方を収録します。</p>
@@ -500,7 +647,7 @@
   function render() {
     $('side').innerHTML = renderSidebar();
     const view = state.view;
-    $('main').innerHTML = view === 'dashboard' ? renderDashboard() : view === 'history' ? renderHistory() : view === 'library' ? renderLibrary() : view === 'cloud' ? cloud.render() : renderStudy();
+    $('main').innerHTML = view === 'dashboard' ? renderDashboard() : view === 'history' ? renderHistory() : view === 'library' ? renderLibrary() : view === 'cloud' ? cloud.render() : view === 'mock' ? renderMock() : renderStudy();
   }
 
   function exportJSON() {
@@ -700,7 +847,12 @@
     try {
       if (button.dataset.modal) { completeAsk(button.dataset.modal === 'yes'); return; }
       if (!$('modal').hidden) return;
-      if (button.dataset.section && button.dataset.bank) openSet(button.dataset.bank, button.dataset.section);
+      if (button.dataset.mockStart) startMock(button.dataset.mockStart);
+      else if (button.dataset.mockPhase) submitMockPhase();
+      else if (button.dataset.mockFinalize) submitMockFinal();
+      else if (button.dataset.mockRetake) retakeMock();
+      else if (button.dataset.mockReview) showMockReview(button.dataset.mockReview);
+      else if (button.dataset.section && button.dataset.bank) openSet(button.dataset.bank, button.dataset.section);
       else if (button.dataset.view) switchView(button.dataset.view);
       else if (button.dataset.submit) submitSet();
       else if (button.dataset.retry) retrySet();
@@ -714,7 +866,9 @@
   document.addEventListener('change', event => {
     const field = event.target;
     try {
-      if (field.matches('input[data-question]')) selectAnswer(field.dataset.question, field.value);
+      if (field.matches('input[data-mock-answer]')) selectMockAnswer(field.dataset.mockAnswer, field.value);
+      else if (field.matches('input[data-question]')) selectAnswer(field.dataset.question, field.value);
+      else if (field.id === 'dashboard-exam-mode') { state.dashboardExamMode = field.value === 'mock' ? 'mock' : 'learning'; persist(); render(); }
       else if (field.id === 'dashboard-mode') { state.dashboardMode = field.value; persist(); render(); }
       else if (field.id === 'dashboard-bank') { state.dashboardBank = field.value; state.reportMajor = 'all'; persist(); render(); }
       else if (field.id === 'dashboard-section') { state.dashboardSection = field.value; state.reportMajor = 'all'; persist(); render(); }
@@ -725,6 +879,17 @@
   $('bank-file').addEventListener('change', e => importBankFiles([...e.target.files]));
   $('record-file').addEventListener('change', e => importRecordFile(e.target.files[0]));
   hydrate(); render(); syncCatalog();
+  setInterval(() => {
+    if (state.view !== 'mock') return;
+    const session = activeMock();
+    if (!session || session.phase === 'done') return;
+    const remaining = remainingSeconds(session);
+    const clock = $('mock-clock');
+    if (clock) clock.textContent = clockLabel(remaining);
+    if (remaining <= 0 && !confirmationBusy && $('modal').hidden) {
+      try { closeMockPhase(true); } catch (e) { reportError(e); }
+    }
+  }, 1000);
   // Expose a limited read-only state summary for local automated diagnostics.
   Object.defineProperty(window, '__IPA_APP_STATUS__', {
     get: () => ({ banks: bankList().length, records: state.records.length,
