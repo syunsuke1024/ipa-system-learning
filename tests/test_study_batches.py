@@ -137,6 +137,7 @@ with sync_playwright() as pw:
     assert all(r['unknown'] and not r['correct'] for r in data['records'][-10:])
     assert len({r['record_id'] for r in data['records']})==105
     # Original 15q set must stay unsplit.
+    restored.locator('button[data-view="library"]').first.click()
     restored.locator('button[data-bank="'+SEED['bank_version']+'"][data-section="A1"]').first.click()
     assert restored.locator('article.question').count()==10
     assert restored.locator('button[data-study-block]').count()==0
