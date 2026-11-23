@@ -112,6 +112,7 @@ window.IPACloudSync = (() => {
         let value;try{value=JSON.parse(row[19]);}catch(_){throw Error('クラウドに不正なJSON行があります');}
         if ((kind==='RECORD'&&value.record_id!==ident)||(kind==='ATTEMPT'&&value.attempt_id!==ident))
           throw Error('クラウド行の識別子が一致しません');
+        if (callbacks.isBankRetained?.(value.bank_version) === false) continue;
         const key=`${kind}:${ident}`,serialized=JSON.stringify(value);
         if (keys.has(key)&&keys.get(key)!==serialized) throw Error('同じ記録IDで内容が異なるクラウド行があります');
         if (keys.has(key)) continue;
@@ -133,8 +134,8 @@ window.IPACloudSync = (() => {
         assertNoConflict(remote);
         const local=callbacks.getState();
         const rid=new Set(remote.records.map(r=>r.record_id)),aid=new Set(remote.attempts.map(a=>a.attempt_id));
-        const missingRecords=local.records.filter(r=>!rid.has(r.record_id));
-        const missingAttempts=local.attempts.filter(a=>!aid.has(a.attempt_id));
+        const missingRecords=local.records.filter(r=>callbacks.isBankRetained?.(r.bank_version)!==false&&!rid.has(r.record_id));
+        const missingAttempts=local.attempts.filter(a=>callbacks.isBankRetained?.(a.bank_version)!==false&&!aid.has(a.attempt_id));
         const rows=[...missingRecords.map(rowForRecord),...missingAttempts.map(rowForAttempt)];
         if (rows.length) {
           await api(sheetUrl(`/values/${encodeURIComponent(TAB+'!A:T')}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`),{
@@ -145,7 +146,7 @@ window.IPACloudSync = (() => {
         const after=await readLog();
         assertNoConflict(after);
         const afterIds=new Set(after.records.map(r=>r.record_id)),afterAtt=new Set(after.attempts.map(a=>a.attempt_id));
-        if (local.records.some(r=>!afterIds.has(r.record_id))||local.attempts.some(a=>!afterAtt.has(a.attempt_id)))
+        if (local.records.some(r=>callbacks.isBankRetained?.(r.bank_version)!==false&&!afterIds.has(r.record_id))||local.attempts.some(a=>callbacks.isBankRetained?.(a.bank_version)!==false&&!afterAtt.has(a.attempt_id)))
           throw Error('クラウド書込みの確認ができません。ローカル成績は保持しました。再度同期してください');
         const result=callbacks.mergeRemote(after);
         lastSync=new Date().toLocaleString('ja-JP');lastCounts={remote:after.records.length,uploaded:missingRecords.length,downloaded:result.added};
