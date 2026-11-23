@@ -1,0 +1,3591 @@
+{
+  "bank_version": "ipa-pds-system-original95-20261123-v1",
+  "audit_scope": "95問・作問者自己監査と静的構造検証",
+  "qa_type": "author_self_review_not_independent",
+  "independent_third_party_review": false,
+  "official_exam_questions": false,
+  "official_syllabus": "専門シラバス案ver0.2を参照、共通知識案ver0.1の全文精査は未完了",
+  "bank_source": "2026-11-23 new original drafts, legacy comparison via uploaded IPA_SYSTEM_QUESTION_BANK_v2.json",
+  "total_questions": 95,
+  "section_counts": {
+    "A1": 60,
+    "A2": 23,
+    "B": 12
+  },
+  "quality_scoring": "5軸各0-2点。シラバス適合は暫定確認のため1/2。選択肢長は正答/最長誤答比で機械評価。残る軸は作者による自己評価であり独立第三者評価ではない。",
+  "sum_answer_positions": {
+    "A": 24,
+    "C": 23,
+    "D": 20,
+    "B": 28
+  },
+  "q1_q2_q4_pass_count": 95,
+  "quality_score_min": 8,
+  "quality_score_distribution": {
+    "8": 30,
+    "9": 65
+  },
+  "numerical_crosschecks": [
+    {
+      "question_id": "NEW26-A1-047",
+      "computed_result": 1000.0000000000009,
+      "answer_option_text": "1,000件",
+      "check": "PASS"
+    },
+    {
+      "question_id": "NEW26-A1-051",
+      "computed_result": 40.0,
+      "answer_option_text": "40",
+      "check": "PASS"
+    },
+    {
+      "question_id": "NEW26-A1-052",
+      "computed_result": 0.8,
+      "answer_option_text": "0.80",
+      "check": "PASS"
+    },
+    {
+      "question_id": "NEW26-A1-056",
+      "computed_result": 80.0,
+      "answer_option_text": "80.0%",
+      "check": "PASS"
+    },
+    {
+      "question_id": "NEW26-A1-058",
+      "computed_result": 1600,
+      "answer_option_text": "2,000Hz",
+      "check": "PASS"
+    },
+    {
+      "question_id": "NEW26-B-008",
+      "computed_result": 960000,
+      "answer_option_text": "30,000サンプルで960,000バイト必要となり、残容量に収まる",
+      "check": "PASS"
+    }
+  ],
+  "notes": [
+    "全件の問題形式と監査記録をプログラム検証",
+    "正答一意性は作問者自己点検で、独立監査では未確認",
+    "既出との同一文字列・近似文字列はチェックしたが、中心論点の全履歴重複検査は完了していない",
+    "公開GitHubカタログ・manifestには登録していない",
+    "クラウド成績は照合のみに使用し公開ファイルへ格納していない",
+    "HTML本番配布物のUI動作T1-T6とPages deployは未検証"
+  ],
+  "per_question": [
+    {
+      "question_id": "NEW26-A1-001",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "レコードごとにランダムなソルトを本文の末尾へ付け、nonceは固定する",
+          "plausible_in_other_conditions": "ランダムソルトは鍵導出やパスワード保護で有用",
+          "why_not_here": "ソルトは鍵導出では役立つが、固定nonceによるGCMの危険を除去しない。"
+        },
+        {
+          "option": "C",
+          "option_text": "定期的に鍵をローテーションすれば、同一鍵の使用期間中のnonce再利用を許容する",
+          "plausible_in_other_conditions": "鍵ローテーションは漏えい影響の範囲を小さくできる",
+          "why_not_here": "鍵更新は別鍵間の影響を分離するが、更新までのnonce重複には対処できない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.075,
+      "legacy_text_nearest": {
+        "id": "A1-027",
+        "minor": "コンテキストスイッチ",
+        "stem_similarity_ratio": 0.26
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-002",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "AとBが同じKを使えば、HMACの検証には公開鍵証明書が必要になる",
+          "plausible_in_other_conditions": "証明書は公開鍵を第三者が認証する際に使う",
+          "why_not_here": "HMAC検証は共有鍵で実施し、証明書チェーンとは異なる仕組みである。"
+        },
+        {
+          "option": "D",
+          "option_text": "HMACは共通鍵方式なので暗号化された平文を復号する必要がある",
+          "plausible_in_other_conditions": "暗号認証と共通鍵暗号を同一視しやすい",
+          "why_not_here": "HMACはデータを暗号化しないので、復号は前提とならない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.182,
+      "legacy_text_nearest": {
+        "id": "A1-008",
+        "minor": "サプライチェーン",
+        "stem_similarity_ratio": 0.253
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-003",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "通信経路をHTTPSへ統一し、セッションCookieにSecure属性を指定する",
+          "plausible_in_other_conditions": "HTTPSとSecure Cookieは通信路の保護に役立つ",
+          "why_not_here": "HTTPSとSecure Cookieは経路上の漏えいを抑えるが、ログイン済みブラウザが他サイトから送る送金要求の真偽は判定しない。"
+        },
+        {
+          "option": "B",
+          "option_text": "CORSで別サイトからのレスポンス読取りを制限し、Cookieの送信は維持する",
+          "plausible_in_other_conditions": "CORSはクロスオリジンアクセス制御としてよく使われる",
+          "why_not_here": "CORSは主にクロスオリジンのレスポンス読取りを制御し、単純なフォームによる送信そのものを一律には防止しない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.975,
+      "legacy_text_nearest": {
+        "id": "A1-008",
+        "minor": "サプライチェーン",
+        "stem_similarity_ratio": 0.28
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-004",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "C",
+          "option_text": "ACLだけで利用者IDごとの許可表を個別管理する方式",
+          "plausible_in_other_conditions": "ACLは固定された主体と資源の許可を列挙できる",
+          "why_not_here": "ACLでも列挙は可能だが、時刻や端末状態を横断して柔軟に管理すると設定が複雑になる。"
+        },
+        {
+          "option": "D",
+          "option_text": "役割に固定した権限を与え、状況属性を評価しないRBAC",
+          "plausible_in_other_conditions": "RBACは部署・職位に応じた権限付与に向く",
+          "why_not_here": "RBACは役職・部署での管理に適するが、動的条件まで表現するには拡張が要る。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.889,
+      "legacy_text_nearest": {
+        "id": "A1-004",
+        "minor": "多要素認証",
+        "stem_similarity_ratio": 0.245
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-005",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "ファイル単位に公開鍵を作り、巨大な本文全体を直接公開鍵暗号で処理する",
+          "plausible_in_other_conditions": "公開鍵暗号は共通鍵の配送や小さいデータの暗号化に使える",
+          "why_not_here": "公開鍵方式は鍵配送に役立つが、大量の本文を直接処理する用途として効率やサイズ制約が問題になる。"
+        },
+        {
+          "option": "B",
+          "option_text": "鍵管理サービスのマスター鍵で各ファイルの本文を直接逐次暗号化する",
+          "plausible_in_other_conditions": "集中鍵管理サービスは鍵の統制に使える",
+          "why_not_here": "中央の上位鍵で大容量本文を直接処理する方式は鍵管理境界と実装効率の面で不利になり得る。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.972,
+      "legacy_text_nearest": {
+        "id": "A1-050",
+        "minor": "IaC",
+        "stem_similarity_ratio": 0.248
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-006",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "アクセストークンの有効期間を延長し、リフレッシュ頻度を下げる",
+          "plausible_in_other_conditions": "トークンの更新頻度を減らせばAPIの負荷を抑えられる",
+          "why_not_here": "アクセストークンを長くすると漏えい時の悪用時間が増える。"
+        },
+        {
+          "option": "C",
+          "option_text": "リフレッシュトークンを端末内で暗号化した後、サーバー側では失効を管理しない",
+          "plausible_in_other_conditions": "端末内暗号化は秘密情報の保存時保護に使える",
+          "why_not_here": "クライアント側暗号化は保存時保護に役立つが、盗難・再利用の検知を代替しない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.243,
+      "legacy_text_nearest": {
+        "id": "A2-018",
+        "minor": "契約テスト",
+        "stem_similarity_ratio": 0.284
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-007",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "DNSが正常に名前解決できれば、証明書名の不一致を受け入れる",
+          "plausible_in_other_conditions": "DNSは要求した名前をIPへ対応付ける",
+          "why_not_here": "DNS解決は接続先IPを与えるが、TLSサーバーの名前検証を代替しない。"
+        },
+        {
+          "option": "D",
+          "option_text": "信頼済みCAが発行した証明書であれば、接続先ホスト名は検査しなくてもよい",
+          "plausible_in_other_conditions": "CA署名の検証は証明書の信頼性確認の一部である",
+          "why_not_here": "発行元の信頼は必要条件だが、認証対象名との一致も要る。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.028,
+      "legacy_text_nearest": {
+        "id": "A1-055",
+        "minor": "RACI",
+        "stem_similarity_ratio": 0.249
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-008",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "ログファイルへの追記権限をアプリ管理者だけに与え、同じホスト上に保存する",
+          "plausible_in_other_conditions": "ファイルのアクセス権は非管理者による改変を抑える",
+          "why_not_here": "同じホストの管理者権限が奪われればログ自体を削除・修正できる。"
+        },
+        {
+          "option": "D",
+          "option_text": "ログを1日ごとにローテーションし、同じホスト上でハッシュ値を管理する",
+          "plausible_in_other_conditions": "ハッシュは改変の検出に有用だが信頼アンカーが必要",
+          "why_not_here": "ハッシュが同じホストにあればログと検証値を共に書き換えられる。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.056,
+      "legacy_text_nearest": {
+        "id": "A2-023",
+        "minor": "監査と操作記録",
+        "stem_similarity_ratio": 0.331
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-009",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "署名対象にURLパスを含め、別APIへの転用を検出する",
+          "plausible_in_other_conditions": "URLパスを署名すれば別APIへの転用を防げる",
+          "why_not_here": "URLパスを署名することは別エンドポイントへの転用を防ぐが、同じURLへのリプレイには対抗できない。"
+        },
+        {
+          "option": "C",
+          "option_text": "署名対象にContent-Typeを含め、本文解釈の差を検出する",
+          "plausible_in_other_conditions": "Content-Typeの署名は本文解釈の改ざん検出に役立つ",
+          "why_not_here": "Content-Typeの署名は解釈の改ざん防止には有効でも、同一内容の再送拒否にはならない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.969,
+      "legacy_text_nearest": {
+        "id": "A2-018",
+        "minor": "契約テスト",
+        "stem_similarity_ratio": 0.255
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-010",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "暗号化したバックアップと復号鍵を同じアカウント内の通常バケットへ置く",
+          "plausible_in_other_conditions": "暗号化は保管領域の漏えい時の機密性対策である",
+          "why_not_here": "暗号化だけでは、同じ権限で鍵と本体を同時に奪われるリスクや誤削除に対応しない。"
+        },
+        {
+          "option": "C",
+          "option_text": "復号鍵を別管理にする一方、バックアップ自体は削除履歴を保持せず通常権限で管理する",
+          "plausible_in_other_conditions": "鍵の別保管は機密性対策として有用である",
+          "why_not_here": "鍵の分離は機密性に有効だが、バックアップが不可逆に削除されると復旧できない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.0,
+      "legacy_text_nearest": {
+        "id": "A1-005",
+        "minor": "パスワード管理",
+        "stem_similarity_ratio": 0.242
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-011",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "経路上のルータが返すICMP Time Exceeded通知",
+          "plausible_in_other_conditions": "ICMP Time Exceededは途中ルータから発生する制御情報である",
+          "why_not_here": "Time Exceededは主にTTL切れを示すもので、MTU探索の主な通知ではない。"
+        },
+        {
+          "option": "B",
+          "option_text": "送信先TCPが広告するMSSオプション",
+          "plausible_in_other_conditions": "MSSはTCPの送信サイズを決める上で関連がある",
+          "why_not_here": "MSSはTCPセグメントの受信可能サイズを交渉するが、途中経路のIP MTUを直接通知するものではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.233,
+      "legacy_text_nearest": {
+        "id": "A1-015",
+        "minor": "NAT",
+        "stem_similarity_ratio": 0.287
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-012",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "受信ウィンドウより輻輳ウィンドウの大きさが先に送信上限を決める方式",
+          "plausible_in_other_conditions": "cwndはネットワーク混雑時の送信速度を制御する",
+          "why_not_here": "輻輳ウィンドウはネットワーク混雑に基づく送信上限で、設問の受信側バッファ不足とは直接異なる。"
+        },
+        {
+          "option": "B",
+          "option_text": "送信側が小パケットを集約するNagleアルゴリズムの効果",
+          "plausible_in_other_conditions": "NagleはTCPの送信タイミングに影響する",
+          "why_not_here": "Nagleは小さな送信をまとめるために用い、受信側バッファの残量を送信側へ知らせる仕組みではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.879,
+      "legacy_text_nearest": {
+        "id": "A1-011",
+        "minor": "TCP",
+        "stem_similarity_ratio": 0.288
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-013",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "ICMPv6 Router Solicitation/Advertisementを使う",
+          "plausible_in_other_conditions": "ICMPv6 Router Advertisementも近隣探索プロトコルの一部である",
+          "why_not_here": "ルータ発見やデフォルトルータの情報取得で用いるもので、指定ホストのリンク層アドレスを直接解決するものではない。"
+        },
+        {
+          "option": "B",
+          "option_text": "DHCPv6 Information-Request/Replyを使う",
+          "plausible_in_other_conditions": "DHCPv6はIPv6のネットワーク構成に使える",
+          "why_not_here": "DHCPv6はホストの構成情報に使われるが、隣接ノードのアドレス解決は別の仕組みである。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.047,
+      "legacy_text_nearest": {
+        "id": "A1-020",
+        "minor": "DHCP",
+        "stem_similarity_ratio": 0.286
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-014",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "HTTP/2の全リクエストをそれぞれ別TCP接続へ割り振って同時処理する",
+          "plausible_in_other_conditions": "HTTP/1.1では複数TCP接続の並行利用がある",
+          "why_not_here": "複数TCP接続を用いるのは一部のHTTP/1.1クライアントでも見られる方法で、HTTP/2の接続内多重化の説明ではない。"
+        },
+        {
+          "option": "B",
+          "option_text": "HTTP/2のTCPをUDPへ置き換え、再送待ちの影響をなくす",
+          "plausible_in_other_conditions": "HTTP/3はUDP上のQUICを利用する",
+          "why_not_here": "UDPを利用するのはHTTP/3のQUICであり、HTTP/2は通常TCPの上で動く。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.028,
+      "legacy_text_nearest": {
+        "id": "A1-045",
+        "minor": "デプロイと切戻し",
+        "stem_similarity_ratio": 0.356
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-015",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "各スイッチ間のトランクポートでVLANタグを運搬する機能",
+          "plausible_in_other_conditions": "トランクは複数VLANのフレームを運べる",
+          "why_not_here": "トランクポートはVLANを跨ぐスイッチ間のタグ転送には必要となり得るが、異なるサブネット間のIP転送そのものは行わない。"
+        },
+        {
+          "option": "D",
+          "option_text": "各VLANから同じインターネット向けNATを利用する出口変換機能",
+          "plausible_in_other_conditions": "NATはサブネット間の通信経路で利用されることがある",
+          "why_not_here": "出口NATは外部ネットワーク向けのアドレス変換で、VLAN間通信に本質的に必要なものではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.938,
+      "legacy_text_nearest": {
+        "id": "A1-025",
+        "minor": "デッドロック",
+        "stem_similarity_ratio": 0.278
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-016",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "VPN接続時に端末のhostsファイルを自動更新し、社外復帰時は元へ戻す",
+          "plausible_in_other_conditions": "hostsファイルの更新でも固定名を別IPに解決することはできる",
+          "why_not_here": "hosts更新でも一部端末では実現可能だが、端末側の変更・切戻し・運用負荷が大きく、DNSでの一元管理より適合性が低い。"
+        },
+        {
+          "option": "D",
+          "option_text": "公開IPのまま通信し、社内だけ別のリバースプロキシで処理先を変える",
+          "plausible_in_other_conditions": "内部プロキシ経由の接続先切替もネットワーク設計の選択肢にはなる",
+          "why_not_here": "プロキシで実際の転送先を変えられても、社内からのDNS解決結果が内部IPになる条件を満たさない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.0,
+      "legacy_text_nearest": {
+        "id": "A1-006",
+        "minor": "ゼロトラスト",
+        "stem_similarity_ratio": 0.282
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-017",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "QUICはUDP上で暗号化するが、損失回復と輻輳制御はUDPが担当する",
+          "plausible_in_other_conditions": "UDPを使う転送はQUICの基本構成である",
+          "why_not_here": "UDP自体には再送と輻輳制御がなく、QUICが必要な制御を備える。"
+        },
+        {
+          "option": "B",
+          "option_text": "QUICはUDP上で多重化するが、損失時には全ストリームが転送順で待機する",
+          "plausible_in_other_conditions": "HTTP/2のTCP接続にはヘッドオブラインブロッキングがある",
+          "why_not_here": "QUICは複数ストリームを持ち、一つのストリームのデータ欠落による別ストリームの転送層での順番待ちを緩和できる。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.75,
+      "legacy_text_nearest": {
+        "id": "A2-004",
+        "minor": "シングルポイント障害",
+        "stem_similarity_ratio": 0.319
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-018",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "TCP SYNパケットのオプションだけを比較するL4負荷分散",
+          "plausible_in_other_conditions": "TCP SYNにはL4の接続情報がある",
+          "why_not_here": "TCP SYNにはHTTP Hostヘッダがまだ含まれない。"
+        },
+        {
+          "option": "D",
+          "option_text": "送信元IPのハッシュだけで決めるL4負荷分散",
+          "plausible_in_other_conditions": "送信元IPによる振り分けは一般的なL4負荷分散に使う",
+          "why_not_here": "送信元IPを基準にした配分ではHostに応じた転送先を決められない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.833,
+      "legacy_text_nearest": {
+        "id": "A1-014",
+        "minor": "TLS",
+        "stem_similarity_ratio": 0.264
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-019",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "追加前に名前が存在しなかった場合、Aレコードの正のTTLが残るため",
+          "plausible_in_other_conditions": "DNSの正のTTLは既存レコードの更新反映を遅らせ得る",
+          "why_not_here": "レコードが不存在だったので、その名前のAレコードの正のキャッシュではなく、否定応答のキャッシュを疑う。"
+        },
+        {
+          "option": "D",
+          "option_text": "権威DNSの更新がすでに完了していれば全端末が即座に更新を認識するため",
+          "plausible_in_other_conditions": "権威DNSの変更後に反映時間を考慮する運用はある",
+          "why_not_here": "権威側が更新されても再帰リゾルバなどの既存の負のキャッシュはしばらく残り得る。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.914,
+      "legacy_text_nearest": {
+        "id": "B-006",
+        "minor": "データ移行の整合性",
+        "stem_similarity_ratio": 0.296
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-020",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "全クライアントから送られるX-Forwarded-Forを無条件に採用する",
+          "plausible_in_other_conditions": "X-Forwarded-Forは転送前の送信元アドレスの伝達に使われる",
+          "why_not_here": "クライアントが付けた同名ヘッダは偽装可能であり監査の信頼根拠にならない。"
+        },
+        {
+          "option": "D",
+          "option_text": "APIの監査ではリバースプロキシのIPだけを記録して利用者識別を終了する",
+          "plausible_in_other_conditions": "プロキシ自身のIPは基盤監査に利用できる",
+          "why_not_here": "プロキシIPだけでは利用者ごとの差異が失われる。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.973,
+      "legacy_text_nearest": {
+        "id": "A1-045",
+        "minor": "デプロイと切戻し",
+        "stem_similarity_ratio": 0.263
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-021",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "待機しているHの優先度を下げてLの完了を待つ",
+          "plausible_in_other_conditions": "優先度の変更はスケジューリングに影響する",
+          "why_not_here": "高優先度のHを下げてもLがMに妨げられる構造は解消しない。"
+        },
+        {
+          "option": "D",
+          "option_text": "すべてのスレッドに同じ優先度を設定するタイムシェアリング",
+          "plausible_in_other_conditions": "等優先度の時分割は一般的な公平性対策である",
+          "why_not_here": "一律の優先度設定は時間制約に応じたスケジューリングを難しくする。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.893,
+      "legacy_text_nearest": {
+        "id": "A1-016",
+        "minor": "TTL",
+        "stem_similarity_ratio": 0.233
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-022",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "CPUデータキャッシュにページテーブルを保持する一般のL1D機構",
+          "plausible_in_other_conditions": "L1データキャッシュもページテーブル参照の効率に影響する",
+          "why_not_here": "CPUのデータキャッシュがページテーブル参照を助けることはあるが、変換結果を専用に保持する機構ではない。"
+        },
+        {
+          "option": "C",
+          "option_text": "OSのページキャッシュにファイル内容を保持する仕組み",
+          "plausible_in_other_conditions": "OSのページキャッシュはメモリのアクセスを高速化する",
+          "why_not_here": "OSのページキャッシュはファイル内容などのキャッシュであり、CPUの仮想アドレス変換結果の保持ではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.75,
+      "legacy_text_nearest": {
+        "id": "A1-026",
+        "minor": "キャッシュ",
+        "stem_similarity_ratio": 0.35
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-023",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "closeにより自動的に別ボリュームへ複製が作成される",
+          "plausible_in_other_conditions": "ファイルのcloseはアプリの保存処理の区切りとして使う",
+          "why_not_here": "closeはファイルを閉じる操作で、媒体故障への冗長化を自動提供しない。"
+        },
+        {
+          "option": "C",
+          "option_text": "チェックサムを付けることで電源断による未書込みを回避できる",
+          "plausible_in_other_conditions": "チェックサムは保存後の破損検出に使える",
+          "why_not_here": "チェックサムは破損検出に有効だが、失われたデータを復元できるわけではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.207,
+      "legacy_text_nearest": {
+        "id": "A1-019",
+        "minor": "レイテンシとスループット",
+        "stem_similarity_ratio": 0.284
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-024",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "全ページを作成直後に物理コピーする先行複製",
+          "plausible_in_other_conditions": "先行コピーもプロセス複製の実装として可能である",
+          "why_not_here": "先行複製ならfork直後に物理コピーが発生し、設問の遅延性と異なる。"
+        },
+        {
+          "option": "D",
+          "option_text": "書込みを禁止するだけの読み取り専用メモリ",
+          "plausible_in_other_conditions": "読み取り専用ページは共有を維持する場面で利用される",
+          "why_not_here": "恒久的な読み取り専用化では書込み時にページが複製される説明を満たさない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.036,
+      "legacy_text_nearest": {
+        "id": "A1-021",
+        "minor": "プロセスとスレッド",
+        "stem_similarity_ratio": 0.232
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-025",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "二つのカウンタ更新が同じ変数へ集中する真のデータ競合が起こる",
+          "plausible_in_other_conditions": "真のデータ競合は複数コアの性能と整合性を損なう",
+          "why_not_here": "真の競合は同じ変数を複数スレッドが更新するときの問題で、設問は別々のカウンタである。"
+        },
+        {
+          "option": "C",
+          "option_text": "カウンタが別NUMAノードへ配置され、すべての読取りがリモートアクセスになる",
+          "plausible_in_other_conditions": "NUMAのリモートアクセスはメモリ遅延を増やす",
+          "why_not_here": "NUMAのリモートアクセスは遅延要因だが、キャッシュライン境界に分けるだけで改善したという観測の直接説明ではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.816,
+      "legacy_text_nearest": {
+        "id": "A1-058",
+        "minor": "AIエージェント",
+        "stem_similarity_ratio": 0.253
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-026",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "時刻同期済みのUTC壁時計を利用し、開始時刻との差をそのまま取る",
+          "plausible_in_other_conditions": "UTC壁時計は記録や期限の絶対時刻に使う",
+          "why_not_here": "UTCでも壁時計には時刻補正があり、経過時間の計算が後退や飛躍の影響を受け得る。"
+        },
+        {
+          "option": "B",
+          "option_text": "プロセスのCPU実行時間を計測し、I/O待ちの経過も含める",
+          "plausible_in_other_conditions": "CPU実行時間はCPU消費量の性能測定に向く",
+          "why_not_here": "CPU実行時間はスレッドが待機した実時間を計測しないため、タイムアウトの基準として不適切である。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.812,
+      "legacy_text_nearest": {
+        "id": "A1-043",
+        "minor": "分岐網羅",
+        "stem_similarity_ratio": 0.295
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-027",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "コンテナは専用のゲストカーネルを毎回起動し、ホストカーネルを利用しない",
+          "plausible_in_other_conditions": "ゲストカーネル分離は仮想マシンの標準的な性質である",
+          "why_not_here": "専用ゲストカーネルを起動するのは一般に仮想マシン側の特徴である。"
+        },
+        {
+          "option": "D",
+          "option_text": "コンテナ間はカーネルを共有するため資源制限ができない",
+          "plausible_in_other_conditions": "カーネル共有は分離境界のリスクを生む",
+          "why_not_here": "cgroups等によりCPU・メモリなどの制約が可能である。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.057,
+      "legacy_text_nearest": {
+        "id": "A1-044",
+        "minor": "CI",
+        "stem_similarity_ratio": 0.367
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-028",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "各I/Oの完了を同期的に待つ間、同一イベントループが次の要求を処理する",
+          "plausible_in_other_conditions": "同期I/Oは少数接続なら単純で実用的である",
+          "why_not_here": "同期的なブロック待ちはそのスレッドの進行を止めてしまう。"
+        },
+        {
+          "option": "C",
+          "option_text": "イベントループは複数のCPU命令を同じコアで完全に同時実行する",
+          "plausible_in_other_conditions": "イベントループの同時進行とCPU並列実行を混同しやすい",
+          "why_not_here": "イベントループは単一コアで命令の同時並列実行を起こす仕組みではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.114,
+      "legacy_text_nearest": {
+        "id": "A1-036",
+        "minor": "CAP定理",
+        "stem_similarity_ratio": 0.353
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-029",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "フラグだけをvolatileとし、他の書込みは同期せず公開する",
+          "plausible_in_other_conditions": "C++のvolatileは一部の最適化を抑止する用途がある",
+          "why_not_here": "volatileは言語仕様によって意味が異なるが、一般にスレッド間の順序・可視性を保証する同期原語の代わりにはならない。"
+        },
+        {
+          "option": "B",
+          "option_text": "共有flagを緩いメモリ順序のアトミック変数へ変更し、他データとの順序は指定しない",
+          "plausible_in_other_conditions": "relaxed atomicなら単一変数の原子的操作は実現できる",
+          "why_not_here": "relaxedなアトミックフラグだけでは、他データの公開順序まで確立できない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.905,
+      "legacy_text_nearest": {
+        "id": "A1-024",
+        "minor": "競合状態",
+        "stem_similarity_ratio": 0.221
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-030",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "メモリをすべてのNUMAノードに均等配置し、スレッドは各ノード間を移動させる",
+          "plausible_in_other_conditions": "メモリインタリーブは負荷によって帯域向上に使える",
+          "why_not_here": "インタリーブは帯域利用に役立つ条件もあるが、設問の局所アクセスを最大化する目的と必ずしも合わない。"
+        },
+        {
+          "option": "C",
+          "option_text": "CPUコアの使用率を平準化するため、各スレッドを定期的に別ノードへ移す",
+          "plausible_in_other_conditions": "スレッド移動はCPU利用率平準化に役立つ条件がある",
+          "why_not_here": "負荷均等化のための移動はNUMAのリモートアクセスやキャッシュ失効を増やす可能性がある。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.921,
+      "legacy_text_nearest": {
+        "id": "A2-019",
+        "minor": "可観測性",
+        "stem_similarity_ratio": 0.262
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-031",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "注文金額を範囲指定し、注文日時で整列する",
+          "plausible_in_other_conditions": "注文金額の絞込みと日時の整列は有用な索引利用目的である",
+          "why_not_here": "注文金額は指定された索引に含まれない。"
+        },
+        {
+          "option": "D",
+          "option_text": "注文日時だけを範囲条件に指定する",
+          "plausible_in_other_conditions": "注文日時単独の範囲も一般的な検索条件である",
+          "why_not_here": "先頭列に条件がないと索引の探索効果は制限されやすい（DBによる例外あり）。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.095,
+      "legacy_text_nearest": {
+        "id": "A1-031",
+        "minor": "正規化",
+        "stem_similarity_ratio": 0.346
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-032",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "比較結果がTRUEとなるため抽出される",
+          "plausible_in_other_conditions": "NULLを通常の値とみなすとTRUEになり得ると考えやすい",
+          "why_not_here": "NULLは通常の非NULL値と異なるというTRUE判定にはならない。"
+        },
+        {
+          "option": "C",
+          "option_text": "比較結果がFALSEとなるため抽出されない",
+          "plausible_in_other_conditions": "三値論理のUNKNOWNとFALSEはWHEREでは同じく除外される",
+          "why_not_here": "FALSEと確定するのでなくUNKNOWNとなる点を区別する。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.091,
+      "legacy_text_nearest": {
+        "id": "A1-002",
+        "minor": "SQLインジェクション",
+        "stem_similarity_ratio": 0.187
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-033",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "集計開始時に全テーブルの排他ロックを取得する",
+          "plausible_in_other_conditions": "排他ロックは一貫したスナップショットを得る別の方法である",
+          "why_not_here": "更新をすべて停止する必要があるとは限らない。"
+        },
+        {
+          "option": "B",
+          "option_text": "更新が発生するたびに集計中の行を最新値へ差し替える",
+          "plausible_in_other_conditions": "常に最新データを読む方式は鮮度重視の集計には向く",
+          "why_not_here": "開始時点のスナップショットを読む条件では後からのコミットは見えない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.0,
+      "legacy_text_nearest": {
+        "id": "B-010",
+        "minor": "リージョン障害",
+        "stem_similarity_ratio": 0.317
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-034",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "同一行の古い内容を書き戻すロストアップデート",
+          "plausible_in_other_conditions": "ロストアップデートは競合更新で起こる有名な異常である",
+          "why_not_here": "同一行の更新の上書きではないのでロストアップデートとは異なる。"
+        },
+        {
+          "option": "D",
+          "option_text": "同一行の再読込みで値が変わる非再現読取り",
+          "plausible_in_other_conditions": "非再現読取りも同時実行時の一貫性異常である",
+          "why_not_here": "同じ行の再読取りが変わる状況ではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.136,
+      "legacy_text_nearest": {
+        "id": "A1-034",
+        "minor": "分離レベル",
+        "stem_similarity_ratio": 0.227
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-035",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "利用開始時に全顧客表を悲観的にロックし、保存まで保持する",
+          "plausible_in_other_conditions": "悲観的ロックは更新競合を事前に防げる方式である",
+          "why_not_here": "表全体の長時間ロックは並行編集を大きく妨げる。"
+        },
+        {
+          "option": "D",
+          "option_text": "保存前に現在の顧客行を再検索し、得られた値は照合せず上書きする",
+          "plausible_in_other_conditions": "保存直前の再取得は競合検知の準備として有用である",
+          "why_not_here": "再接続は更新競合を識別しない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.161,
+      "legacy_text_nearest": {
+        "id": "B-006",
+        "minor": "データ移行の整合性",
+        "stem_similarity_ratio": 0.309
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-036",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "C",
+          "option_text": "最後のcreated_atより後の行だけを検索し、同時刻のidを比較しない",
+          "plausible_in_other_conditions": "日時だけのカーソルは値が一意なら機能する場合がある",
+          "why_not_here": "created_atが同じ複数行をまたぐページで未取得行を飛ばし得る。"
+        },
+        {
+          "option": "D",
+          "option_text": "OFFSETをページ番号に応じて増やし、毎回先頭から読み飛ばす",
+          "plausible_in_other_conditions": "OFFSETは小規模な一覧ページでは十分実用的である",
+          "why_not_here": "大きなOFFSETは先頭からの読み飛ばしが増え、深いページでの性能を損ねやすい。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.865,
+      "legacy_text_nearest": {
+        "id": "A1-009",
+        "minor": "プロンプトインジェクション",
+        "stem_similarity_ratio": 0.27
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-037",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "読取りトランザクションのスナップショットが書込みより前に固定されたためと断定する",
+          "plausible_in_other_conditions": "旧スナップショットを読むと古い値が見えることがある",
+          "why_not_here": "既存スナップショットの影響は読み取り条件によって起こり得るが、設問は非同期レプリカで新規に照会したときの古い状態の説明を問う。"
+        },
+        {
+          "option": "D",
+          "option_text": "クライアントのDNSキャッシュが古いIPを指したためと断定し、更新適用状況は調べない",
+          "plausible_in_other_conditions": "古い接続先DNS情報も誤った読取り先を生むことがある",
+          "why_not_here": "DNSの誤接続は別途診断すべき場合があるが、非同期レプリケーションに特有の現象の説明ではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.738,
+      "legacy_text_nearest": {
+        "id": "A1-010",
+        "minor": "認証と認可",
+        "stem_similarity_ratio": 0.286
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-038",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "ON DELETE SET NULLで履歴の親IDを空にする",
+          "plausible_in_other_conditions": "SET NULLは親削除後も子の行を残す要求で有用である",
+          "why_not_here": "SET NULLは親との対応関係を失い得る。"
+        },
+        {
+          "option": "D",
+          "option_text": "ON DELETE CASCADEで親削除時に子も連鎖削除する",
+          "plausible_in_other_conditions": "CASCADEは親子を一緒に消す要件では有効である",
+          "why_not_here": "CASCADEは子も削除するので要件に反する。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.065,
+      "legacy_text_nearest": {
+        "id": "A1-044",
+        "minor": "CI",
+        "stem_similarity_ratio": 0.352
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-039",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "通常のB-tree索引で月別検索を高速化し、全分割の走査対象は変えない",
+          "plausible_in_other_conditions": "索引は時間範囲検索の効率を改善する",
+          "why_not_here": "索引の利用は検索性能を改善し得るが、月以外の分割を除外する仕組みそのものではない。"
+        },
+        {
+          "option": "C",
+          "option_text": "検索を複数ワーカーへ配布し、すべての分割を並列に走査する",
+          "plausible_in_other_conditions": "分割の並列走査は大規模検索の経過時間を短縮する",
+          "why_not_here": "並列走査は時間を短縮し得るが、不要な月のパーティションを読まないという要求とは違う。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.886,
+      "legacy_text_nearest": {
+        "id": "A2-019",
+        "minor": "可観測性",
+        "stem_similarity_ratio": 0.281
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-040",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "分析結果を記録しない一時的なSQLサブクエリ",
+          "plausible_in_other_conditions": "サブクエリは集計SQLの整理に役立つ",
+          "why_not_here": "サブクエリ単独では集計結果を永続再利用しない。"
+        },
+        {
+          "option": "D",
+          "option_text": "実行するたびに基底表を再集計する通常の論理ビュー",
+          "plausible_in_other_conditions": "通常ビューは計算結果を都度最新化する用途で使える",
+          "why_not_here": "通常のビューは結果保持とは限らず、参照の都度計算する場合がある。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.167,
+      "legacy_text_nearest": {
+        "id": "A2-010",
+        "minor": "リトライ",
+        "stem_similarity_ratio": 0.327
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-041",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "条件網羅：複合判定の各条件の真偽を試す",
+          "plausible_in_other_conditions": "条件網羅はテスト設計の強さを高める",
+          "why_not_here": "境界値分析は有効なテスト入力設計だが、コード改変でテストの検出力を測るものではない。"
+        },
+        {
+          "option": "B",
+          "option_text": "ファズテスト：多様な不正入力を自動投入して試す",
+          "plausible_in_other_conditions": "ファズテストもテストの検出能力を評価する方向と近い",
+          "why_not_here": "探索的テストは人間主導の発見だが機械的変異の評価ではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.217,
+      "legacy_text_nearest": {
+        "id": "A1-003",
+        "minor": "XSS",
+        "stem_similarity_ratio": 0.221
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-042",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "テスト前に予測値の正解ラベルをすべて新たに作り、全レコードで完全一致を要求する",
+          "plausible_in_other_conditions": "期待ラベルが用意できれば通常の自動テストが可能になる",
+          "why_not_here": "正解値を確実に用意できれば通常のテストが可能だが、設問は用意しにくい条件であり関係性の検証とは違う。"
+        },
+        {
+          "option": "C",
+          "option_text": "入力を増減させるたびに予測値の分散が小さくなるか統計だけで確認する",
+          "plausible_in_other_conditions": "出力分布を監視することもモデル品質監視の一要素になる",
+          "why_not_here": "予測分散の単独の変化は業務上正しい関係としては導けず、変換前後の関係を特定できない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.846,
+      "legacy_text_nearest": {
+        "id": "A1-057",
+        "minor": "RAG",
+        "stem_similarity_ratio": 0.241
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-043",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "静的解析でコード上の危険なデータフローを検出するSAST",
+          "plausible_in_other_conditions": "SASTはセキュリティ欠陥の発見に使える",
+          "why_not_here": "SASTはソース等を実行せず解析するため、実稼働のHTTP応答を対象にした探索とは違う。"
+        },
+        {
+          "option": "B",
+          "option_text": "依存パッケージに既知のCVEがないか調べるSCA",
+          "plausible_in_other_conditions": "SCAは既知脆弱性の検出に役立つ",
+          "why_not_here": "SCAは依存部品の既知脆弱性調査に有用だが、実行中アプリ全体の動的応答を対象としない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.107,
+      "legacy_text_nearest": {
+        "id": "A1-014",
+        "minor": "TLS",
+        "stem_similarity_ratio": 0.376
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-044",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "本番に新しいコードを毎回デプロイし直して機能を切り替える",
+          "plausible_in_other_conditions": "デプロイ操作も新機能の公開状態を切り替えられる",
+          "why_not_here": "本番コードの直接編集は再現性・監査の観点で不適切である。"
+        },
+        {
+          "option": "B",
+          "option_text": "CDNのキャッシュ期限を短縮し、機能の提供範囲を調整する",
+          "plausible_in_other_conditions": "キャッシュ調整も画面への反映タイミングに関係する",
+          "why_not_here": "キャッシュ消去はサーバー側の機能公開判定を確実に止める手段ではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.0,
+      "legacy_text_nearest": {
+        "id": "A2-018",
+        "minor": "契約テスト",
+        "stem_similarity_ratio": 0.307
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-045",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "本番と同じ構成のステージングへ新版を出してから、本番トラフィックは一度に切り替える",
+          "plausible_in_other_conditions": "ステージングは本番公開前のリリース検証に有用である",
+          "why_not_here": "ステージングでの検査は有益だが、少数の本番実リクエストから段階的に展開する方式ではない。"
+        },
+        {
+          "option": "C",
+          "option_text": "本番要求を新版にもシャドー送信するが、利用者向け応答には新版の処理結果を使わない",
+          "plausible_in_other_conditions": "シャドーリクエストで本番に近いトラフィックの挙動を確認できる",
+          "why_not_here": "シャドートラフィックは新版を観測できるが、実際の利用者応答を新版へ段階的に切り替える条件とは異なる。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.902,
+      "legacy_text_nearest": {
+        "id": "A2-019",
+        "minor": "可観測性",
+        "stem_similarity_ratio": 0.328
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-046",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "trace IDに加えて認証トークンもspan属性に埋めて原因特定を容易にする",
+          "plausible_in_other_conditions": "認証ヘッダは動作追跡に役立つことがあるが機微情報である",
+          "why_not_here": "原因調査用の属性が漏えい経路になるため、認証トークンをトレースへ含めてはならない。"
+        },
+        {
+          "option": "D",
+          "option_text": "送信先で個人情報を暗号化して保存すれば、外部委託先へ全属性を渡してよい",
+          "plausible_in_other_conditions": "暗号化は保存時の機密性対策に使える",
+          "why_not_here": "暗号化は保護の一手段だが、委託先への不要な情報提供と収集自体のリスクをなくせない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.974,
+      "legacy_text_nearest": {
+        "id": "A1-005",
+        "minor": "パスワード管理",
+        "stem_similarity_ratio": 0.354
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-047",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "100件",
+          "plausible_in_other_conditions": "100件は許容失敗率を0.01%と誤って読む場合の値に近い",
+          "why_not_here": "100件は失敗許容率0.01%の場合に相当する。"
+        },
+        {
+          "option": "A",
+          "option_text": "10,000件",
+          "plausible_in_other_conditions": "10,000件は失敗率を1%と誤って扱った値である",
+          "why_not_here": "10,000件は1%で、成功率99%に対応する。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.857,
+      "legacy_text_nearest": {
+        "id": "A1-046",
+        "minor": "SLO",
+        "stem_similarity_ratio": 0.25
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-048",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "単一担当者の権限を縮小してから、発生経緯と環境の調査を省略する",
+          "plausible_in_other_conditions": "権限縮小はインシデントの防御強化策になり得る",
+          "why_not_here": "権限縮小は適切な対策になり得るが、根本原因が不明なまま担当者だけに対処しても再発経路を見逃す。"
+        },
+        {
+          "option": "D",
+          "option_text": "障害を起こしたリリースを戻し、恒久対策は次回障害まで保留する",
+          "plausible_in_other_conditions": "切戻しは障害時の影響緩和として有効である",
+          "why_not_here": "切戻しは短期的な影響緩和に有効だが、再発防止策ではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.0,
+      "legacy_text_nearest": {
+        "id": "A1-042",
+        "minor": "境界値分析",
+        "stem_similarity_ratio": 0.353
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-049",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "D",
+          "option_text": "前者はホワイトボックス、後者はブラックボックス",
+          "plausible_in_other_conditions": "白箱と黒箱の分類を逆に覚える誤解がある",
+          "why_not_here": "両者の区分が逆である。"
+        },
+        {
+          "option": "A",
+          "option_text": "両方ともホワイトボックスで、仕様の検査はできない",
+          "plausible_in_other_conditions": "コード網羅を両方に当てはめる誤解がある",
+          "why_not_here": "入出力検査は内部実装の知識を要しない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.958,
+      "legacy_text_nearest": {
+        "id": "A1-042",
+        "minor": "境界値分析",
+        "stem_similarity_ratio": 0.268
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-050",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "開発チームが申告した直接依存OSS名だけの一覧",
+          "plausible_in_other_conditions": "直接依存リストは手元のOSS把握の第一歩となる",
+          "why_not_here": "直接依存しか把握できないと、ライブラリの先で使われる脆弱な部品を見落とす。"
+        },
+        {
+          "option": "B",
+          "option_text": "CIで実施した脆弱性スキャンの最終判定結果だけ",
+          "plausible_in_other_conditions": "脆弱性スキャンは現時点の該当リスク把握には有用である",
+          "why_not_here": "スキャン結果は有用でも、部品の全体像と版が残っていなければ後日公表された脆弱性の照会が難しい。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.192,
+      "legacy_text_nearest": {
+        "id": "A1-008",
+        "minor": "サプライチェーン",
+        "stem_similarity_ratio": 0.27
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-051",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "16",
+          "plausible_in_other_conditions": "16万円は計算前提の取り違えから生まれる選択である",
+          "why_not_here": "16万円は発生確率を2%と取り違えた値に相当する。"
+        },
+        {
+          "option": "C",
+          "option_text": "400",
+          "plausible_in_other_conditions": "400万円は発生確率を50%として計算した値である",
+          "why_not_here": "400万円は発生確率を50%と誤った場合の値である。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.667,
+      "legacy_text_nearest": {
+        "id": "A2-005",
+        "minor": "キャパシティ計画",
+        "stem_similarity_ratio": 0.23
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-052",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "D",
+          "option_text": "0.75",
+          "plausible_in_other_conditions": "0.75はEV/PVという進捗寄りの比率に相当する",
+          "why_not_here": "0.75はEV/PVで計算されるスケジュール効率指数SPIである。"
+        },
+        {
+          "option": "B",
+          "option_text": "1.25",
+          "plausible_in_other_conditions": "1.25はAC/EVという逆数を計算した値である",
+          "why_not_here": "1.25はAC/EVで割る順序を逆にした値である。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.0,
+      "legacy_text_nearest": {
+        "id": "A2-005",
+        "minor": "キャパシティ計画",
+        "stem_similarity_ratio": 0.224
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-053",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "並列ゲートウェイ（AND）",
+          "plausible_in_other_conditions": "ANDは複数の作業を同時に走らせる分岐に使う",
+          "why_not_here": "並列分岐は両経路を同時に進めるので一方だけという条件に合わない。"
+        },
+        {
+          "option": "C",
+          "option_text": "包含ゲートウェイ（OR）",
+          "plausible_in_other_conditions": "ORは複数条件が成立するとき複数経路を選ぶ用途がある",
+          "why_not_here": "包含分岐は条件に応じて複数経路を同時に選択し得る。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.0,
+      "legacy_text_nearest": {
+        "id": "A1-032",
+        "minor": "外部キー",
+        "stem_similarity_ratio": 0.254
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-054",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "学習時に高精度なら、予測時点で未確定の特徴量も使う",
+          "plausible_in_other_conditions": "事後の解約理由は学習データでは極めて高精度に見える",
+          "why_not_here": "精度が高いのは目的変数の事後情報を参照しているためかもしれない。"
+        },
+        {
+          "option": "D",
+          "option_text": "訓練と検証の顧客IDを分ければ、事後情報も特徴量に使える",
+          "plausible_in_other_conditions": "顧客別の訓練・検証分割は別の種類のデータ漏えい対策になる",
+          "why_not_here": "顧客単位の分割は必要な場合があるが、事後情報の混入は別の問題である。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.929,
+      "legacy_text_nearest": {
+        "id": "A1-004",
+        "minor": "多要素認証",
+        "stem_similarity_ratio": 0.254
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-055",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "入力項目の型と欠損率だけを監視し、予測誤差の変化は分析しない",
+          "plausible_in_other_conditions": "欠損率監視は入力品質の異常を検知できる",
+          "why_not_here": "欠損率などの入力品質は重要だが、購買行動変化による予測誤差の悪化を直接把握できない。"
+        },
+        {
+          "option": "B",
+          "option_text": "導入前の交差検証スコアを固定し、実運用の正解ラベルは集めない",
+          "plausible_in_other_conditions": "交差検証は導入前の汎化性能を評価する基本手法である",
+          "why_not_here": "導入前の検証は過去分布での能力を示すだけで、運用後の行動変化を捕捉できない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.938,
+      "legacy_text_nearest": {
+        "id": "A2-009",
+        "minor": "サーキットブレーカー",
+        "stem_similarity_ratio": 0.23
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-056",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "66.7%",
+          "plausible_in_other_conditions": "66.7%は誤った分母を使う計算例である",
+          "why_not_here": "66.7%は検出数の分母を120と誤って考えた値である。"
+        },
+        {
+          "option": "D",
+          "option_text": "83.3%",
+          "plausible_in_other_conditions": "83.3%は別の分母を想定した誤計算例である",
+          "why_not_here": "83.3%は別の誤った分母を用いた結果である。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.833,
+      "legacy_text_nearest": {
+        "id": "A1-034",
+        "minor": "分離レベル",
+        "stem_similarity_ratio": 0.233
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-057",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "Tabキーで操作できるが、デザイン統一のためフォーカスの表示は消す",
+          "plausible_in_other_conditions": "Tab操作そのものは実現している設計である",
+          "why_not_here": "フォーカス表示を消すとキーボード利用者は現在位置を把握しづらい。"
+        },
+        {
+          "option": "D",
+          "option_text": "モーダル画面からTabキーで背後の操作へ移っても、Escで閉じられればよい",
+          "plausible_in_other_conditions": "Escでモーダルを閉じられるのはアクセシビリティに有用である",
+          "why_not_here": "モーダルで背後へフォーカスが抜けると文脈が混乱するため、操作対象の制御が必要になる。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.973,
+      "legacy_text_nearest": {
+        "id": "A2-004",
+        "minor": "シングルポイント障害",
+        "stem_similarity_ratio": 0.348
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-058",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "C",
+          "option_text": "1,500Hz",
+          "plausible_in_other_conditions": "1500Hzでも800Hzを上回るため十分と誤解し得る",
+          "why_not_here": "1,500Hzはナイキスト周波数750Hzで不足する。"
+        },
+        {
+          "option": "B",
+          "option_text": "1,200Hz",
+          "plausible_in_other_conditions": "1200Hzは元信号の周波数帯に近い候補である",
+          "why_not_here": "1,200Hzはナイキスト周波数600Hzで不足する。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.0,
+      "legacy_text_nearest": {
+        "id": "A1-006",
+        "minor": "ゼロトラスト",
+        "stem_similarity_ratio": 0.324
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-059",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "D",
+          "option_text": "ソフトリアルタイム：一部の遅延でも安全に支障がない",
+          "plausible_in_other_conditions": "ソフトリアルタイムは遅延の影響を軽微なものとする場面に適切",
+          "why_not_here": "ソフトリアルタイムでは一定の期限超過を品質低下として扱う例が多い。"
+        },
+        {
+          "option": "A",
+          "option_text": "ベストエフォート：遅延の分布が良ければ十分",
+          "plausible_in_other_conditions": "ベストエフォートは期限の重要度が低いシステムで採用できる",
+          "why_not_here": "平均値が良くても危険な最大遅延が残る。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.08,
+      "legacy_text_nearest": {
+        "id": "A1-044",
+        "minor": "CI",
+        "stem_similarity_ratio": 0.336
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A1-060",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "閾値を一律に高くして、すべてのクラスの適合率を優先する",
+          "plausible_in_other_conditions": "閾値調整は誤検知数を変化させる有力な方法である",
+          "why_not_here": "適合率重視の一律閾値引上げは、緊急クラスの見逃しを増やす可能性がある。"
+        },
+        {
+          "option": "C",
+          "option_text": "緊急クラスの訓練重みを増やし、現場での誤検知費用は考慮しない",
+          "plausible_in_other_conditions": "クラス重み調整は不均衡データに対して有用な学習手段である",
+          "why_not_here": "重み調整は改善候補だが、誤検知の業務費用と見逃し費用を確認せず最適な運用閾値は選べない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.9,
+      "legacy_text_nearest": {
+        "id": "A2-019",
+        "minor": "可観測性",
+        "stem_similarity_ratio": 0.237
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-001",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "C",
+          "option_text": "平均応答時間だけを定め、ピーク時の負荷構成は後で決める",
+          "plausible_in_other_conditions": "平均応答時間は性能指標としてよく使う",
+          "why_not_here": "平均はごく遅い要求を隠し得るうえ負荷条件が不定である。"
+        },
+        {
+          "option": "D",
+          "option_text": "サーバー平均CPU使用率を合格指標として閾値を設定する",
+          "plausible_in_other_conditions": "サーバCPU使用率は容量管理でよく使われる",
+          "why_not_here": "CPU負荷は内部要因で利用者が体験する通信遅延を直接表さない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.071,
+      "legacy_text_nearest": {
+        "id": "A2-020",
+        "minor": "合意形成",
+        "stem_similarity_ratio": 0.304
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-002",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "主DBと認証サーバーが国内であることだけを確認し、バックアップ先は問わない",
+          "plausible_in_other_conditions": "主DBの所在国確認は契約確認の基本である",
+          "why_not_here": "主DBと認証経路は重要だが、契約対象のバックアップが国外となるリスクを見逃す。"
+        },
+        {
+          "option": "D",
+          "option_text": "日本リージョンを契約するが、自動バックアップの複製先設定は調査しない",
+          "plausible_in_other_conditions": "国内リージョン選択は国内保存要件に役立つ場合がある",
+          "why_not_here": "日本リージョンの選択だけでは、他地域へ複製される復旧用バックアップの扱いが確定しない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.865,
+      "legacy_text_nearest": {
+        "id": "B-007",
+        "minor": "通信断と電力制約",
+        "stem_similarity_ratio": 0.234
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-003",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "添付以外の入力を維持し、フォーム先頭にファイル不正の一般的な説明だけを出す",
+          "plausible_in_other_conditions": "入力の保持とエラーメッセージは利用者支援になる",
+          "why_not_here": "入力保持は満たすが、どの項目をどう直すか分かる表示になっていない。"
+        },
+        {
+          "option": "B",
+          "option_text": "不正な添付欄に許容形式を示すが、再提出時には他の入力を初期化する",
+          "plausible_in_other_conditions": "該当フィールドでの説明は局所修正に役立つ",
+          "why_not_here": "局所的なエラー表示は満たすが、他の入力保持要件に違反する。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.974,
+      "legacy_text_nearest": {
+        "id": "A1-023",
+        "minor": "ページフォールト",
+        "stem_similarity_ratio": 0.298
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-004",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "DBコミット後にアプリメモリへイベントを記録し、再起動時に送信する",
+          "plausible_in_other_conditions": "コミット後のメモリ上記録は通常時なら送信できる",
+          "why_not_here": "メモリだけではプロセス障害時に送信待ち情報が失われる。"
+        },
+        {
+          "option": "C",
+          "option_text": "ブローカーへの送信を先に確定し、その後DB更新結果を問わず通知を成功とみなす",
+          "plausible_in_other_conditions": "イベント先送信は通知の遅延を減らせる条件もある",
+          "why_not_here": "先にイベントが届くとDB更新が失敗したのに確定イベントが発生する。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.105,
+      "legacy_text_nearest": {
+        "id": "A1-033",
+        "minor": "ACID",
+        "stem_similarity_ratio": 0.393
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-005",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "予約成功したサービスは確定扱いとし、後段失敗時は手動取消に任せる",
+          "plausible_in_other_conditions": "手動取消は小規模処理で補償手段になり得る",
+          "why_not_here": "手動取消は技術的には可能でも、失敗時に取り消す必要のある一連の業務を自動的に整合させる要件を満たさない。"
+        },
+        {
+          "option": "D",
+          "option_text": "後段失敗時に予約の有効期限が切れることを待ち、取消確認や顧客通知を省略する",
+          "plausible_in_other_conditions": "予約の有効期限による回収が可能なサービスもある",
+          "why_not_here": "期限切れは一部サービスでは使えるが、予約の確定や手数料がある場合は取消の責務を代替できない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.946,
+      "legacy_text_nearest": {
+        "id": "A2-010",
+        "minor": "リトライ",
+        "stem_similarity_ratio": 0.247
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-006",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "検索速度改善のため読取りレプリカを増やし、登録と検索で同一の正規化モデルを使う",
+          "plausible_in_other_conditions": "読取りレプリカは検索負荷の分散に有効である",
+          "why_not_here": "読取りレプリカの追加は有力な代替対策だが、更新と検索を責務別モデルへ分けるCQRSの採用判断とは異なる。"
+        },
+        {
+          "option": "C",
+          "option_text": "検索頻度の高い列へ索引を加えるが、更新と読取りモデルの責務は分離しない",
+          "plausible_in_other_conditions": "索引最適化は結合検索の性能を改善し得る",
+          "why_not_here": "索引最適化は通常のDB性能対策だが、モデルの分離そのものではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.026,
+      "legacy_text_nearest": {
+        "id": "A1-044",
+        "minor": "CI",
+        "stem_similarity_ratio": 0.282
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-007",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "C",
+          "option_text": "前回のETagをIf-Matchで送り、成功時にPUTで全商品を上書きする",
+          "plausible_in_other_conditions": "If-Matchは条件付きの更新に使われる",
+          "why_not_here": "If-Matchは前提条件付き更新などで使うが、カタログの変更なし検査には目的が違い、PUTは更新操作である。"
+        },
+        {
+          "option": "A",
+          "option_text": "前回のContent-LengthをIf-Rangeで送り、全件の更新有無を判定する",
+          "plausible_in_other_conditions": "If-Rangeは部分取得でキャッシュの整合に関係する",
+          "why_not_here": "If-Rangeはレンジ要求向けで、Content-Lengthは内容の同一性を保証しない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.0,
+      "legacy_text_nearest": {
+        "id": "A1-024",
+        "minor": "競合状態",
+        "stem_similarity_ratio": 0.315
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-008",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "旧列名へ互換ビューを追加する予定だけを決め、旧版の書込み処理が新列へ伝わるか試験しない",
+          "plausible_in_other_conditions": "互換ビューは列移行の仕組みとして利用できる",
+          "why_not_here": "互換ビューは有効な実装候補だが、更新が新列へ伝わるか不明なままでは無停止移行を保証できない。"
+        },
+        {
+          "option": "C",
+          "option_text": "新列を作成して一度だけ過去行をコピーし、旧版稼働中の更新を新列へ反映しない",
+          "plausible_in_other_conditions": "一度だけのバッチコピーは更新停止できる場合に有効である",
+          "why_not_here": "旧版の継続更新が新列へ反映されないと移行完了時にデータが欠ける。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.837,
+      "legacy_text_nearest": {
+        "id": "B-006",
+        "minor": "データ移行の整合性",
+        "stem_similarity_ratio": 0.318
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-009",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "C",
+          "option_text": "注文年月で分散し、会員検索は複数シャードに問い合わせる",
+          "plausible_in_other_conditions": "年月による分散は時系列分析の局所性を高める",
+          "why_not_here": "日付分散は期間検索に向くが会員別検索で多数シャードをまたぐ。"
+        },
+        {
+          "option": "D",
+          "option_text": "都道府県名で分散し、会員取引量の偏りを評価しない",
+          "plausible_in_other_conditions": "地域キーは地域ごとに業務を閉じられる場合に向く",
+          "why_not_here": "都道府県分散は地域偏りで一部が過負荷になり得る。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.963,
+      "legacy_text_nearest": {
+        "id": "A1-010",
+        "minor": "認証と認可",
+        "stem_similarity_ratio": 0.253
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-010",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "C",
+          "option_text": "共有ディスクのロックを用意するが、ネットワーク分断後の旧主系の書込み権限は確認しない",
+          "plausible_in_other_conditions": "共有ディスクロックも競合書込み対策に利用できる",
+          "why_not_here": "共有ロックは役立つこともあるが、旧主系が分断後に資源を使える可能性を排除しないと危険である。"
+        },
+        {
+          "option": "D",
+          "option_text": "旧主系に停止要求を送信するが、通信断で届かなければ新主系の昇格を優先する",
+          "plausible_in_other_conditions": "旧主系への停止要求は正常な経路なら役立つ",
+          "why_not_here": "停止要求が届かない状況こそ二重主系になり得るため、昇格前のフェンシングが必要になる。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.881,
+      "legacy_text_nearest": {
+        "id": "A1-036",
+        "minor": "CAP定理",
+        "stem_similarity_ratio": 0.347
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-011",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "検索基盤への更新後にチェックポイントを保存するが、検索基盤の書込み永続化完了を確認しない",
+          "plausible_in_other_conditions": "チェックポイントはCDC再開位置を記録する中心的手法である",
+          "why_not_here": "検索基盤の更新が永続化していない段階でチェックポイントを進めると、障害時に更新が失われる場合がある。"
+        },
+        {
+          "option": "B",
+          "option_text": "更新前にチェックポイントを進め、処理失敗時は次回位置からの適用を続ける",
+          "plausible_in_other_conditions": "適用前の位置保存は取込み速度を優先する方式として考え得る",
+          "why_not_here": "適用前のチェックポイント進行はイベント喪失の原因になる。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.727,
+      "legacy_text_nearest": {
+        "id": "B-006",
+        "minor": "データ移行の整合性",
+        "stem_similarity_ratio": 0.308
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-012",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "すべての要求を正確に500ms間隔に並べて発行し、突発を受け入れない",
+          "plausible_in_other_conditions": "一定間隔で処理するレート制御は長期平均を制限できる",
+          "why_not_here": "厳格な間隔制御はバースト要件に合わない。"
+        },
+        {
+          "option": "D",
+          "option_text": "固定1秒窓で毎秒2件まで許可し、残りバースト容量を保持しない",
+          "plausible_in_other_conditions": "固定窓は単純なAPI利用制限として広く使われる",
+          "why_not_here": "固定窓の毎秒2件では10件の突発を許容できない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.147,
+      "legacy_text_nearest": {
+        "id": "A2-018",
+        "minor": "契約テスト",
+        "stem_similarity_ratio": 0.29
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-013",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "全クライアントの再試行時刻を正確に揃えて処理し、再試行回数は制限しない",
+          "plausible_in_other_conditions": "定期リトライは回復検出のための単純な設計である",
+          "why_not_here": "同期した無制限再試行は輻輳を増幅する。"
+        },
+        {
+          "option": "A",
+          "option_text": "各クライアントのタイムアウトを無制限に延ばし、失敗を検知しない",
+          "plausible_in_other_conditions": "タイムアウト延長は通信待ちを増やすため一時障害では検討される",
+          "why_not_here": "無制限のタイムアウトは利用者の期限要件を損なう。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.914,
+      "legacy_text_nearest": {
+        "id": "A2-004",
+        "minor": "シングルポイント障害",
+        "stem_similarity_ratio": 0.267
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-014",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "画像処理リクエストの優先度を下げるが、すべての処理は単一スレッドプールを共有する",
+          "plausible_in_other_conditions": "優先度の差は重要処理を優遇できる",
+          "why_not_here": "優先度制御は助けになり得るが、同じ資源を使い尽くすと影響の完全な分離にならない。"
+        },
+        {
+          "option": "C",
+          "option_text": "負荷に合わせてスレッドプールを拡張するが、各機能の上限は設けない",
+          "plausible_in_other_conditions": "スレッド増強はCPU/I/O余力のあるとき有効である",
+          "why_not_here": "増強は短期対策でも有限なメモリや接続の奪い合いを防止しない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.9,
+      "legacy_text_nearest": {
+        "id": "A2-009",
+        "minor": "サーキットブレーカー",
+        "stem_similarity_ratio": 0.348
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-015",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "D",
+          "option_text": "一定時間後、成功率を問わず全要求を一度に通す",
+          "plausible_in_other_conditions": "閉状態へ戻すのは正常回復後の期待動作である",
+          "why_not_here": "一度に全量再開すると復旧途上のサービスへ負荷が集中する。"
+        },
+        {
+          "option": "A",
+          "option_text": "一定時間後もすべての要求を永続的に拒否する",
+          "plausible_in_other_conditions": "開状態を維持するのは障害中の保護として有効である",
+          "why_not_here": "永続拒否では回復検知と再開ができない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.156,
+      "legacy_text_nearest": {
+        "id": "A1-049",
+        "minor": "可観測性",
+        "stem_similarity_ratio": 0.252
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-016",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "各台のP99を平均すれば、要求数が異なっても全体P99となる",
+          "plausible_in_other_conditions": "P99平均は簡便な集約指標として思い付きやすい",
+          "why_not_here": "平均値は各台のサンプル数や遅延分布を反映せず全体P99ではない。"
+        },
+        {
+          "option": "C",
+          "option_text": "各台のP99の最大値は、全体P99と定義上等しい",
+          "plausible_in_other_conditions": "台別P99の最大値は遅い台を見落とさないために使える",
+          "why_not_here": "最大値も全体の上位1%を代表するとは限らない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.833,
+      "legacy_text_nearest": {
+        "id": "A1-029",
+        "minor": "RAID",
+        "stem_similarity_ratio": 0.385
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-017",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "フィールド名が異なれば番号を同じにしても古いクライアントへの影響はない",
+          "plausible_in_other_conditions": "フィールド名の変更はソースコードから見れば区別できる",
+          "why_not_here": "Protobufでは番号がワイヤ形式の識別子であり、名前の違いでは衝突を防げない。"
+        },
+        {
+          "option": "C",
+          "option_text": "型が同じフィールドなら名前と意味を変更しても、古いアプリが安全に解釈する",
+          "plausible_in_other_conditions": "型の維持はワイヤ互換性の一部ではある",
+          "why_not_here": "型が同じでも意味を変えれば古いアプリの処理は誤動作し得る。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.833,
+      "legacy_text_nearest": {
+        "id": "A1-022",
+        "minor": "仮想メモリ",
+        "stem_similarity_ratio": 0.253
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-018",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "C",
+          "option_text": "mTLSで暗号化した通信は機密APIでもアクセス制限しない",
+          "plausible_in_other_conditions": "mTLSはサービスの認証を提供する",
+          "why_not_here": "認証された主体が機密APIを実行してよいとは限らない。"
+        },
+        {
+          "option": "D",
+          "option_text": "サービス証明書を共通化し、同一秘密鍵を全サービスへ配る",
+          "plausible_in_other_conditions": "同一鍵配布は証明書管理の簡略化に見える",
+          "why_not_here": "共通秘密鍵はサービス間の識別・失効を困難にする。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.103,
+      "legacy_text_nearest": {
+        "id": "A1-003",
+        "minor": "XSS",
+        "stem_similarity_ratio": 0.284
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-019",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "ビルド後のバイナリハッシュを同じ配布サーバーに置き、署名検証は行わない",
+          "plausible_in_other_conditions": "ハッシュ比較はファイル差替えの検知に使われる",
+          "why_not_here": "攻撃者が配布サーバーを改ざんできれば、ハッシュ値も同時に置換される可能性がある。"
+        },
+        {
+          "option": "B",
+          "option_text": "依存ライブラリの部品表と脆弱性診断結果を公開し、ビルド経路の証明は省く",
+          "plausible_in_other_conditions": "SBOMは構成部品の由来の一部を理解する補助となる",
+          "why_not_here": "部品表や脆弱性診断は材料の把握に役立つが、受け取ったバイナリが承認済みビルド由来とは証明できない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.9,
+      "legacy_text_nearest": {
+        "id": "A1-044",
+        "minor": "CI",
+        "stem_similarity_ratio": 0.286
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-020",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "同じ生成AIモデルの自己評価が正しければ本番使用を承認する",
+          "plausible_in_other_conditions": "AI生成物の自己評価は開発中に容易に実施できる",
+          "why_not_here": "同じモデルの自己評価は検証の独立性が弱い。"
+        },
+        {
+          "option": "D",
+          "option_text": "テストの量を増やし、期待値の独立検証は開発後まで延期する",
+          "plausible_in_other_conditions": "自動テスト件数の増加は品質改善に有用な場合がある",
+          "why_not_here": "テスト数が多くても誤った期待値なら誤実装を通す。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.862,
+      "legacy_text_nearest": {
+        "id": "A2-019",
+        "minor": "可観測性",
+        "stem_similarity_ratio": 0.286
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-021",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "C",
+          "option_text": "アプリ内部のスレッドが同じCPU上で無条件にウォッチドッグ値を更新する",
+          "plausible_in_other_conditions": "同じCPU上の監視スレッドは個別タスクのハング検知に使える",
+          "why_not_here": "同じCPUが固まると監視スレッドも停止し、無条件クリアでは進捗異常を見逃す。"
+        },
+        {
+          "option": "D",
+          "option_text": "クラウドの監視サービスで正常時のログ件数だけを数え、遠隔命令で停止する",
+          "plausible_in_other_conditions": "クラウド監視は通常の機器稼働状況を観測できる",
+          "why_not_here": "通信断ではクラウドの遠隔命令が届かない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.951,
+      "legacy_text_nearest": {
+        "id": "B-011",
+        "minor": "非機能要件と受入",
+        "stem_similarity_ratio": 0.282
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-022",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "平均が10msなら短い遅延と長い遅延は相殺される",
+          "plausible_in_other_conditions": "平均取得間隔は信号処理で重要な指標である",
+          "why_not_here": "平均が一致しても個々の遅延は制御上の問題となり得る。"
+        },
+        {
+          "option": "C",
+          "option_text": "件数が100件/秒なら時刻を記録せず、等間隔とみなす",
+          "plausible_in_other_conditions": "単位時間当たり件数は標本化レートの確認になる",
+          "why_not_here": "個数が同じでも測定タイミングが異なると信号の解釈が変わる。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.0,
+      "legacy_text_nearest": {
+        "id": "B-008",
+        "minor": "アクセス制御",
+        "stem_similarity_ratio": 0.327
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-A2-023",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "旧接続を維持したまま旧認証を失効させ、接続し直すインスタンスは再試行させる",
+          "plausible_in_other_conditions": "既存接続の維持は瞬断緩和策として利用される",
+          "why_not_here": "旧情報の失効前に新情報へ移したい条件と逆であり、複数インスタンスの切替が間に合わない。"
+        },
+        {
+          "option": "D",
+          "option_text": "新しい認証情報を一斉適用し、短時間の接続切断はプール再接続で吸収する",
+          "plausible_in_other_conditions": "一斉パスワード更新は単一インスタンスなら簡単な運用である",
+          "why_not_here": "一斉切替だけでは接続断の可能性があり、重複期間を設ける方式の方が安全である。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.795,
+      "legacy_text_nearest": {
+        "id": "A1-045",
+        "minor": "デプロイと切戻し",
+        "stem_similarity_ratio": 0.333
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-B-001",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "決済が完了するまで全座席のDB排他ロックを保持して重複を防ぐ",
+          "plausible_in_other_conditions": "排他ロックで二重取得を防げる面がある",
+          "why_not_here": "決済待ちは最大5分であり長時間の全席ロックはスループットを著しく下げる。"
+        },
+        {
+          "option": "D",
+          "option_text": "空き状態をキャッシュで読んでからDBへ登録し、競合は決済後に運用担当が調整する",
+          "plausible_in_other_conditions": "事前キャッシュ判定はピークの読取り負荷を減らす",
+          "why_not_here": "キャッシュによる事前判定だけでは両者が同じ空席を見て二重受付になり得る。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.897,
+      "legacy_text_nearest": {
+        "id": "A1-044",
+        "minor": "CI",
+        "stem_similarity_ratio": 0.393
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-B-002",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "決済成功を優先し、期限切れ席に別の購入者がいても旧購入者へ所有権を戻す",
+          "plausible_in_other_conditions": "決済成功の処理は通常の業務フローの一部である",
+          "why_not_here": "既存購入者の権利を奪い、二重販売状態を作る。"
+        },
+        {
+          "option": "B",
+          "option_text": "通知を重複として破棄し、期限切れの決済も照合せず成功として完了にする",
+          "plausible_in_other_conditions": "通知の重複破棄は冪等処理の最初の対策に見える",
+          "why_not_here": "決済が成立したのに未提供なら返金や調査が必要で、捨てるだけでは業務整合性を保てない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.892,
+      "legacy_text_nearest": {
+        "id": "A1-005",
+        "minor": "パスワード管理",
+        "stem_similarity_ratio": 0.308
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-B-003",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "全座席のイベントを単一キューに集約し、常時一つのワーカーで順次処理する",
+          "plausible_in_other_conditions": "単一キューの直列化は順序保証に役立つ",
+          "why_not_here": "全席の単一コンシューマはスループット制約を招く。"
+        },
+        {
+          "option": "C",
+          "option_text": "到着順の処理だけで、すべてのコンシューマに同じ順序が保証されるとみなす",
+          "plausible_in_other_conditions": "到着順の処理は単一処理系なら単純に実装できる",
+          "why_not_here": "並列受信ではイベント順が保証されない場合があり単純上書きは危険である。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.857,
+      "legacy_text_nearest": {
+        "id": "A1-005",
+        "minor": "パスワード管理",
+        "stem_similarity_ratio": 0.321
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-B-004",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "DB接続プールを負荷に合わせて無制限に拡張し、受付成功を先に返す",
+          "plausible_in_other_conditions": "接続プール拡張は負荷増加への短期対策にはなる",
+          "why_not_here": "DBの処理容量を超える接続増は根本解決にならず未確定の成功応答も危険である。"
+        },
+        {
+          "option": "D",
+          "option_text": "8,000要求を無制限にDB接続待ちへ置き、要求完了までHTTPを維持する",
+          "plausible_in_other_conditions": "待機列は瞬間的な負荷の平準化に使える",
+          "why_not_here": "無制限待機はメモリ・接続枯渇を招き、画面上も購入可否が不明なままとなる。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.919,
+      "legacy_text_nearest": {
+        "id": "A2-023",
+        "minor": "監査と操作記録",
+        "stem_similarity_ratio": 0.256
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-B-005",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "判定をクラウドで行い、WAN断の間は停止指示を端末へ送らない",
+          "plausible_in_other_conditions": "クラウド推論は高度な分析を中央で処理できる",
+          "why_not_here": "クラウド依存では通信断時に安全期限を満たせない。"
+        },
+        {
+          "option": "D",
+          "option_text": "クラウドの心拍があるときは端末内の安全制御を省略する",
+          "plausible_in_other_conditions": "心拍はネットワークの生存確認として使える",
+          "why_not_here": "クラウド心拍があっても現場制御の計算や弁作動の安全性は保証されない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.938,
+      "legacy_text_nearest": {
+        "id": "A2-016",
+        "minor": "エッジ処理",
+        "stem_similarity_ratio": 0.435
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-B-006",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "クラウド到着時刻を唯一の基準とし、再送データも新しいサンプルとして保存する",
+          "plausible_in_other_conditions": "クラウド到着時刻は保存順を単純にする",
+          "why_not_here": "到着時刻はWAN断・再送による遅延の影響を受けて測定順を表さない。"
+        },
+        {
+          "option": "C",
+          "option_text": "通信回復時に連番を振り直し、断の直前との連続性を調べない",
+          "plausible_in_other_conditions": "連番振直しは新たなセッション開始時なら採用できる",
+          "why_not_here": "連番の振直しは欠落・重複検査の連続性を失う。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.838,
+      "legacy_text_nearest": {
+        "id": "B-007",
+        "minor": "通信断と電力制約",
+        "stem_similarity_ratio": 0.278
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-B-007",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "C",
+          "option_text": "新イメージを稼働領域へ直接上書きし、電源断時は再開を試す",
+          "plausible_in_other_conditions": "直接上書きはストレージ容量を節約する",
+          "why_not_here": "実行中領域の直接上書きは電源断時に起動不能となり得る。"
+        },
+        {
+          "option": "D",
+          "option_text": "社内更新URLだけを使い、署名検証と旧版の保持を省く",
+          "plausible_in_other_conditions": "内部URLは配信元の到達範囲を制限できる",
+          "why_not_here": "内部URLであっても配布経路・サーバ侵害を想定した真正性検証が必要である。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.143,
+      "legacy_text_nearest": {
+        "id": "A2-023",
+        "minor": "監査と操作記録",
+        "stem_similarity_ratio": 0.343
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-B-008",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "300,000サンプルで9,600,000バイトとなり、領域が不足する",
+          "plausible_in_other_conditions": "300000件は標本化周期の換算を誤った計算例である",
+          "why_not_here": "サンプル数を10倍に見積もっている。"
+        },
+        {
+          "option": "D",
+          "option_text": "残容量は約0.5MBなので、960,000バイトを保存できない",
+          "plausible_in_other_conditions": "MBとKiBの換算を誤ると残容量の評価を誤る",
+          "why_not_here": "2,097,152−512,000=1,585,152バイト（正しくは500KiB=512,000）あり0.5MBではない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.944,
+      "legacy_text_nearest": {
+        "id": "A2-016",
+        "minor": "エッジ処理",
+        "stem_similarity_ratio": 0.218
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-B-009",
+      "question_version": "1.0.0",
+      "answer": "A",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 8,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 1,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "B",
+          "option_text": "申請IDを推測困難にするだけで、既存の共有キャッシュキーを維持する",
+          "plausible_in_other_conditions": "推測困難なIDは列挙攻撃の抑止に役立つ",
+          "why_not_here": "推測不能なIDは列挙を難しくするが、キャッシュキー衝突や認可を迂回した情報返却には対処しない。"
+        },
+        {
+          "option": "D",
+          "option_text": "自治体コードだけをキャッシュキーに追加し、利用者別の所有権はキャッシュ側で確認しない",
+          "plausible_in_other_conditions": "自治体単位のキャッシュキーはテナント間分離の一部になる",
+          "why_not_here": "自治体が同じでも住民間で閲覧権限が異なるため、自治体コードだけでは足りない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 1.119,
+      "legacy_text_nearest": {
+        "id": "A2-019",
+        "minor": "可観測性",
+        "stem_similarity_ratio": 0.252
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-B-010",
+      "question_version": "1.0.0",
+      "answer": "B",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "新旧のレコード件数が等しければ、時刻差は表示上の問題として許容する",
+          "plausible_in_other_conditions": "行数一致は移行漏れの発見に役立つ",
+          "why_not_here": "件数の一致は日時の意味が正しく移行されたことを保証しない。"
+        },
+        {
+          "option": "C",
+          "option_text": "旧DBの時刻を文字列として読み、移行先では常にサーバーのタイムゾーンへ変換する",
+          "plausible_in_other_conditions": "サーバのタイムゾーンは時刻解釈に影響する",
+          "why_not_here": "サーバーのローカル設定へ依存すると、運用先や移行時期で日付がずれる場合がある。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.949,
+      "legacy_text_nearest": {
+        "id": "B-006",
+        "minor": "データ移行の整合性",
+        "stem_similarity_ratio": 0.368
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-B-011",
+      "question_version": "1.0.0",
+      "answer": "D",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "復旧先に暗号化済みファイルがあることを確認し、鍵の可用性は本番障害まで検証しない",
+          "plausible_in_other_conditions": "バックアップの存在確認はDRの初期確認として有効である",
+          "why_not_here": "暗号化ファイルがあることと復号可能であることは別の条件である。"
+        },
+        {
+          "option": "B",
+          "option_text": "バックアップを15分周期で取得すれば、暗号鍵の所在にかかわらず復旧可能とする",
+          "plausible_in_other_conditions": "15分間隔のバックアップはRPO対策の一部となる",
+          "why_not_here": "取得周期はデータ鮮度に関係するが、復号鍵が喪失すれば復元できない。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.927,
+      "legacy_text_nearest": {
+        "id": "B-004",
+        "minor": "復旧目標の検証",
+        "stem_similarity_ratio": 0.312
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    },
+    {
+      "question_id": "NEW26-B-012",
+      "question_version": "1.0.0",
+      "answer": "C",
+      "gate_Q1": "PASS: 作問者による技術原理・前提・正答の自己点検（独立監査ではない）",
+      "gate_Q2": "PASS: 誤答2案の条件付き妥当性と設問条件における不適合を個別確認",
+      "gate_Q4": "PASS: 全4選択肢解説・仕組み・実務適用を個別確認",
+      "quality_score_out_of_10": 9,
+      "score_breakdown": {
+        "clarity": 2,
+        "distractors": 2,
+        "answer_leakage": 2,
+        "individual_explanations": 2,
+        "syllabus_scope_provisional": 1
+      },
+      "plausible_distractors": [
+        {
+          "option": "A",
+          "option_text": "自治体の少数セルだけ非表示にし、合計から逆算される値は扱わない",
+          "plausible_in_other_conditions": "小セル秘匿は集計からの個人推定を抑える重要策である",
+          "why_not_here": "一つのセルを隠しても総計との差分から値が判明する。"
+        },
+        {
+          "option": "D",
+          "option_text": "個人名がない集計値なら、1件でも絞込条件を制限せず公開する",
+          "plausible_in_other_conditions": "氏名の非表示は個人情報保護の基本対策の一つである",
+          "why_not_here": "件数1は属性と突合すると個人を推測できる場合がある。"
+        }
+      ],
+      "answer_length_ratio_to_longest_wrong": 0.935,
+      "legacy_text_nearest": {
+        "id": "A1-024",
+        "minor": "競合状態",
+        "stem_similarity_ratio": 0.281
+      },
+      "note": "作者による自己監査。公式問題との照合、独立第三者技術監査、現行GitHub全アーカイブとの意味的一致検査は未完了。"
+    }
+  ]
+}
