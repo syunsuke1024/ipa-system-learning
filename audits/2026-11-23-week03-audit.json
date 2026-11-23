@@ -1,0 +1,460 @@
+{
+  "qa_type": "creator_self_audit_not_independent_expert_review",
+  "date": "2026-11-23",
+  "bank_version": "ipa-pds-system-week03-20261123-v1",
+  "total_questions": 15,
+  "sections": {
+    "A1": 10,
+    "A2": 3,
+    "B": 2
+  },
+  "difficulties": {
+    "標準": 5,
+    "応用": 8,
+    "基礎": 2
+  },
+  "answer_positions": {
+    "A": 4,
+    "B": 3,
+    "C": 4,
+    "D": 4
+  },
+  "answer_is_longest_count": 12,
+  "per_question": [
+    {
+      "question_id": "W03-A1-001",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "セキュリティ",
+      "minor": "HMACとメッセージ認証",
+      "difficulty": "標準",
+      "answer": "B",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        15,
+        20,
+        18,
+        15
+      ],
+      "review_note": "HMACは共有鍵を用いるため、第三者には鍵を持つAとBのどちらが作成したか証明できない。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-A1-002",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "IT基盤",
+      "minor": "IPv6・Path MTU Discovery",
+      "difficulty": "応用",
+      "answer": "D",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        25,
+        27,
+        23,
+        31
+      ],
+      "review_note": "IPv6では経路MTUを知るためのICMPv6 Packet Too Bigが重要で、中継ルーター自身は断片化しない。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-A1-003",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "IT基盤",
+      "minor": "リアルタイムOS・優先度逆転",
+      "difficulty": "標準",
+      "answer": "A",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        24,
+        23,
+        20,
+        24
+      ],
+      "review_note": "ロック所有者Lの優先度をHに応じて一時的に引き上げることで、優先度逆転による待機を抑える。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-A1-004",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "データの利活用",
+      "minor": "SQL・NULLを含む反結合",
+      "difficulty": "標準",
+      "answer": "C",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        54,
+        54,
+        72,
+        69
+      ],
+      "review_note": "NOT EXISTSによる相関副問合せは、相手表にNULLが混在していても同じIDの存在を判定できる。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-A1-005",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "システムの開発・運用",
+      "minor": "MC/DC網羅",
+      "difficulty": "応用",
+      "answer": "D",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        16,
+        17,
+        16,
+        24
+      ],
+      "review_note": "MC/DCは各条件が判定結果に独立して影響することを示すテストの基準である。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-A1-006",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "データの利活用",
+      "minor": "機械学習・コンセプトドリフト",
+      "difficulty": "標準",
+      "answer": "A",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        20,
+        17,
+        18,
+        17
+      ],
+      "review_note": "入力分布が同じでもP(Y|X)が変化するためコンセプトドリフトに当たる。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-A1-007",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "ビジネス変革",
+      "minor": "WSJFによる優先順位",
+      "difficulty": "基礎",
+      "answer": "C",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        9,
+        8,
+        8,
+        10
+      ],
+      "review_note": "P=2、Q=3、R=1.5、S=4なのでSが最大である。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-A1-008",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "システムの開発・運用",
+      "minor": "エラーバジェット計算",
+      "difficulty": "基礎",
+      "answer": "B",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        7,
+        8,
+        8,
+        10
+      ],
+      "review_note": "200000×(1−0.9995)=100件が上限である。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-A1-009",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "IT基盤",
+      "minor": "Linux・コピーオンライト",
+      "difficulty": "標準",
+      "answer": "A",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        27,
+        26,
+        25,
+        24
+      ],
+      "review_note": "読取り時は共有し、書込み時に該当する物理ページを複製する。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-A1-010",
+      "question_version": "1.0.0",
+      "section": "A1",
+      "major": "システムの開発・運用",
+      "minor": "安全性解析・FTA",
+      "difficulty": "応用",
+      "answer": "C",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        19,
+        22,
+        24,
+        21
+      ],
+      "review_note": "トップ事象を起点とするFTAが適合する。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-A2-001",
+      "question_version": "1.0.0",
+      "section": "A2",
+      "major": "システムの開発・運用",
+      "minor": "トランザクショナルアウトボックス",
+      "difficulty": "応用",
+      "answer": "B",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        28,
+        28,
+        29,
+        27
+      ],
+      "review_note": "トランザクショナルアウトボックスでは注文と送信予定を同一DBトランザクションで確定する。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-A2-002",
+      "question_version": "1.0.0",
+      "section": "A2",
+      "major": "システムの開発・運用",
+      "minor": "カナリアリリース・P99",
+      "difficulty": "応用",
+      "answer": "D",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        24,
+        26,
+        27,
+        31
+      ],
+      "review_note": "段階配信し、長い検索語の尾部遅延をP99で検出する。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-A2-003",
+      "question_version": "1.0.0",
+      "section": "A2",
+      "major": "セキュリティ",
+      "minor": "JWT署名鍵の更新",
+      "difficulty": "応用",
+      "answer": "A",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        28,
+        24,
+        26,
+        26
+      ],
+      "review_note": "事前配布と新旧公開鍵の併存が無停止更新の鍵である。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-B-001",
+      "question_version": "1.0.0",
+      "section": "B",
+      "major": "システムアーキテクチャ",
+      "minor": "複数企業の文書アクセスと即時失効",
+      "difficulty": "応用",
+      "answer": "C",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        28,
+        28,
+        32,
+        25
+      ],
+      "review_note": "取得ごとの認可なら割当解除を直ちに反映できる。",
+      "reviewer": "self_review_not_independent_expert"
+    },
+    {
+      "question_id": "W03-B-002",
+      "question_version": "1.0.0",
+      "section": "B",
+      "major": "システムの開発・運用",
+      "minor": "文書承認と競合制御・監査",
+      "difficulty": "応用",
+      "answer": "D",
+      "gate_Q1": "PASS (自己監査：一意性・条件)",
+      "gate_Q2": "PASS (自己監査：妥当な誤概念・表現)",
+      "gate_Q4": "PASS (自己監査：全選択肢・背景・応用)",
+      "quality_score_out_of_10": 9,
+      "quality_components": {
+        "clarity": 2,
+        "plausible_distractors": 2,
+        "answer_non_leakage": 2,
+        "explanation_individuality": 2,
+        "syllabus_alignment": 1
+      },
+      "option_length": [
+        27,
+        26,
+        27,
+        32
+      ],
+      "review_note": "現行版との条件付き更新と同一取引のイベント保存を合わせる。",
+      "reviewer": "self_review_not_independent_expert"
+    }
+  ],
+  "syllabus_sources": [
+    "https://www.ipa.go.jp/shiken/syllabus/henkou/2026/20260630.html",
+    "https://www.ipa.go.jp/shiken/syllabus/henkou/2026/rcu1hd0000011v6g-att/syllabus_pd-s_ver0_2.pdf",
+    "https://www.ipa.go.jp/shiken/syllabus/henkou/2026/20260622.html"
+  ],
+  "browser_QA_passed": null,
+  "browser_QA_total": null,
+  "browser_environment": "HTMLは未変更。追加問題の公開動作はCI確認前は未確認。",
+  "limitations": [
+    "独立した専門家による別レビューは未実施で、作問者自己監査である。",
+    "既存95問v2とGitHub掲載済み30問を確認し、同一ID・設問の使い回しを回避した。",
+    "ブラウザの実動作はGitHub Actionsの結果を確認するまで未確認。",
+    "成績データは公開リポジトリに記録しない。"
+  ],
+  "nonregression": "共通HTMLは変更せず、品質チェック済みの問題JSONを追加。標準ダイアログへの依存は新規に導入しない。"
+}
