@@ -136,11 +136,10 @@ with sync_playwright() as pw:
     assert all(not r['is_first_seen'] for r in data['records'][-10:])
     assert all(r['unknown'] and not r['correct'] for r in data['records'][-10:])
     assert len({r['record_id'] for r in data['records']})==105
-    # Original 15q set must stay unsplit.
+    # Retired 15q bank must disappear once a full95 bank is present.
     restored.locator('button[data-view="library"]').first.click()
-    restored.locator('button[data-bank="'+SEED['bank_version']+'"][data-section="A1"]').first.click()
-    assert restored.locator('article.question').count()==10
-    assert restored.locator('button[data-study-block]').count()==0
+    assert restored.locator('button[data-bank="'+SEED['bank_version']+'"]').count()==0
+    assert restored.evaluate('window.__IPA_APP_STATUS__.banks')==1
     assert not errors,errors
     browser.close()
 print('PASS learning batches: A1 10x6, A2 8+8+7, B 4x3, 95 records/12 attempts, cancel, resume, retake, legacy15, no dialogs')
