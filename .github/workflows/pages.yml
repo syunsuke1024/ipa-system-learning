@@ -10,8 +10,8 @@ permissions:
   pages: write
   id-token: write
 concurrency:
-  group: ipa-pages
-  cancel-in-progress: false
+  group: ipa-pages-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   validate:
     runs-on: ubuntu-24.04
