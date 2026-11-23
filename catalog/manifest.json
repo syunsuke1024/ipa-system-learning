@@ -18,6 +18,12 @@
       "bank_version": "ipa-pds-system-week03-20261123-v1",
       "audit_status": "問題別自己監査済み（Q1/Q2/Q4）",
       "audit_file": "audits/2026-11-23-week03-audit.json"
+    },
+    {
+      "file": "catalog/2026-11-23-full95-v4.json",
+      "bank_version": "ipa-pds-system-full95-editorial-20261123-v4",
+      "audit_status": "全95問Q1/Q2/Q4作問者自己監査（独立第三者監査ではない）",
+      "audit_file": "audits/2026-11-23-full95-v4-audit.json"
     }
   ]
 }
