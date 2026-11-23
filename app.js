@@ -11,7 +11,7 @@
   const fresh = () => ({
     schema_version: SCHEMA, banks: {}, records: [], attempts: [], drafts: {}, mockSessions: {},
     schedule: { exam: '', applicationFrom: '', applicationTo: '' },
-    selectedBank: SEED.bank_version, selectedSection: 'A1',
+    selectedBank: SEED.bank_version, selectedSection: 'A1', studyPages: {},
     view: 'study', dashboardMode: 'first', dashboardExamMode: 'learning', dashboardBank: 'all',
     dashboardSection: 'all', reportMajor: 'all', catalogStatus: '起動中'
   });
@@ -199,7 +199,7 @@
     } catch (e) { storageLocked = true; notify('既存の保存データの形式が不正です。保護のため上書きを停止しました。元データは削除していません。', true); }
     if (existing) {
       state = { ...fresh(), ...existing, banks: existing.banks || {},
-        drafts: existing.drafts || {}, mockSessions: existing.mockSessions || {},
+        drafts: existing.drafts || {}, studyPages: existing.studyPages || {}, mockSessions: existing.mockSessions || {},
         schedule: { ...fresh().schedule, ...(existing.schedule || {}) } };
     }
     // Inline source is available even if the catalog fetch fails in a local-file preview.
@@ -216,16 +216,44 @@
     } catch (e) { notify('旧アプリの自動移行に失敗しました。成績JSONをインポートしてください。', true); }
     persist();
   }
-  function getDraft(bank, part) {
-    const key = entryKey(bank.bank_version, part);
-    if (!state.drafts[key]) state.drafts[key] = { answers: {}, timestamps: {}, startedAt: new Date().toISOString() };
-    return state.drafts[key];
-  }
-  function lastAttempt(bank, part) {
-    const draft = getDraft(bank, part);
-    if (draft.retake) return null;
-    return [...state.attempts].reverse().find(a => a.bank_version === bank.bank_version && a.section === part && (a.mode || 'learning') === 'learning') || null;
-  }
+  function studyGroups(bank,part){
+  const qs=questionsFor(bank,part), size=part==='A1'?10:part==='A2'?8:4;
+  if(qs.length<=size)return [qs];
+  const groups=[];for(let i=0;i<qs.length;i+=size)groups.push(qs.slice(i,i+size));return groups;
+}
+  function studyIndex(bank,part){
+  const groups=studyGroups(bank,part),n=state.studyPages?.[entryKey(bank.bank_version,part)];
+  return Number.isInteger(n)&&n>=0&&n<groups.length?n:0;
+}
+  function getDraft(bank,part){
+  const key=entryKey(bank.bank_version,part);
+  if(!state.drafts[key])state.drafts[key]={answers:{},timestamps:{},startedAt:new Date().toISOString()};
+  const d=state.drafts[key];if(!d.blockStartedAt)d.blockStartedAt={};
+  const i=studyIndex(bank,part);if(!d.blockStartedAt[i])d.blockStartedAt[i]=new Date().toISOString();return d;
+}
+  function lastAttempt(bank,part,i=studyIndex(bank,part)){
+  const groups=studyGroups(bank,part),qs=groups[i],d=getDraft(bank,part);if(!qs)return null;
+  if(groups.length===1&&d.retake)return null;
+  if(groups.length>1&&d.retakeBlocks?.[i])return null;
+  const ids=new Set(qs.map(q=>q.question_id));
+  return [...state.attempts].reverse().find(a=>{
+    if(a.bank_version!==bank.bank_version||a.section!==part||(a.mode||'learning')!=='learning')return false;
+    if(groups.length===1)return true;
+    if(a.total!==qs.length)return false;
+    if(a.study_block_index===i&&a.study_block_count===groups.length)return true;
+    if(Number.isInteger(a.study_block_index))return false;
+    const rowIds=state.records.filter(r=>r.attempt_id===a.attempt_id).map(r=>r.question_id);
+    return rowIds.length===ids.size&&rowIds.every(id=>ids.has(id));
+  })||null;
+}
+  function selectStudyBlock(i){
+  const bank=currentBank(),part=state.selectedSection;if(!bank)return;
+  const groups=studyGroups(bank,part);
+  if(!Number.isInteger(i)||i<0||i>=groups.length)return notify('セット番号が正しくありません',true);
+  for(let n=0;n<i;n++)if(!lastAttempt(bank,part,n))return notify(`第${n+1}セットの採点後に進めます`,true);
+  state.studyPages[entryKey(bank.bank_version,part)]=i;
+  getDraft(bank,part);persist();render();window.scrollTo(0,0);
+}
   function openSet(version, part) {
     if (!state.banks[version] || !PARTS.includes(part) || questionsFor(state.banks[version], part).length === 0)
       throw new Error('問題集・科目を確認できませんでした');
@@ -239,63 +267,58 @@
     if (!['study', 'dashboard', 'history', 'library', 'cloud', 'mock'].includes(view)) return;
     state.view = view; persist(); render(); window.scrollTo(0, 0);
   }
-  function selectAnswer(id, value) {
-    const bank = currentBank(), part = state.selectedSection;
-    if (!bank || lastAttempt(bank, part)) return;
-    if (!questionsFor(bank, part).some(q => q.question_id === id) || !'ABCD?'.includes(value)) return;
-    const draft = getDraft(bank, part);
-    draft.answers[id] = value;
-    draft.timestamps[id] = new Date().toISOString();
-    persist(); render();
-  }
-  function submitSet() {
-    const bank = currentBank(), part = state.selectedSection, qs = questionsFor(bank, part);
-    if (!qs.length) return notify('採点対象がありません', true);
-    const draft = getDraft(bank, part);
-    const missing = qs.filter(q => !draft.answers[q.question_id]);
-    if (missing.length) return notify(`未回答が${missing.length}問あります。「わからない」も選択できます。`, true);
-    if (lastAttempt(bank, part)) return notify('既に採点済みです。再演習は専用ボタンを押してください。', true);
-    ask(`${bankLabel(bank)}｜${PART_NAMES[part]} の${qs.length}問を採点します。回答を確定してよろしいですか？`, () => gradeSet(bank.bank_version, part));
-  }
-  function gradeSet(version, part) {
-    const bank = state.banks[version], qs = questionsFor(bank, part);
-    const draft = getDraft(bank, part);
-    if (lastAttempt(bank, part) || qs.some(q => !draft.answers[q.question_id]))
-      throw new Error('採点対象の回答状態が変化しました。もう一度確認してください');
-    const now = new Date(), when = now.toISOString(), day = localDate(now), attempt_id = uniqueId();
-    const records = qs.map(q => {
-      const answer = draft.answers[q.question_id], prior = state.records.some(r =>
-        r.question_id === q.question_id && r.question_version === q.question_version && r.bank_version === version);
-      return {
-        record_id: uniqueId(), attempt_id, bank_version: version,
-        question_id: q.question_id, question_version: q.question_version,
-        section: part, major: q.major, minor: q.minor, difficulty: q.difficulty,
-        answer, correct: answer === q.answer, unknown: answer === '?', mode: 'learning',
-        is_first_seen: !prior, answered_at: draft.timestamps[q.question_id] || when,
-        submitted_at: when, answer_date: day, elapsed_seconds: Math.max(0, Math.round((now - new Date(draft.startedAt || when)) / 1000))
-      };
-    });
-    const correct = records.filter(r => r.correct).length, unknown = records.filter(r => r.unknown).length;
-    state.records.push(...records);
-    state.attempts.push({ attempt_id, bank_version: version, section: part, submitted_at: when,
-      answer_date: day, total: qs.length, correct, unknown, mode: 'learning' });
-    // Reset retake marker; keep answers for the just-graded review.
-    delete draft.retake;
-    const saved = persist();
-    render();
-    notify(`採点完了：${correct}/${qs.length}問正解・わからない${unknown}問${saved ? '／ブラウザ保存済み' : '／JSONバックアップが必要'}`, !saved);
-    if (saved) cloud.autoSync();
-  }
-  function retrySet() {
-    const bank = currentBank(), part = state.selectedSection;
-    ask(`${bankLabel(bank)} の${PART_NAMES[part]}を再演習します。採点済みの履歴は保持します。`, () => {
-      state.drafts[entryKey(bank.bank_version, part)] = {
-        answers: {}, timestamps: {}, startedAt: new Date().toISOString(), retake: true
-      };
-      persist(); render(); notify('再演習を開始しました。過去の結果は残っています。');
-    });
-  }
-
+  function selectAnswer(id,value){
+  const bank=currentBank(),part=state.selectedSection;if(!bank||lastAttempt(bank,part))return;
+  if(!studyGroups(bank,part)[studyIndex(bank,part)].some(q=>q.question_id===id)||!['A','B','C','D','?'].includes(value))return;
+  const d=getDraft(bank,part);d.answers[id]=value;d.timestamps[id]=new Date().toISOString();persist();render();
+}
+  function submitSet(){
+  const bank=currentBank(),part=state.selectedSection;if(!bank)return notify('問題集がありません',true);
+  const i=studyIndex(bank,part),groups=studyGroups(bank,part),qs=groups[i];
+  if(!qs?.length)return notify('採点対象がありません',true);
+  const d=getDraft(bank,part),missing=qs.filter(q=>!d.answers[q.question_id]);
+  if(missing.length)return notify(`未回答が${missing.length}問あります。「わからない」も選択できます。`,true);
+  if(lastAttempt(bank,part,i))return notify('このセットは採点済みです。再演習は専用ボタンを押してください。',true);
+  const label=groups.length>1?`第${i+1}セット（${qs.length}問）`:`${qs.length}問`;
+  ask(`${bankLabel(bank)}｜${PART_NAMES[part]} の${label}を採点します。回答を確定してよろしいですか？`,()=>gradeSet(bank.bank_version,part,i));
+}
+  function gradeSet(version,part,i=0){
+  const bank=state.banks[version];if(!bank)throw Error('問題集がありません');
+  const groups=studyGroups(bank,part),qs=groups[i],d=getDraft(bank,part);
+  if(!qs||studyIndex(bank,part)!==i||lastAttempt(bank,part,i)||qs.some(q=>!d.answers[q.question_id]))
+    throw Error('採点対象の回答状態が変化しました。もう一度確認してください');
+  const now=new Date(),when=now.toISOString(),day=localDate(now),attempt_id=uniqueId();
+  const records=qs.map(q=>{
+    const answer=d.answers[q.question_id],prior=state.records.some(r=>r.question_id===q.question_id&&r.question_version===q.question_version&&r.bank_version===version);
+    return {record_id:uniqueId(),attempt_id,bank_version:version,question_id:q.question_id,question_version:q.question_version,
+      section:part,major:q.major,minor:q.minor,difficulty:q.difficulty,answer,correct:answer===q.answer,
+      unknown:answer==='?',mode:'learning',is_first_seen:!prior,study_block_index:i,
+      answered_at:d.timestamps[q.question_id]||when,submitted_at:when,answer_date:day,
+      elapsed_seconds:Math.max(0,Math.round((now-new Date(groups.length>1?(d.blockStartedAt?.[i]||when):(d.startedAt||when)))/1000))};
+  });
+  const correct=records.filter(r=>r.correct).length,unknown=records.filter(r=>r.unknown).length;
+  state.records.push(...records);
+  state.attempts.push({attempt_id,bank_version:version,section:part,submitted_at:when,answer_date:day,total:qs.length,
+    correct,unknown,mode:'learning',...(groups.length>1?{study_block_index:i,study_block_count:groups.length}:{})});
+  if(groups.length===1)delete d.retake;
+  else if(d.retakeBlocks)delete d.retakeBlocks[i];
+  const saved=persist();render();
+  notify(`採点完了：${correct}/${qs.length}問正解・わからない${unknown}問${saved?'／ブラウザ保存済み':'／JSONバックアップが必要'}`,!saved);
+  if(saved)cloud.autoSync();
+}
+  function retrySet(){
+  const bank=currentBank(),part=state.selectedSection;if(!bank)return;
+  const groups=studyGroups(bank,part),i=studyIndex(bank,part);
+  const msg=groups.length>1?`${bankLabel(bank)} の${PART_NAMES[part]} 第${i+1}セットを再演習します。ほかのセットと過去の成績は保持します。`:
+    `${bankLabel(bank)} の${PART_NAMES[part]}を再演習します。採点済みの履歴は保持します。`;
+  ask(msg,()=>{
+    const d=getDraft(bank,part);
+    if(groups.length===1){d.answers={};d.timestamps={};d.startedAt=new Date().toISOString();d.retake=true;}
+    else {for(const q of groups[i]){delete d.answers[q.question_id];delete d.timestamps[q.question_id];}
+      if(!d.retakeBlocks)d.retakeBlocks={};d.retakeBlocks[i]=true;d.blockStartedAt[i]=new Date().toISOString();}
+    persist();render();notify('再演習を開始しました。過去の採点履歴は保持しています。');
+  });
+}
   function chosenRecords() {
     const all = state.records.filter(r => (r.mode || 'learning') === state.dashboardExamMode &&
       (state.dashboardBank === 'all' || r.bank_version === state.dashboardBank) &&
@@ -524,28 +547,25 @@
     return `<div class="panel"><p class="eyebrow">TIMED FULL MOCK · ${esc(bankLabel(bank))}</p><h2>${phase==='A1'?'第1段階：科目A-1（60問・90分）':'第2段階：科目A-2（23問）＋B（12問）・120分'}</h2><p><b>制限時間：</b><span id="mock-clock" class="mock-clock">${clockLabel(remainingSeconds(session))}</span> ／ <span id="mock-progress">${answered}/${qs.length}問回答済み</span></p><div class="progress"><span id="mock-progress-bar" style="width:${100*answered/qs.length}%"></span></div><p class="micro">途中の回答はこのブラウザに随時保存されます。ページを閉じても制限時間は進みます。A-1は次に進むと戻れません。未回答は確定時に「わからない」として処理します。正解は最終提出まで表示されません。</p>${list}<div class="sticky-actions"><span id="mock-progress-bottom" class="micro">${phase==='A1'?'A-1終了後に次へ':'最終提出時に全95問を採点'}</span><button class="btn primary" ${phase==='A1'?'data-mock-phase="1"':'data-mock-finalize="1"'}>${phase==='A1'?'A-1を確定してA-2＋Bへ':'本番95問を最終提出・採点'}</button></div></div>`;
   }
 
-  function renderSidebar() {
-    const chosen = currentBank();
-    const active = state.view;
-    const localRecords = state.records.length;
-    return `<div class="side-title">学習メニュー</div><div class="navlist">
-      <button class="navbtn ${active === 'library' ? 'active' : ''}" data-view="library">問題集ライブラリ<small>${bankList().length}種類の問題集を利用可能</small></button>
-      ${PARTS.map(p => {
-        const count = questionsFor(chosen, p).length;
-        if (!count) return '';
-        const att = lastAttempt(chosen, p);
-        const d = getDraft(chosen, p);
-        return `<button class="navbtn ${active === 'study' && p === state.selectedSection ? 'active' : ''}" data-section="${p}" data-bank="${esc(chosen.bank_version)}">${PART_NAMES[p]}<small>${count}問 · ${att ? `直近 ${att.correct}/${att.total}問正解` : `${Object.keys(d.answers).length}/${count}問選択済`}</small></button>`;
-      }).join('')}
-      <button class="navbtn ${active === 'mock' ? 'active' : ''}" data-view="mock">本番95問模試<small>科目A-1 90分／A-2・B 120分</small></button>
-      <button class="navbtn ${active === 'dashboard' ? 'active' : ''}" data-view="dashboard">成績ダッシュボード<small>全問題集・日付別・分野別</small></button>
-      <button class="navbtn ${active === 'history' ? 'active' : ''}" data-view="history">復習・全履歴<small>不正解・わからない・再演習</small></button>
-      <button class="navbtn ${active === 'cloud' ? 'active' : ''}" data-view="cloud">クラウド成績同期<small>${esc(cloud.statusBrief())}・Google Sheets</small></button>
-    </div><div class="side-info"><b>${localRecords}</b>件の問題別記録<br>保存状態：${esc(storageMessage)}<hr>
-      <button class="btn full" data-export="1">成績JSONをエクスポート</button>
-      <p>新しい問題集を追加しても、このアプリの成績履歴は保持されます。別の端末やURLにはJSONで引き継いでください。</p>
-    </div>`;
-  }
+  function renderSidebar(){
+  const chosen=currentBank(),active=state.view,localRecords=state.records.length;
+  return `<div class="side-title">学習メニュー</div><div class="navlist">
+    <button class="navbtn ${active==='library'?'active':''}" data-view="library">問題集ライブラリ<small>${bankList().length}種類の問題集を利用可能</small></button>
+    ${PARTS.map(p=>{
+      const count=questionsFor(chosen,p).length;if(!count)return '';
+      const groups=studyGroups(chosen,p),att=lastAttempt(chosen,p),d=getDraft(chosen,p);
+      const status=groups.length>1?`${groups.filter((_,i)=>!!lastAttempt(chosen,p,i)).length}/${groups.length}セット採点済み`:
+        (att?`直近 ${att.correct}/${att.total}問正解`:`${Object.keys(d.answers).length}/${count}問選択済`);
+      return `<button class="navbtn ${active==='study'&&p===state.selectedSection?'active':''}" data-section="${p}" data-bank="${esc(chosen.bank_version)}">${PART_NAMES[p]}<small>${count}問 · ${status}</small></button>`;
+    }).join('')}
+    <button class="navbtn ${active==='mock'?'active':''}" data-view="mock">本番95問模試<small>科目A-1 90分／A-2・B 120分</small></button>
+    <button class="navbtn ${active==='dashboard'?'active':''}" data-view="dashboard">成績ダッシュボード<small>全問題集・日付別・分野別</small></button>
+    <button class="navbtn ${active==='history'?'active':''}" data-view="history">復習・全履歴<small>不正解・わからない・再演習</small></button>
+    <button class="navbtn ${active==='cloud'?'active':''}" data-view="cloud">クラウド成績同期<small>${esc(cloud.statusBrief())}・Google Sheets</small></button>
+  </div><div class="side-info"><b>${localRecords}</b>件の問題別記録<br>保存状態：${esc(storageMessage)}<hr>
+    <button class="btn full" data-export="1">成績JSONをエクスポート</button>
+    <p>新しい問題集を追加しても、このアプリの成績履歴は保持されます。別の端末やURLにはJSONで引き継いでください。</p></div>`;
+}
   function renderChoices(q, answer, done) {
     const choices = q.options.map((option, i) => {
       const letter = LETTERS[i];
@@ -569,24 +589,32 @@
       ${q.case ? `<div class="case">${esc(q.case)}</div>` : ''}<div class="stem">${esc(q.stem)}</div>
       <div class="choices">${renderChoices(q, answer, done)}</div>${done ? renderExplanation(q, answer) : ''}</article>`;
   }
-  function renderStudy() {
-    const bank = currentBank(), part = state.selectedSection;
-    if (!bank) return renderLibrary();
-    const qs = questionsFor(bank, part);
-    if (!qs.length) return `<div class="panel"><h2>この科目の問題はありません</h2><button class="btn" data-view="library">問題集を選ぶ</button></div>`;
-    const attempt = lastAttempt(bank, part), done = !!attempt, draft = getDraft(bank, part);
-    const answers = done ? Object.fromEntries(state.records.filter(r => r.attempt_id === attempt.attempt_id).map(r => [r.question_id, r.answer])) : draft.answers;
-    const answered = qs.filter(q => answers[q.question_id]).length;
-    const banner = done ? `<div class="metrics">${metric('今回の正答率', percentage(attempt.correct, attempt.total))}${metric('正解数', `${attempt.correct}/${attempt.total}`)}${metric('わからない', String(attempt.unknown))}${metric('採点日時', jpDate(attempt.submitted_at))}</div>
-      <div class="pills">${qs.map((q, i) => `<span class="pill ${answers[q.question_id] === q.answer ? 'pass' : 'fail'}">問${i + 1} ${answers[q.question_id] === '?' ? '？' : answers[q.question_id] === q.answer ? '✓' : '×'}</span>`).join('')}</div>
-      <p class="micro">不正解・わからないの解説は初期表示します。正解問題の解説も展開できます。</p>` :
-      `<div class="summary">全${qs.length}問を選択してからセット単位で採点します。<b>採点確定まで正解を表示しません。</b><div class="progress"><span style="width:${100 * answered / qs.length}%"></span></div><p>${answered}/${qs.length}問を選択済み</p></div>`;
-    const next = PARTS.slice(PARTS.indexOf(part) + 1).find(p => questionsFor(bank, p).length);
-    return `<div class="panel"><div class="head-row"><div><p class="eyebrow">${esc(bankLabel(bank))}</p><h2>${PART_NAMES[part]}</h2></div><span class="tag">${qs.length}問・1セット</span></div>
-      ${banner}${qs.map((q, i) => renderQuestion(q, i, answers[q.question_id] || '', done)).join('')}
-      <div class="sticky-actions">${done ? `<span class="micro">復習後に次の科目へ進めます</span><div class="actions"><button class="btn" data-retry="1">このセットを再演習</button><button class="btn" data-view="dashboard">ダッシュボード</button>${next ? `<button class="btn primary" data-bank="${esc(bank.bank_version)}" data-section="${next}">次の科目へ</button>` : `<button class="btn primary" data-view="library">他の問題集へ</button>`}</div>` :
-      `<span class="micro">${answered}/${qs.length}問 回答済み</span><button id="submit-set" class="btn primary" data-submit="1" ${answered !== qs.length ? 'disabled' : ''}>${qs.length}問をまとめて採点</button>`}</div></div>`;
-  }
+  function renderStudy(){
+  const bank=currentBank(),part=state.selectedSection;if(!bank)return renderLibrary();
+  const groups=studyGroups(bank,part),i=studyIndex(bank,part),qs=groups[i];
+  if(!qs?.length)return `<div class="panel"><h2>この科目の問題はありません</h2><button class="btn" data-view="library">問題集を選ぶ</button></div>`;
+  const a=lastAttempt(bank,part,i),done=!!a,d=getDraft(bank,part);
+  const answers=done?Object.fromEntries(state.records.filter(r=>r.attempt_id===a.attempt_id).map(r=>[r.question_id,r.answer])):d.answers;
+  const answered=qs.filter(q=>answers[q.question_id]).length,completed=groups.map((_,j)=>!!lastAttempt(bank,part,j));
+  const firstMissing=completed.findIndex(ok=>!ok),maxOpen=firstMissing<0?groups.length-1:firstMissing;
+  const overview=groups.length>1?`<div class="summary"><b>通常学習：セットごとに採点・解説</b><p>第${i+1}/${groups.length}セット（科目全体${groups.reduce((n,g)=>n+g.length,0)}問）。採点済み${completed.filter(Boolean).length}/${groups.length}セット。本番模試とは別の学習記録です。</p><div class="actions" role="group" aria-label="採点セットを切り替える">${groups.map((g,j)=>
+    `<button class="btn ${j===i?'primary':''}" data-study-block="${j}" ${j>maxOpen?'disabled':''}>${j+1}：${g.length}問${completed[j]?' ✓':''}</button>`).join('')}</div></div>`:'';
+  const offset=groups.slice(0,i).reduce((n,g)=>n+g.length,0);
+  const banner=done?`<div class="metrics">${metric('今回の正答率',percentage(a.correct,a.total))}${metric('正解数',`${a.correct}/${a.total}`)}${metric('わからない',String(a.unknown))}${metric('採点日時',jpDate(a.submitted_at))}</div>
+    <div class="pills">${qs.map((q,j)=>`<span class="pill ${answers[q.question_id]===q.answer?'pass':'fail'}">問${offset+j+1} ${answers[q.question_id]==='?'?'？':answers[q.question_id]===q.answer?'✓':'×'}</span>`).join('')}</div><p class="micro">誤答・わからないの解説は開いて表示します。正解問題の解説も展開できます。</p>`:
+    `<div class="summary">このセットの${qs.length}問を選択すると採点できます。<b>採点確定まで正解を表示しません。</b><div class="progress"><span style="width:${100*answered/qs.length}%"></span></div><p>${answered}/${qs.length}問を選択済み</p></div>`;
+  const nextPart=PARTS.slice(PARTS.indexOf(part)+1).find(p=>questionsFor(bank,p).length);
+  const nextBlock=done&&i<groups.length-1,allDone=completed.every(Boolean);
+  const actions=done?`<span class="micro">${groups.length>1?`第${i+1}セットの採点済み解説`:'採点済み・復習できます'}</span><div class="actions">
+    <button class="btn" data-retry="1">このセットを再演習</button><button class="btn" data-view="dashboard">ダッシュボード</button>
+    ${nextBlock?`<button class="btn primary" data-study-block="${i+1}">次の${groups[i+1].length}問へ</button>`:
+      allDone&&nextPart?`<button class="btn primary" data-bank="${esc(bank.bank_version)}" data-section="${nextPart}">次の科目へ</button>`:
+      allDone?`<button class="btn primary" data-view="library">他の問題集へ</button>`:''}</div>`:
+    `<span class="micro">${answered}/${qs.length}問 回答済み</span><button id="submit-set" class="btn primary" data-submit="1" ${answered!==qs.length?'disabled':''}>${qs.length}問をまとめて採点</button>`;
+  return `<div class="panel"><div class="head-row"><div><p class="eyebrow">${esc(bankLabel(bank))}</p><h2>${PART_NAMES[part]}</h2></div><span class="tag">${groups.length>1?`第${i+1}/${groups.length}セット · ${qs.length}問`:`${qs.length}問・1セット`}</span></div>
+    ${overview}${banner}${qs.map((q,j)=>renderQuestion(q,offset+j,answers[q.question_id]||'',done)).join('')}
+    <div class="sticky-actions">${actions}</div></div>`;
+}
   function renderLibrary() {
     const rows = bankList().map(bank => {
       const attempted = state.attempts.filter(a => a.bank_version === bank.bank_version).length;
@@ -852,6 +880,7 @@
       else if (button.dataset.mockFinalize) submitMockFinal();
       else if (button.dataset.mockRetake) retakeMock();
       else if (button.dataset.mockReview) showMockReview(button.dataset.mockReview);
+      else if (button.dataset.studyBlock !== undefined) selectStudyBlock(Number(button.dataset.studyBlock));
       else if (button.dataset.section && button.dataset.bank) openSet(button.dataset.bank, button.dataset.section);
       else if (button.dataset.view) switchView(button.dataset.view);
       else if (button.dataset.submit) submitSet();
